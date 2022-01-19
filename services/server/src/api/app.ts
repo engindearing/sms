@@ -2,18 +2,18 @@ const express = require("express");
 
 const app = express();
 
-const helmet = require('helmet')
+const helmet = require("helmet");
 
-const logger = require('morgan')
+const logger = require("morgan");
 
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
-const cors = require('cors')
+const cors = require("cors");
 
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 
 const config_result = dotenv.config();
-if (process.env.NODE_ENV != 'production' && config_result.error) {
+if (process.env.NODE_ENV != "production" && config_result.error) {
   throw config_result.error;
 }
 
@@ -23,16 +23,19 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: '*',
+    origin: "*",
   })
 );
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 // ###[  Routers ]###
+import indexRouter from "./routes/index";
 
-export default app
+app.use("/", indexRouter);
+
+export default app;
