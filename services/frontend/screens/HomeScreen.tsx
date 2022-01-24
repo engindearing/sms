@@ -7,13 +7,11 @@ import { Button } from 'react-native-elements';
 
 const HomeScreen = () => {
 
-  const { currentUser } = firebase.auth
-
   const signOut = () => firebase.auth.signOut()
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>{`Welcome back ${currentUser?.email}`}</Text>
+      <Text style={styles.welcomeText}>{`Welcome back Person`}</Text>
       <Button onPress={signOut} title={'Sign Out'} />
     </View>
   );

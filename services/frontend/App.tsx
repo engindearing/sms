@@ -8,9 +8,10 @@ import LoginScreen from './screens/LoginScreen';
 
 import HomeScreen from './screens/HomeScreen';
 
-import firebase from './firebase'
 import RegisterScreen from './screens/RegisterScreen';
 import { useEffect } from 'react';
+
+import firebase from './firebase';
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 

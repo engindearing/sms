@@ -39,9 +39,7 @@ const LoginScreen = () => {
       await auth.handleSignUp(email, password);
 
     } catch (error:any) {
-      if(error == 'Firebase: Error (auth/email-already-in-use).') return alert('Email already in use')
-
-      alert('Unable to register user')
+      alert('Email already in use')
     }
   };
 

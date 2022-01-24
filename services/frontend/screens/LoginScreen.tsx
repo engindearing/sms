@@ -30,19 +30,7 @@ const LoginScreen = () => {
     }
   };
 
-  const GoogleProvider = new auth.firebase.GoogleAuthProvider()
 
-  GoogleProvider.addScope('profile')
-  GoogleProvider.addScope('email')
-
-  const signInWithGoogle = async () => {
-    try {
-      
-      await auth.firebase.signInWithRedirect(auth.auth, GoogleProvider)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -88,19 +76,6 @@ const LoginScreen = () => {
           }}
           onPress={() => navigation.navigate('Register')}
           title={"REGISTER"}
-        />
-      </View>
-      
-      <View>
-        <Button
-          type="outline"
-          containerStyle={{
-            width: 300,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-          onPress={signInWithGoogle}
-          title={"Google"}
         />
       </View>
       

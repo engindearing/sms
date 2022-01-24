@@ -1,6 +1,16 @@
+import { initializeApp } from "firebase/app";
 
-
-
+import {
+  getAuth,
+  onAuthStateChanged,
+  FacebookAuthProvider,
+  signInWithCredential,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithRedirect,
+} from "firebase/auth";
 
 import * as firebase from 'firebase/auth'
 
