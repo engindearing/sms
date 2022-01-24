@@ -1,5 +1,9 @@
-export const authRequired = (req:any, res: any) => {
-  const { accessToken } = req.body;
+export const authRequired = (req: any, res: any) => {
+  const { authorization } = req.headers;
 
-  res.send(accessToken)
+  console.log(req.headers);
+
+  console.log(authorization);
+
+  res.send("Access token " + authorization);
 };

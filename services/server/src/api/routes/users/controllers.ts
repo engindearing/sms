@@ -1,3 +1,4 @@
 export const getCurrentUser = ({}, res: any) => {
-  res.send("Hello");
+  console.log("hello there");
+  res.json("Hello");
 };

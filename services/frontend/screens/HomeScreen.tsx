@@ -7,12 +7,25 @@ import { Button } from 'react-native-elements';
 
 import { axiosWithAuth } from '../api/axiosWithAuth';
 
+import { getAccessToken } from '../utils/getAccessToken';
+
 const HomeScreen = () => {
 
   const signOut = () => firebase.auth.signOut()
 
-  useEffect(() => {
-    axiosWithAuth().get('/users/me').then(console.log).catch(console.log)
+  const getCurrentUser = async () => {
+    try {
+      let token = await getAccessToken()
+
+      let res =  await axiosWithAuth(token).get('/users/me')
+
+    } catch (error) {
+      alert('Unable to fetch current user')
+    }
+  }
+
+  useEffect( () => {
+    getCurrentUser()
   }, [])
 
   return (

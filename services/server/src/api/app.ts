@@ -35,9 +35,9 @@ app.use(cookieParser());
 
 // ###[  Routers ]###
 import indexRouter from "./routes/index";
-import usersRouter from './routes/users'
+import usersRouter from "./routes/users";
 
 app.use("/", indexRouter);
-app.use('/users', usersRouter)
+app.use("/users", usersRouter);
 
 export default app;

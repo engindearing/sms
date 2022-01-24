@@ -2,17 +2,11 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // #TODO: Replace URL with env variable
-export const axiosWithAuth = () => {
+export const axiosWithAuth = (accessToken: any) => {
   return axios.create({
     headers: {
-      authorization: `Bearer ${getAccessToken()}`,
+      authorization: `Bearer ${accessToken}`,
     },
-    baseURL: "http://localhost:8000",
+    baseURL: "http://192.168.1.9:8000",
   });
-};
-
-const getAccessToken = async () => {
-  let token = await AsyncStorage.getItem("accessToken");
-
-  return token;
 };
