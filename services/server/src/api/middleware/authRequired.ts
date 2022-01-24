@@ -1,9 +1,15 @@
 export const authRequired = (req: any, res: any) => {
-  const { authorization } = req.headers;
+  let token;
 
-  console.log(req.headers);
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
 
-  console.log(authorization);
+  if (!token)
+    return res.status(401).json({ message: "Access token is required." });
 
-  res.send("Access token " + authorization);
+  res.send("Access token " + token);
 };
