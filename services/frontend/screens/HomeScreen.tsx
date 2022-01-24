@@ -5,9 +5,15 @@ import firebase from '../firebase'
 
 import { Button } from 'react-native-elements';
 
+import { axiosWithAuth } from '../api/axiosWithAuth';
+
 const HomeScreen = () => {
 
   const signOut = () => firebase.auth.signOut()
+
+  useEffect(() => {
+    axiosWithAuth().get('/users/me').then(console.log).catch(console.log)
+  }, [])
 
   return (
     <View style={styles.container}>
