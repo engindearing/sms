@@ -5,6 +5,8 @@ build/
 tmp/
 temp/
 
+firebase.json
+
 # Logs
 logs
 *.log

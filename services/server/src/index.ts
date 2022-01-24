@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 1337;
 
 createConnection()
   .then(async () => {
+    console.log(serviceAccount.default);
+
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount.default),
       databaseURL: "https://authsms-b4af9-default-rtdb.firebaseio.com",
