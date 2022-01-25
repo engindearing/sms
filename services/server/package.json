@@ -8,6 +8,7 @@
       "typescript": "3.3.3333"
    },
    "dependencies": {
+      "@types/mongoose": "^5.11.97",
       "cookie-parser": "^1.4.6",
       "cors": "^2.8.5",
       "dotenv": "^14.2.0",

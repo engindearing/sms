@@ -19,6 +19,8 @@ const HomeScreen = () => {
 
       let res =  await axiosWithAuth(token).get('/users/me')
 
+      console.log(res.data)
+
     } catch (error) {
       alert('Unable to fetch current user')
     }

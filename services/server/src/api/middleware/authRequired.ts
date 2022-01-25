@@ -1,8 +1,8 @@
 const { verifyIdToken } = require("../../utils/firebase");
 
-export const authRequired = async (req: any, res: any) => {
-  // Parse access token from header
+import { User } from "../../entities/User";
 
+export const authRequired = async (req: any, res: any, next: any) => {
   let token;
 
   if (
@@ -21,9 +21,12 @@ export const authRequired = async (req: any, res: any) => {
     if (!result)
       return res.status(401).json({ message: "Invalid Access Token" });
 
-    
+    let currentUser = await User.findUserByEmailOrCreate(result.email);
 
+    req.user = currentUser;
+
+    next();
   } catch (error) {
-    res.status(500).json({ message: "Unable to verify user" })
+    res.status(500).json({ message: "Unable to verify user" });
   }
 };
