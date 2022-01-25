@@ -1,3 +1,5 @@
+const { verifyIdToken } = require("../../utils/firebase");
+
 export const authRequired = async (req: any, res: any) => {
   // Parse access token from header
 
@@ -14,10 +16,14 @@ export const authRequired = async (req: any, res: any) => {
     return res.status(401).json({ message: "Access token is required." });
 
   try {
-      
-  } catch (error) {
-      
-  }
+    let result = await verifyIdToken(token);
 
-  res.send("Access token " + token);
+    if (!result)
+      return res.status(401).json({ message: "Invalid Access Token" });
+
+    
+
+  } catch (error) {
+    res.status(500).json({ message: "Unable to verify user" })
+  }
 };

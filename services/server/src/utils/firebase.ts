@@ -7,4 +7,12 @@ const firebase = admin.initializeApp({
   databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
 
+export const verifyIdToken = (token: string) => {
+  return firebase
+    .auth()
+    .verifyIdToken(token)
+    .then((res) => res)
+    .catch(() => false);
+};
+
 export default firebase;
