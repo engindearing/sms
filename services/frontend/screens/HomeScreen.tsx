@@ -9,7 +9,15 @@ import { axiosWithAuth } from '../api/axiosWithAuth';
 
 import { getAccessToken } from '../utils/getAccessToken';
 
+import { RootState } from '../state/rootReducer';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from '../state/users/userActions';
+
 const HomeScreen = () => {
+  const { currentUser } = useSelector((state: RootState) => state.user)
+
+  const dispatch = useDispatch()
 
   const signOut = () => firebase.auth.signOut()
 
@@ -19,7 +27,8 @@ const HomeScreen = () => {
 
       let res =  await axiosWithAuth(token).get('/users/me')
 
-      console.log(res.data)
+
+      dispatch(setCurrentUser(res.data.user))
 
     } catch (error) {
       alert('Unable to fetch current user')
@@ -32,7 +41,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>{`Welcome back Person`}</Text>
+      <Text style={styles.welcomeText}>{`Welcome back ${currentUser.email}`}</Text>
       <Button onPress={signOut} title={'Sign Out'} />
     </View>
   );

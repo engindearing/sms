@@ -23,6 +23,7 @@ const main = async () => {
     server.listen(PORT, () => {
       console.log(`\n Server is running on port ${PORT}\n`);
     });
+    
   } catch (error) {
     console.log("Failed to start server\n" + error);
   }
