@@ -1,47 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from "react-native";
 
-import firebase from '../firebase'
+import React, { useEffect } from "react";
 
-import { Button } from 'react-native-elements';
+import firebase from "../firebase";
 
-import { axiosWithAuth } from '../api/axiosWithAuth';
+import { Button } from "react-native-elements";
 
-import { getAccessToken } from '../utils/getAccessToken';
+import { RootState } from "../state/rootReducer";
 
-import { RootState } from '../state/rootReducer';
+import { useDispatch, useSelector } from "react-redux";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from '../state/users/userActions';
+import { setCurrentUser } from "../state/users/userActions";
+
+import { getCurrentUser } from "../api/users";
 
 const HomeScreen = () => {
-  const { currentUser } = useSelector((state: RootState) => state.user)
+  const { currentUser } = useSelector((state: RootState) => state.user);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const signOut = () => firebase.auth.signOut()
+  const signOut = () => firebase.auth.signOut();
 
-  const getCurrentUser = async () => {
-    try {
-      let token = await getAccessToken()
-
-      let res =  await axiosWithAuth(token).get('/users/me')
-
-      dispatch(setCurrentUser(res.data.user))
-
-    } catch (error) {
-      alert('Unable to fetch current user')
-    }
-  }
-
-  useEffect( () => {
+  useEffect(() => {
     getCurrentUser()
-  }, [])
+      .then((user) => dispatch(setCurrentUser(user)))
+      .catch((err) => alert("Unable to fetch current user"));
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>{`Welcome back ${currentUser.email}`}</Text>
-      <Button onPress={signOut} title={'Sign Out'} />
+      <Text
+        style={styles.welcomeText}
+      >{`Welcome back ${currentUser.email}`}</Text>
+      <Button onPress={signOut} title={"Sign Out"} />
     </View>
   );
 };
@@ -50,14 +41,14 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
 
   welcomeText: {
-    marginBottom: '5%'
-  }
+    marginBottom: "5%",
+  },
 });
