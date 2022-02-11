@@ -27,7 +27,6 @@ const HomeScreen = () => {
 
       let res =  await axiosWithAuth(token).get('/users/me')
 
-
       dispatch(setCurrentUser(res.data.user))
 
     } catch (error) {

@@ -30,8 +30,6 @@ const LoginScreen = () => {
     }
   };
 
-
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>

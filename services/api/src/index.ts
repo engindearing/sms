@@ -10,9 +10,10 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 8000;
 
 const main = async () => {
+  console.log(process.env.MONGO_URI)
   try {
     await mongoose
-      .connect(String(process.env.MONGO_DB_URL))
+      .connect(String(process.env.MONGO_URI))
       .then(() => {
         console.log("\n MongoDB Connected");
       })

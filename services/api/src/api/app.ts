@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // ###[  Routers ]###
-import indexRouter from "./routes/index";
+import indexRouter from "./routes/index/index";
 import usersRouter from "./routes/users";
 
 app.use("/", indexRouter);
