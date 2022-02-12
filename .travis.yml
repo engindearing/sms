@@ -4,6 +4,24 @@ services:
 
 before_install:
   - docker build -t isaiahjfowler/client-test -f ./services/client/Dockerfile.dev ./services/client
+  - docker build -t isaiahjfowler/api-test -f ./services/api/Dockerfile.dev ./services/api
 
 script:
-  - 
+  - docker run -e CI=true isaiahjfowler/client-test npm test
+  - docker run -e CI=true isaiahjfowler/api-test npm test
+
+after_success:
+  # Build docker images
+  - docker build -t isaiahjfowler/sms-client ./services/client
+  - docker build -t isaiahjfowler/sms-api ./services/api
+  - docker build -t isaiahjfowler/sms-proxy ./services/proxy
+
+  # Login to docker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # Push images to docker hub
+  - docker push isaiahjfowler/sms-client
+  - docker push isaiahjfowler/sms-api
+  - docker push isaiahjfowler/sms-proxy
+
+
