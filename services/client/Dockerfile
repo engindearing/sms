@@ -1,7 +1,7 @@
 FROM node:16-alpine as webBuilder
 WORKDIR '/app'
 COPY package*.json ./
-RUN npm install 
+RUN npm install && npm install -g expo-cli
 COPY . .
 RUN npm run build:web
 
