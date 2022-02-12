@@ -1,0 +1,28 @@
+{
+   "name": "sms",
+   "version": "0.0.1",
+   "description": "Backend API for SMS",
+   "devDependencies": {
+      "@types/node": "^8.0.29",
+      "ts-node": "3.3.0",
+      "typescript": "^4.5.5"
+   },
+   "dependencies": {
+      "@types/mongoose": "^5.11.97",
+      "cookie-parser": "^1.4.6",
+      "cors": "^2.8.5",
+      "dotenv": "^14.2.0",
+      "express": "^4.17.2",
+      "firebase-admin": "^10.0.2",
+      "helmet": "^5.0.1",
+      "mongoose": "^6.1.8",
+      "morgan": "^1.10.0",
+      "reflect-metadata": "^0.1.10"
+   },
+   "scripts": {
+      "build": "tsc",
+      "start": "node dist/index.js",
+      "dev": "nodemon --exec ts-node src/index.ts",
+      "test": "jest"
+   }
+}
