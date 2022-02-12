@@ -17,8 +17,8 @@ const main = async () => {
       .then(() => {
         console.log("\n MongoDB Connected");
       })
-      .catch((error) => {
-        throw error;
+      .catch(() => {
+        console.log('Unable to start mongoDB')
       });
 
     server.listen(PORT, () => {
