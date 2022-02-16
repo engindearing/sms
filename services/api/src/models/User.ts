@@ -29,9 +29,6 @@ const userSchema: Schema = new mongoose.Schema({
     enum: ["pending", "guest", "staff", "orgAdmin", "admin"],
     default: "pending",
   },
-
-  
-
 });
 
 userSchema.static("findUserByEmailOrCreate", async function (email: string) {
