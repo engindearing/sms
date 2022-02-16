@@ -26,9 +26,12 @@ const userSchema: Schema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["pending", "guest", "staff", "manager", "admin"],
+    enum: ["pending", "guest", "staff", "orgAdmin", "admin"],
     default: "pending",
   },
+
+  
+
 });
 
 userSchema.static("findUserByEmailOrCreate", async function (email: string) {

@@ -1,12 +1,14 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// #TODO: Replace URL with env variable
+import Constants from "expo-constants";
+
 export const axiosWithAuth = (accessToken: any) => {
+  const HOST_IP = Constants.manifest?.extra?.HOST_IP;
+
   return axios.create({
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
-    baseURL: "http://192.168.1.9:8000",
+    baseURL: `http://${HOST_IP}:3000/api/`,
   });
 };

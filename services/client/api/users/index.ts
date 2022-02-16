@@ -7,7 +7,7 @@ export const getCurrentUser = async () => {
 
     let res = await axiosWithAuth(token).get("/users/me");
 
-    return res.data;
+    return res.data.user;
   } catch (error) {
     throw error;
   }
