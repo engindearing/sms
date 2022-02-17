@@ -16,11 +16,16 @@ const shelterSchema: Schema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  address: {
+      street: String,
+      city: String,
+      state: String,
+      zipCode: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now()
   }
 });
-
 
 export const Shelter: IShelterModel = model<IShelter, IShelterModel>("Shelter", shelterSchema);

@@ -37,10 +37,11 @@ app.use(cookieParser());
 import indexRouter from "./routes/index/index";
 import usersRouter from "./routes/users";
 import orgsRouter from './routes/orgs'
-
+import sheltersRouter from './routes/shelters'
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use('/orgs', orgsRouter)
+app.use('/shelters', sheltersRouter)
 
 export default app;
