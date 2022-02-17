@@ -16,8 +16,12 @@ const organizationSchema: Schema = new mongoose.Schema({
     required: true,
     unique: true
   },
- 
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  }
+
 });
 
 
-export const User: IOrganizationModel = model<IOrganization, IOrganizationModel>("User", organizationSchema);
+export const Organization: IOrganizationModel = model<IOrganization, IOrganizationModel>("Organization", organizationSchema);
