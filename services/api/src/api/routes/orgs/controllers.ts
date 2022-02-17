@@ -1,7 +1,6 @@
 import {Organization} from '../../../models/Organization'
 
 export const createOrg = async (req:any, res: any) => {
-    
     try {
         let newOrg = await Organization.create(req.body)
 

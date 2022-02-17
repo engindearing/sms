@@ -20,7 +20,6 @@ const organizationSchema: Schema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   }
-
 });
 
 
