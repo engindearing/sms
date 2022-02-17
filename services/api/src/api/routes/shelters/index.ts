@@ -1,4 +1,4 @@
-import { restrictTo } from "src/api/middleware/restrictTo";
+import { restrictTo } from "../../middleware/restrictTo";
 
 const express = require("express");
 

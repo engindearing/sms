@@ -1,6 +1,6 @@
-import {Organization} from '../../../models/Organization'
+import { Organization } from '../../../models/Organization'
 
-export const createOrg = async (req:any, res: any) => {
+export const createOrg = async (req: any, res: any) => {
     try {
         let newOrg = await Organization.create(req.body)
 
@@ -10,5 +10,17 @@ export const createOrg = async (req:any, res: any) => {
 
     } catch (error) {
         res.json({ error })
+    }
+}
+
+
+export const getAllOrgs = async ({ }, res: any) => {
+    try {
+        let organizations = await Organization.find({})
+
+        res.status(200).json({ organizations })
+
+    } catch (error) {
+        res.status(400).json({ error })
     }
 }
