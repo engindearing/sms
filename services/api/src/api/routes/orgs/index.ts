@@ -1,6 +1,6 @@
 import { restrictTo } from "../../middleware/restrictTo";
 
-import { createShelter } from "./shelters/controllers";
+import { createShelter, getAllShelters } from "./shelters/controllers";
 
 import { validateOrgId } from "./middleware/validateOrgId";
 
@@ -16,6 +16,6 @@ router.use(authRequired)
 
 router.route("/").post(createOrg).get(getAllOrgs)
 
-router.route("/:id/shelters").all(validateOrgId).post(restrictTo('admin', 'orgAdmin'),createShelter)
+router.route("/:id/shelters").all(validateOrgId).post(restrictTo('admin', 'orgAdmin'),createShelter).get(getAllShelters)
 
 export default router;

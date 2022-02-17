@@ -14,3 +14,19 @@ export const createShelter = async (req: any, res: any) => {
         res.status(400).json({ error })
     }
 }
+
+export const getAllShelters = async (req:any, res:any) => {
+
+    let { id } = req.params
+
+    try {
+        let shelters = await Shelter.find({ orgId: id })
+
+
+        res.status(200).json({shelters})
+
+    } catch (error) {
+        res.status(400).json({ error })
+
+    }
+}
