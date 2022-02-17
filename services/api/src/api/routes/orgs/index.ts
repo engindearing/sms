@@ -2,6 +2,8 @@ import { restrictTo } from "../../middleware/restrictTo";
 
 import { createShelter } from "./shelters/controllers";
 
+import { validateOrgId } from "./middleware/validateOrgId";
+
 const { authRequired } = require('../../middleware/authRequired')
 
 const express = require("express");
@@ -14,6 +16,6 @@ router.use(authRequired)
 
 router.route("/").post(createOrg).get(getAllOrgs)
 
-router.route("/:id/shelters").post(restrictTo('admin', 'orgAdmin'),createShelter)
+router.route("/:id/shelters").all(validateOrgId).post(restrictTo('admin', 'orgAdmin'),createShelter)
 
 export default router;
