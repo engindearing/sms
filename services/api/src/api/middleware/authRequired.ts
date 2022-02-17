@@ -6,7 +6,6 @@ export const authRequired = async (req: any, res: any, next: any) => {
   let token;
 
   
-
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
