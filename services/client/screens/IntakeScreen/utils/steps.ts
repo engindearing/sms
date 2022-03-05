@@ -1,0 +1,15 @@
+const steps = [
+    { id: 'IntakeStart' },
+    { id: 'FamilyMembers' },
+    { id: 'ContactInfo' },
+    { id: 'FamilyDemographics' },
+    { id: 'RaceEthnicityInfo' },
+    { id: 'BarriersPage' },
+    { id: 'ChildSchoolInfo' },
+    { id: 'DomesticViolence' },
+    { id: 'HomelessHistory' },
+    { id: 'Insurance' },
+    { id: 'AdditionalInfo' },
+    { id: 'Pets' },
+    { id: 'ValidateFormData' },
+  ];

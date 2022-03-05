@@ -11,23 +11,21 @@ interface IShelterModel extends Model<IShelter> {
 }
 
 const shelterSchema: Schema = new mongoose.Schema({
-    orgId: { required: [true, 'orgId is required'], type: mongoose.Schema.Types.ObjectId, ref: 'Organization' },
+    organization: { required: [true, 'organization is required'], type: mongoose.Schema.Types.ObjectId, ref: 'Organization' },
 
     name: {
         type: String,
         required: true,
         unique: true
     },
+    
     address: {
         street: String,
         city: String,
         state: String,
         zipCode: String,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    }
-});
+
+}, {timestamps: true});
 
 export const Shelter: IShelterModel = model<IShelter, IShelterModel>("Shelter", shelterSchema);

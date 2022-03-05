@@ -1,19 +1,23 @@
 version: "2"
 services:
-  client:
-    depends_on:
-      - api
-    build: 
-      context: ./services/client
-      dockerfile: Dockerfile.dev
+  # client:
+  #   depends_on:
+  #     - api
+  #   build: 
+  #     context: ./services/client
+  #     dockerfile: Dockerfile.dev
 
-    ports:
-      - 19000:19000
-      - 19001:19001
-      - 19002:19002
-      - 19006:19006
-    environment:
-      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+  #   volumes:
+  #     - '/home/node_modules'
+  #     - './services/client:/home'
+
+  #   ports:
+  #     - 19000:19000
+  #     - 19001:19001
+  #     - 19002:19002
+  #     - 19006:19006
+  #   environment:
+  #     - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
 
   api:
     depends_on:

@@ -17,11 +17,18 @@ const organizationSchema: Schema = new mongoose.Schema({
     unique: true
   },
 
-  createdAt: {
-    type: Date,
-    default: Date.now()
-  }
+
+}, {timestamps: true});
+
+
+organizationSchema.virtual('shelters', {
+  ref: 'Shelter', //The Model to use
+  localField: '_id', //Find in Model, where localField 
+  foreignField: 'organization', // is equal to foreignField
 });
 
+// Set Object and Json property to true. Default is set to false
+organizationSchema.set('toObject', { virtuals: true });
+organizationSchema.set('toJSON', { virtuals: true });
 
 export const Organization: IOrganizationModel = model<IOrganization, IOrganizationModel>("Organization", organizationSchema);

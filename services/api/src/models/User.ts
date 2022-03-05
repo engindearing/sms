@@ -10,30 +10,29 @@ interface IUserModel extends Model<IUser> {
   findUserByEmailOrCreate(email: string): object;
 }
 
-const userSchema: Schema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    default: null,
+const userSchema: Schema = new mongoose.Schema(
+  {
+    firstName: {
+      type: String,
+      default: null,
+    },
+    lastName: {
+      type: String,
+      default: null,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+    },
+    role: {
+      type: String,
+      enum: ["guest", "staff", "orgAdmin", "admin"],
+      default: "guest",
+    },
   },
-  lastName: {
-    type: String,
-    default: null,
-  },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    unique: true,
-  },
-  role: {
-    type: String,
-    enum: ["pending", "guest", "staff", "orgAdmin", "admin"],
-    default: "pending",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now()
-  }
-});
+  { timestamps: true }
+);
 
 userSchema.static("findUserByEmailOrCreate", async function (email: string) {
   try {
