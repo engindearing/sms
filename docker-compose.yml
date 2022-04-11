@@ -1,20 +1,56 @@
-    version: "1"
-    services:
-      client:
-        image: "isaiahjfowler/sms-client"
-        mem_limit: 128m
-        hostname: client
+version: "2"
+services:
+  # client:
+  #   depends_on:
+  #     - api
+  #   build: 
+  #     context: ./services/client
+  #     dockerfile: Dockerfile.dev
 
-      api:
-        image: "isaiahjfowler/sms-api"
-        mem_limit: 128m
-        hostname: api
-        environment:
-          - MONGO_URI=$MONGO_URI
+  #   volumes:
+  #     - '/home/node_modules'
+  #     - './services/client:/home'
 
-      proxy:
-        image: "isaiahjfowler/sms-proxy"
-        mem_limit: 128m
-        hostname: proxy
-        ports:
-          - "80:80"
+  #   ports:
+  #     - 19000:19000
+  #     - 19001:19001
+  #     - 19002:19002
+  #     - 19006:19006
+  #   environment:
+  #     - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+
+  api:
+    depends_on:
+      - mongo
+      - redis
+      - proxy
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile.dev
+    
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - /app/node_modules
+      - ./services/api:/app
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    logging:
+      driver: "none"
+
+  redis:
+    image: redis:latest
+
+  proxy:
+    restart: always
+    build:
+      context: ./services/proxy
+      dockerfile: Dockerfile.dev      
+    ports:
+      - 3000:80
+
