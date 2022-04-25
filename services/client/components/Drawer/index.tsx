@@ -33,8 +33,8 @@ export const DrawerItem = ({
 
   const iconColor = () => {
       if(disabled) return 'grey'
-      if(isSelected) return 'white'
-      else return 'black'
+      if(isSelected) return '#fec357'
+      else return 'white'
   }
 
   return (
@@ -48,7 +48,7 @@ export const DrawerItem = ({
     >
       <MaterialCommunityIcons
         name={icon}
-        size={25}
+        size={35}
         color={iconColor()}
       />
     </DrawerItemContainer>
@@ -59,7 +59,10 @@ const DrawerContainer = styled.View`
   width: 80px;
   height: 100%;
   position: absolute;
-  background-color: #f2f7f6;
+
+  z-index: 10;
+
+  background-color: #0063be;
 
   margin-right: 100px;
 `;
@@ -70,6 +73,7 @@ const DrawerItems = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
+
 `;
 
 const DrawerItemContainer = styled.TouchableOpacity`
@@ -80,12 +84,11 @@ const DrawerItemContainer = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     width: 100%;
-    ${(props) =>
-      props.isSelected &&
-    `
-    background-color: black;
-    `}
-    }
 
-    }
+    /* ${props => props.isSelected && 
+      'background-color: ;'
+    
+    } */
+
+    
 `;

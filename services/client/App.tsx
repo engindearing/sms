@@ -19,11 +19,19 @@ import { signOut } from "./state/users/userActions";
 
 import { Text } from 'react-native'
 
+import SheltersScreen from './screens/SheltersScreen/SheltersScreen';
+import ShelterDashboardScreen from './screens/ShelterDashboardScreen/ShelterDashboardScreen';
+import ReservationScreen from './screens/ReservationScreen/ReservationScreen';
+
+
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Register: undefined;
-  Intake: undefined
+  Intake: undefined,
+  shelters: undefined,
+  shelterdashboard: undefined,
+  Reservation: undefined
 };
 
 declare global {
@@ -102,6 +110,11 @@ function SMS() {
       } 
     }}
     >
+      <Stack.Screen name="shelters" component={SheltersScreen} />
+      <Stack.Screen name="Reservation" component={ReservationScreen} />
+
+      <Stack.Screen name="shelterdashboard" component={ShelterDashboardScreen} />
+
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />

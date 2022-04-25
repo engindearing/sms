@@ -5,10 +5,11 @@ import { useGetCurrentUserQuery } from "../../auth/users/useGetCurrentUserQuery"
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../state/users/userActions";
 import Redirect from "../../components/Redirect";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function Index() {
-
+  const navigation = useNavigation()
 
   const [user, loading] = useGetCurrentUserQuery();
 
@@ -17,6 +18,11 @@ export default function Index() {
   useEffect(() => {
     if(user) {
       dispatch(setCurrentUser(user));
+
+      switch(user.role) {
+        case 'programManager':
+          navigation.navigate('shelters')
+      }
     }
   }, [user]);
 
@@ -25,19 +31,24 @@ export default function Index() {
   }
 
   return (
-    <RedirectUser user={user} />
+    <Text></Text>
   );
 }
 
 const RedirectUser = ({ user }) => {
-  switch (user.role) {
-    case "staff":
-      return <Redirect to="staff" />;
 
-    case "guest":
-      return <Redirect to={user.intake.status === 'completed' ? "guest" : 'Intake'} params={{ userId: user._id }}  />;
+  const navigation = useNavigation()
 
-    default:
-      return <Redirect to="Home" />;
-  }
+  useEffect(() => {
+
+    switch(user.role) {
+      case 'programManager':
+        navigation.navigate('shelters')
+    }
+  }, [])
+
+  return (
+    <Text></Text>
+  )
 };
+

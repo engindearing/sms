@@ -9,7 +9,7 @@ export const axiosWithAuth = (accessToken: any) => {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
-    baseURL: `http://${HOST_IP}:3000/api/`,
+    baseURL: `http://${HOST_IP}:8000/`,
   });
 }
 
