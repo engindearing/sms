@@ -83,8 +83,6 @@ const ListItem = ({ hoh, beds, navigation, id }) => {
   );
 };
 
-
-
 const ListItemContainer = styled.View`
   display: flex;
 
@@ -114,7 +112,17 @@ const Container = styled.View`
 const Reservations = styled.View`
   margin-top: 3rem;
 
+  margin-left: 5rem;
+
   width: 40%;
+
+  ${(props) => props.theme.isLaptop && "width: 45%;"}
+
+  ${(props) => props.theme.isTablet && "width: 70%;"}
+
+  ${(props) => props.theme.isMobileL && "width: 95%;"}
+
+  ${(props) => props.theme.isMobileS && "width: 98%;"}
 `;
 
 export default Index;

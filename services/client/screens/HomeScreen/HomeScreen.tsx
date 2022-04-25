@@ -7,21 +7,22 @@ import { setCurrentUser } from "../../state/users/userActions";
 import Redirect from "../../components/Redirect";
 import { useNavigation } from "@react-navigation/native";
 
-
 export default function Index() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const [user, loading] = useGetCurrentUserQuery();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(user) {
+    if (user) {
       dispatch(setCurrentUser(user));
 
-      switch(user.role) {
-        case 'programManager':
-          navigation.navigate('shelters')
+      switch (user.role) {
+        case "programManager":
+          navigation.navigate("shelters");
+        case 'guest':
+          navigation.navigate('Guest')
       }
     }
   }, [user]);
@@ -30,25 +31,20 @@ export default function Index() {
     return <Text>Loading</Text>;
   }
 
-  return (
-    <Text></Text>
-  );
+  return <Text></Text>;
 }
 
 const RedirectUser = ({ user }) => {
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   useEffect(() => {
-
-    switch(user.role) {
-      case 'programManager':
-        navigation.navigate('shelters')
+    switch (user.role) {
+      case "programManager":
+        navigation.navigate("shelters");
+      case "guest":
+        navigation.navigate("Guest");
     }
-  }, [])
+  }, []);
 
-  return (
-    <Text></Text>
-  )
+  return <Text></Text>;
 };
-

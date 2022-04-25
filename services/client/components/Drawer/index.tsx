@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
@@ -8,8 +8,10 @@ export function Drawer({ onChange, children }) {
   //Selecting the first item by default
   const [selected, setSelected] = useState(children[0].props.id);
 
+  const windowHeight = Dimensions.get('window').height;
+
   return (
-    <DrawerContainer>
+    <DrawerContainer windowHeight={windowHeight}>
       <DrawerItems>
         {children.map((child) =>
 
@@ -57,7 +59,7 @@ export const DrawerItem = ({
 
 const DrawerContainer = styled.View`
   width: 80px;
-  height: 100%;
+  height: ${props => props.windowHeight};
   position: absolute;
 
   z-index: 10;

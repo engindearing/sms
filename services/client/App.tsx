@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler'
+import "react-native-gesture-handler";
 
 import React, { useEffect } from "react";
 
@@ -8,7 +8,7 @@ import { store } from "./state/store";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { HomeScreen, LoginScreen, RegisterScreen, IntakeScreen } from "./screens";
+import { HomeScreen, LoginScreen, RegisterScreen } from "./screens";
 
 import EStyleSheet from "react-native-extended-stylesheet";
 import Theme from "./Theme";
@@ -17,21 +17,22 @@ import { auth } from "./firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { signOut } from "./state/users/userActions";
 
-import { Text } from 'react-native'
+import { Text } from "react-native";
 
-import SheltersScreen from './screens/SheltersScreen/SheltersScreen';
-import ShelterDashboardScreen from './screens/ShelterDashboardScreen/ShelterDashboardScreen';
-import ReservationScreen from './screens/ReservationScreen/ReservationScreen';
-
+import SheltersScreen from "./screens/SheltersScreen/SheltersScreen";
+import ShelterDashboardScreen from "./screens/ShelterDashboardScreen/ShelterDashboardScreen";
+import ReservationScreen from "./screens/ReservationScreen/ReservationScreen";
+import GuestScreen from "./screens/GuestScreen/GuestScreen";
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Register: undefined;
-  Intake: undefined,
-  shelters: undefined,
-  shelterdashboard: undefined,
-  Reservation: undefined
+  Intake: undefined;
+  shelters: undefined;
+  shelterdashboard: undefined;
+  Reservation: undefined;
+  Guest;
 };
 
 declare global {
@@ -56,70 +57,72 @@ export default function App() {
 
 function SMS() {
   let navigation = useNavigation();
-  
-  let { isLoggedIn } = useSelector((state:any) => state.user)
 
-  let dispatch = useDispatch()
+  let { isLoggedIn } = useSelector((state: any) => state.user);
+
+  let dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(
-      async (user) => {
-        if (!user) {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Login" }],
-          });
-          
-          await AsyncStorage.removeItem("accessToken");
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Login" }],
+        });
 
-          dispatch(signOut())
-        }
+        await AsyncStorage.removeItem("accessToken");
 
-        if (user) {
-          let { token } = await user.getIdTokenResult();
-
-          await AsyncStorage.setItem("accessToken", token);
-
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Home" }],
-          });
-        }
+        dispatch(signOut());
       }
-    );
+
+      if (user) {
+        let { token } = await user.getIdTokenResult();
+
+        await AsyncStorage.setItem("accessToken", token);
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
+      }
+    });
 
     return unsubscribe;
   }, []);
 
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
-
   return (
-    <Stack.Navigator 
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: '#8D4982',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#8D4982",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
 
-      headerRight: () => {
-       return isLoggedIn && <Button onPress={() => auth.signOut()}>Logout</Button>
-      } 
-    }}
+        headerRight: () => {
+          return (
+            isLoggedIn && <Button onPress={() => auth.signOut()}>Logout</Button>
+          );
+        },
+      }}
     >
       <Stack.Screen name="shelters" component={SheltersScreen} />
       <Stack.Screen name="Reservation" component={ReservationScreen} />
 
-      <Stack.Screen name="shelterdashboard" component={ShelterDashboardScreen} />
+      <Stack.Screen name="Guest" component={GuestScreen} />
+
+      <Stack.Screen
+        name="shelterdashboard"
+        component={ShelterDashboardScreen}
+      />
 
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Intake" component={IntakeScreen} options={{headerLeft: (props) => <Text></Text>}}  />
-
     </Stack.Navigator>
   );
 }
