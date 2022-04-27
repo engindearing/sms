@@ -49,7 +49,7 @@ const Index = ({ shelterId }) => {
   }, [reservations]);
 
   if (loading) {
-    return <View>Loading</View>;
+    return <Text>Loading</Text>;
   }
 
   return (
@@ -112,7 +112,6 @@ const ListItem = ({ setReservations, verified, hoh, beds, navigation, id }) => {
 const ListItemContainer = styled.View`
   display: flex;
 
-  cursor: pointer;
 
   flex-direction: row;
 
@@ -126,7 +125,7 @@ const ListItemContainer = styled.View`
 
   ${(props) => props.verified !== true && "background-color: #ff9494"}
 
-  padding: 1rem;
+  padding: 5%;
 `;
 
 const Container = styled.View`
@@ -140,9 +139,7 @@ const Container = styled.View`
 `;
 
 const Reservations = styled.View`
-  margin-top: 3rem;
 
-  margin-left: 5rem;
 
   width: 40%;
 
