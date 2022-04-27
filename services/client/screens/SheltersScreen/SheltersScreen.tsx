@@ -7,21 +7,22 @@ import { Card, Button, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 
 const SheltersScreen = () => {
+
   const dummyData = [
     {
-      id: 1,
+      id: "6266df4c2b13e767bcba9cb7",
       name: "Family Promise of Spokane",
       image: 'http://3.230.120.77/wp-content/uploads/2022/04/fourth-scaled.webp'
     },
 
     {
-      id: 2,
+      id: "6266e2d242cf540fcde0cb5f",
       name: "Family Promise of Clarks County",
       image: 'http://3.230.120.77/wp-content/uploads/2022/04/third.webp'
     },
 
     {
-      id: 3,
+      id: "6266e30642cf540fcde0cb62",
       name: "Family Promise of Summit County",
       image: 'http://3.230.120.77/wp-content/uploads/2022/04/fifth-scaled.webp'
     },
@@ -44,8 +45,6 @@ const SheltersScreen = () => {
 
 const Container = styled.View`
   width: 100%;
-
-  background-color: #369fff;
 
   display: flex;
 

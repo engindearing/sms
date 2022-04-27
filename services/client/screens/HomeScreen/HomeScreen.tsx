@@ -21,8 +21,12 @@ export default function Index() {
       switch (user.role) {
         case "programManager":
           navigation.navigate("shelters");
+
+          return
         case 'guest':
           navigation.navigate('Guest')
+
+          return
       }
     }
   }, [user]);

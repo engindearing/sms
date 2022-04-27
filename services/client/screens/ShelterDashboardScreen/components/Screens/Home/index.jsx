@@ -14,9 +14,7 @@ const index = ({ setCurrentScreen }) => {
   return (
     <View>
       <Container>
-          <Button onPress={() => setCurrentScreen('intake')} style={{marginBottom: '1rem'}} title={'Register A New Family'} ></Button>
-          <Button onPress={() => setCurrentScreen('beds')} style={{marginBottom: '1rem'}} title={'Bed reservations'}></Button>
-          <Button onPress={() => setCurrentScreen('guests')} style={{marginBottom: '1rem'}} title={'Manage guests'}></Button>        
+        <Text >Family Promise of Spokane</Text>
       </Container>
     </View>
   );

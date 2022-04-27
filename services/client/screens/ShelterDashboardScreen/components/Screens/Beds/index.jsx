@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components/native";
 
@@ -10,56 +10,59 @@ import { Text } from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
-const list = [
-  {
-    id: 1,
-    hoh: "John Mayer",
-    beds: 2,
-  },
-  {
-    id: 2,
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-    hoh: "John Mayer",
-    beds: 2,
-  },
-  {
-    id: 3,
+import { axiosWithAuth } from "../../../../../auth/axiosWithAuth";
 
-    hoh: "John Mayer",
-    beds: 2,
-  },
-  {
-    id: 4,
+const list = [];
 
-    hoh: "John Mayer",
-    beds: 2,
-  },
-
-  {
-    id: 5,
-
-    hoh: "John Mayer",
-    beds: 2,
-  },
-  {
-    id: 6,
-
-    hoh: "John Mayer",
-    beds: 2,
-  },
-];
-
-const Index = () => {
+const Index = ({ shelterId }) => {
   const navigation = useNavigation();
+
+  const [reservations, setReservations] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const getReservations = async () => {
+    setLoading(true);
+    try {
+      const token = await AsyncStorage.getItem("accessToken");
+
+      let res = await axiosWithAuth(token).get(
+        `/shelters/${shelterId}/reservations`
+      );
+
+      setReservations(res.data.reservations);
+    } catch (error) {
+      alert("error!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getReservations();
+  }, []);
+
+  useEffect(() => {
+    console.log(reservations);
+  }, [reservations]);
+
+  if (loading) {
+    return <View>Loading</View>;
+  }
+
   return (
     <View>
       <Container>
         <Reservations>
-          {list.map((item, i) => (
+          {reservations.map((item, i) => (
             <ListItem
+              setReservations={setReservations}
+              verified={item.verified}
               navigation={navigation}
-              id={item.id}
-              hoh={item.hoh}
+              id={item._id}
+              hoh={item?.userId?.firstName + " " + item?.userId?.lastName}
               beds={item.beds}
             />
           ))}
@@ -69,15 +72,38 @@ const Index = () => {
   );
 };
 
-const ListItem = ({ hoh, beds, navigation, id }) => {
-  const redirectToReservationDetails = () =>
-    navigation.navigate("Reservation", { reservationId: id });
+const ListItem = ({ setReservations, verified, hoh, beds, navigation, id }) => {
+  const verifyReservation = async () => {
+    try {
+      const token = await AsyncStorage.getItem("accessToken");
+
+      await axiosWithAuth(token).put(`/reservations/${id}`, {
+        verified: true,
+      });
+
+      setReservations((prevState) =>
+        prevState.map((res) => {
+          if (res._id == id) {
+            res.verified = true;
+          }
+
+          return res;
+        })
+      );
+    } catch (error) {
+      alert("unable to verify bed");
+    }
+  };
 
   return (
-    <TouchableOpacity onPress={redirectToReservationDetails}>
-      <ListItemContainer>
+    <TouchableOpacity>
+      <ListItemContainer verified={verified}>
         <Text>{hoh + " / " + beds + " beds"}</Text>
-        <MaterialCommunityIcons size={35} name="chevron-right" />
+        <MaterialCommunityIcons
+          onPress={verifyReservation}
+          size={35}
+          name="check"
+        />
       </ListItemContainer>
     </TouchableOpacity>
   );
@@ -95,6 +121,10 @@ const ListItemContainer = styled.View`
   width: 100%;
   border: 1px solid lightgrey;
   justify-content: space-between;
+
+  background-color: #94ffa2;
+
+  ${(props) => props.verified !== true && "background-color: #ff9494"}
 
   padding: 1rem;
 `;

@@ -5,4 +5,5 @@ export interface IUserDocument extends Document {
   lastName: string;
   email: string;
   role: string;
+  shelters: string;
 }

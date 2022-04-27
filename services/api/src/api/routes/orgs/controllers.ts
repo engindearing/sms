@@ -13,7 +13,6 @@ export const createOrg = async (req: any, res: any) => {
     }
 }
 
-
 export const getAllOrgs = async ({ }, res: any) => {
     try {
         let organizations = await Organization.find({}).populate({ path: 'shelters' })

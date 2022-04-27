@@ -15,7 +15,7 @@ const ShelterDashboardScreen = ({ route }) => {
 
   const [currentScreen, setCurrentScreen] = useState('home');
 
-  const props = { currentScreen, setCurrentScreen };
+  const props = { currentScreen, setCurrentScreen, shelterId };
 
   return (
     <View>

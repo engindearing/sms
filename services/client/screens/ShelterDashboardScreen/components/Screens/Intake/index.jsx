@@ -22,10 +22,12 @@ const Index = () => {
   return (
     <View>
       <Container>
-        <FormContainer>
+        {/* <FormContainer>
           <IntakeForm {...props} />
           <Navigation {...props} />
-        </FormContainer>
+        </FormContainer> */}
+
+        <Text>Under construction</Text>
       </Container>
     </View>
   );
@@ -43,6 +45,8 @@ const Container = styled.View`
   width: 100%;
 
   display: flex;
+
+  height: 800px;
 
   justify-content: center;
 

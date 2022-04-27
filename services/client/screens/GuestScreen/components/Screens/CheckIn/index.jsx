@@ -10,22 +10,44 @@ import { Select } from "native-base";
 
 import { Text } from "native-base";
 
-const index = () => {
+import { useSelector } from "react-redux";
+import { axiosWithAuth } from "../../../../../auth/axiosWithAuth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const index = ({ shelterId }) => {
+  const user = useSelector((state) => state.user.currentUser);
+
   const windowHeight = Dimensions.get("window").windowHeight;
 
   let [service, setService] = React.useState(null);
 
-  const makeReservation = () => {
-    alert(service);
+  const makeReservation = async () => {
+    const payload = {
+      userId: user._id,
+      shelterId,
+      beds: service,
+    };
 
-    setService(null);
+    try {
+      const token = await AsyncStorage.getItem("accessToken");
+
+      let res = await axiosWithAuth(token).post(
+        `/shelters/${shelterId}/reservations`,
+        payload
+      );
+        
+      alert('You have successfully checked in')
+
+    } catch (error) {
+      alert("error!");
+    }
   };
 
   return (
     <View>
       <Container windowHeight={windowHeight}>
         <FormContainer>
-          <Text fontSize={'9xl'}>30 / 60</Text>
+          <Text fontSize={"9xl"}>5 / 60</Text>
           <Select
             selectedValue={service}
             accessibilityLabel="Number of beds"

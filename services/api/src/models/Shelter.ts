@@ -31,11 +31,7 @@ const shelterSchema: Schema = new mongoose.Schema(
       zipCode: String,
     },
 
-    image: {
-      required: [true, "organization is required"],
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Organization",
-    },
+    image: String
   },
   { timestamps: true }
 );

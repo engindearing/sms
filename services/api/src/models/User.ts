@@ -30,13 +30,30 @@ const userSchema: Schema = new mongoose.Schema(
       enum: ["guest", "staff", "orgAdmin", "admin"],
       default: "guest",
     },
+    organization: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Organization",
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
 userSchema.static("findUserByEmailOrCreate", async function (email: string) {
   try {
-    let user = await this.findOne({ email });
+    let user = await this.findOne({ email })
+      .populate({
+        path: 'organization',
+        populate: [
+          {
+            path: 'shelters',
+            select: 'name'
+          }
+        ]
+      })
+  
+
+    console.log(user)
 
     if (!user) {
       let newUser = await this.insertMany({ email });
