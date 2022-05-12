@@ -9,6 +9,8 @@ firebase.json
 
 web-build
 
+public/
+
 # Logs
 logs
 *.log
