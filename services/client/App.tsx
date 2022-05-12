@@ -1,28 +1,38 @@
-import { StyleSheet, Text, View } from "react-native";
+import "react-native-gesture-handler";
 
-import { Provider } from "react-redux";
+import React, { useEffect } from "react";
+
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { store } from "./state/store";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen from "./screens/LoginScreen";
+import { HomeScreen, LoginScreen, RegisterScreen } from "./screens";
 
-import HomeScreen from "./screens/HomeScreen";
-
-import RegisterScreen from "./screens/RegisterScreen";
-
-import { useEffect } from "react";
-
-import firebase from "./firebase";
-
+import EStyleSheet from "react-native-extended-stylesheet";
+import Theme from "./Theme";
+import { Button, NativeBaseProvider } from "native-base";
+import { auth } from "./firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { signOut } from "./state/users/userActions";
 
-import { store } from "./state/store";
+import { Text } from "react-native";
+
+import SheltersScreen from "./screens/SheltersScreen/SheltersScreen";
+import ShelterDashboardScreen from "./screens/ShelterDashboardScreen/ShelterDashboardScreen";
+import ReservationScreen from "./screens/ReservationScreen/ReservationScreen";
+import GuestScreen from "./screens/GuestScreen/GuestScreen";
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Register: undefined;
+  Intake: undefined;
+  shelters: undefined;
+  shelterdashboard: undefined;
+  Reservation: undefined;
+  Guest;
 };
 
 declare global {
@@ -31,65 +41,88 @@ declare global {
   }
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-
-export default function Index() {
+export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <App />
+        <NativeBaseProvider>
+          <Theme>
+            <SMS />
+          </Theme>
+        </NativeBaseProvider>
       </NavigationContainer>
     </Provider>
   );
 }
 
-function App() {
+function SMS() {
   let navigation = useNavigation();
 
+  let { isLoggedIn } = useSelector((state: any) => state.user);
+
+  let dispatch = useDispatch();
+
   useEffect(() => {
-    const unsubscribe = firebase.onAuthStateChanged(
-      firebase.auth,
-      async (user) => {
-        if (!user) {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Login" }],
-          });
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Login" }],
+        });
 
-          await AsyncStorage.removeItem("accessToken");
-        }
+        await AsyncStorage.removeItem("accessToken");
 
-        if (user) {
-          let { token } = await user.getIdTokenResult();
-
-          await AsyncStorage.setItem("accessToken", token);
-
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Home" }],
-          });
-        }
+        dispatch(signOut());
       }
-    );
+
+      if (user) {
+        let { token } = await user.getIdTokenResult();
+
+        await AsyncStorage.setItem("accessToken", token);
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
+      }
+    });
 
     return unsubscribe;
   }, []);
 
+  const Stack = createNativeStackNavigator<RootStackParamList>();
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#8D4982",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+
+        headerRight: () => {
+          return (
+            isLoggedIn && <Button onPress={() => auth.signOut()}>Logout</Button>
+          );
+        },
+      }}
+    >
+      <Stack.Screen name="shelters" component={SheltersScreen} />
+      <Stack.Screen name="Reservation" component={ReservationScreen} />
+
+      <Stack.Screen name="Guest" component={GuestScreen} />
+
+      <Stack.Screen
+        name="shelterdashboard"
+        component={ShelterDashboardScreen}
+      />
+
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

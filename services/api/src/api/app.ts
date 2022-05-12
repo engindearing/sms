@@ -12,12 +12,16 @@ const cors = require("cors");
 
 const dotenv = require("dotenv");
 
+const morgan = require("morgan");
+
 const config_result = dotenv.config();
 if (process.env.NODE_ENV != "production" && config_result.error) {
   throw config_result.error;
 }
 
 app.use(helmet());
+
+app.use(morgan("tiny"));
 
 app.use(express.json());
 
@@ -36,8 +40,15 @@ app.use(cookieParser());
 // ###[  Routers ]###
 import indexRouter from "./routes/index/index";
 import usersRouter from "./routes/users";
+import orgsRouter from "./routes/orgs";
+import sheltersRouter from "./routes/shelters";
+import reservationsRouter from "./routes/reservations";
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/orgs", orgsRouter);
+app.use("/shelters", sheltersRouter);
+
+app.use("/reservations", reservationsRouter);
 
 export default app;
