@@ -2,14 +2,14 @@ import axios from "axios";
 
 import Constants from "expo-constants";
 
-export const axiosWithAuth = (accessToken: any) => {
-  const HOST_IP = Constants.manifest?.extra?.HOST_IP;
+import { NATIVE_API_URI } from '@env'
 
+export const axiosWithAuth = (accessToken) => {
   return axios.create({
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
-    baseURL: `http://${HOST_IP}:8000/`,
+    baseURL: NATIVE_API_URI,
   });
 }
 
