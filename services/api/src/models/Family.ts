@@ -10,7 +10,7 @@ interface IFamilyModel extends Model<IFamily> {
   // Define any static methods here
 }
 
-const familySchema: Schema = new mongoose.Schema(
+const householdSchema: Schema = new mongoose.Schema(
     {
         status: {
           type: String,
@@ -206,7 +206,6 @@ const familySchema: Schema = new mongoose.Schema(
     { timestamps: true }
   );
   
-
   
-  export const Family: IFamilyModel = model<IFamily, IFamilyModel>("Family", familySchema);
+  export const Family: IFamilyModel = model<IFamily, IFamilyModel>("household", householdSchema);
   
