@@ -8,7 +8,7 @@ import { store } from "./state/store";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { HomeScreen, LoginScreen, RegisterScreen } from "./screens";
+import { HomeScreen, LoginScreen, RegisterScreen, IntakeScreen } from "./screens";
 
 import EStyleSheet from "react-native-extended-stylesheet";
 import Theme from "./Theme";
@@ -123,6 +123,9 @@ function SMS() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
+
+      <Stack.Screen name="Intake" component={IntakeScreen} options={{headerLeft: (props) => <Text></Text>}}  />
+
     </Stack.Navigator>
   );
 }

@@ -24,7 +24,7 @@ export default function Index() {
 
           return
         case 'guest':
-          navigation.navigate('Guest')
+          navigation.navigate('Intake')
 
           return
       }
@@ -38,17 +38,3 @@ export default function Index() {
   return <Text></Text>;
 }
 
-const RedirectUser = ({ user }) => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    switch (user.role) {
-      case "programManager":
-        navigation.navigate("shelters");
-      case "guest":
-        navigation.navigate("Guest");
-    }
-  }, []);
-
-  return <Text></Text>;
-};

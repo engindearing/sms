@@ -4,4 +4,6 @@ import RegisterScreen from './RegisterScreen/RegisterScreen'
 
 import HomeScreen from './HomeScreen/HomeScreen'
 
-export { LoginScreen, RegisterScreen, HomeScreen }
+import IntakeScreen from './IntakeScreen/IntakeScreen'
+
+export { LoginScreen, RegisterScreen, HomeScreen, IntakeScreen }
