@@ -2,7 +2,6 @@ services:
   api:
     depends_on:
       - mongo
-      - redis
     build:
       context: ./services/api
       dockerfile: Dockerfile.dev
@@ -24,8 +23,8 @@ services:
     ports:
       - "27017:27017"
 
-  redis:
-    image: redis:latest
+  # redis:
+  #   image: redis:latest
 
   proxy:
     depends_on:

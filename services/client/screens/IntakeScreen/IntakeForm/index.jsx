@@ -39,9 +39,6 @@ const IntakeForm = (props) => {
     });
   };
 
-  useEffect(() => {
-    console.log(formValues)
-  }, [formValues])
   return (
     <FormContainer>
       <RenderForm {...props} onChange={onChange} formValues={formValues} />

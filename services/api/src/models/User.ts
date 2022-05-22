@@ -53,7 +53,6 @@ userSchema.static("findUserByEmailOrCreate", async function (email: string) {
       })
   
 
-    console.log(user)
 
     if (!user) {
       let newUser = await this.insertMany({ email });

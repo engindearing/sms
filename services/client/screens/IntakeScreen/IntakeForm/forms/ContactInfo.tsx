@@ -15,31 +15,40 @@ import * as Yup from "yup";
 import "yup-phone";
 
 export default function ContactInfo({ formValues, onChange, nextStep }) {
-  const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
-    useFormik({
-      initialValues: {
-        contactOneName: formValues.contactOneName,
-        contactOneNumber: formValues.contactOneNumber,
-        contactOneSafeToLeaveMsg: formValues.contactOneSafeToLeaveMsg,
-        contactTwoName: formValues.contactTwoName,
-        contactTwoNumber: formValues.contactTwoNumber,
-        contactTwoSafeToLeaveMsg: formValues.contactTwoSafeToLeaveMsg,
-        emergencyContactName: formValues.emergencyContactName,
-        emergencyContactNumber: formValues.emergencyContactNumber,
-      },
-      validationSchema: ContactSchema,
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      contactOneName: formValues.contactOneName,
+      contactOneNumber: formValues.contactOneNumber,
+      contactOneSafeToLeaveMsg: formValues.contactOneSafeToLeaveMsg,
+      contactTwoName: formValues.contactTwoName,
+      contactTwoNumber: formValues.contactTwoNumber,
+      contactTwoSafeToLeaveMsg: formValues.contactTwoSafeToLeaveMsg,
+      emergencyContactName: formValues.emergencyContactName,
+      emergencyContactNumber: formValues.emergencyContactNumber,
+      emergencyContactSafeToLeaveMsg: formValues.emergencyContactSafeToLeaveMsg,
+    },
+    validationSchema: ContactSchema,
 
-      onSubmit: async (newValues) => {
-        try {
-          nextStep()
-          onChange(newValues);
-        } catch (error) {
-          // #TODO
-          // Handle specific errors, use a popup instead of alert
-          alert("Invalid username or password");
-        }
-      },
-    });
+    onSubmit: async (newValues) => {
+      try {
+        onChange(newValues);
+
+        console.log(newValues)
+      } catch (error) {
+        // #TODO
+        // Handle specific errors, use a popup instead of alert
+        alert("Invalid username or password");
+      }
+    },
+  });
 
   return (
     <View>
@@ -53,7 +62,6 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.contactOneName}
         value={values.contactOneName}
       />
-
       <TextInput
         placeholder="Number"
         onChangeText={handleChange("contactOneNumber")}
@@ -63,8 +71,15 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         value={values.contactOneNumber}
       />
 
-      <Text fontSize={"2xl"}>Second contact</Text>
+      <Checkbox
+        value="safeToLeaveMsg"
+        defaultIsChecked={formValues.contactOneSafeToLeaveMsg}
+        onChange={(e) => setFieldValue("contactOneSafeToLeaveMsg", e)}
+      >
+        Safe to leave msg
+      </Checkbox>
 
+      <Text fontSize={"2xl"}>Second contact</Text>
       <TextInput
         placeholder="Full name"
         onChangeText={handleChange("contactTwoName")}
@@ -73,7 +88,6 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.contactTwoName}
         value={values.contactTwoName}
       />
-
       <TextInput
         placeholder="Phone number"
         onChangeText={handleChange("contactTwoNumber")}
@@ -82,9 +96,14 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.contactTwoNumber}
         value={values.contactTwoNumber}
       />
-
+      <Checkbox
+        value={"false"}
+        defaultIsChecked={true}
+        onChange={(e) => setFieldValue("contactTwoSafeToLeaveMsg", e)}
+      >
+        Safe to leave msg
+      </Checkbox>
       <Text fontSize={"2xl"}>Emergency contact</Text>
-
       <TextInput
         placeholder="Full name"
         onChangeText={handleChange("emergencyContactName")}
@@ -93,7 +112,6 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.emergencyContactName}
         value={values.emergencyContactName}
       />
-
       <TextInput
         placeholder="Number"
         onChangeText={handleChange("emergencyContactNumber")}
@@ -102,7 +120,13 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.emergencyContactNumber}
         value={values.emergencyContactNumber}
       />
-
+      <Checkbox
+        value={"false"}
+        defaultIsChecked={true}
+        onChange={(e) => setFieldValue("emergencyContactSafeToLeaveMsg", e)}
+      >
+        Safe to leave msg
+      </Checkbox>
       <Button onPress={() => handleSubmit()}>Submit</Button>
     </View>
   );
