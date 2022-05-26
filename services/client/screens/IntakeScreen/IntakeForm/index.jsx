@@ -68,9 +68,104 @@ const IntakeForm = (props) => {
       cat: true,
       serviceAnimal: true,
       supportAnimal: true,
-      nameOne: 'Doggo',
-      nameTwo: 'Catto',
+      nameOne: "Doggo",
+      nameTwo: "Catto",
     },
+
+    members: [
+      {
+        date_of_enrollment: null,
+        demographics: {
+          firstName: "Jane",
+          lastName: "Doe",
+          gender: "",
+          relationship: "Self",
+          dob: "",
+          ssn: "",
+          income: "",
+          // employer: null,
+          incomeSource: {
+            job: "",
+            TANF: "",
+            SSI: "",
+            SSDI: "",
+            childSupport: "",
+            other: "",
+          },
+          race: [],
+          ethnicity: "",
+        },
+        barriers: {
+          alcoholAbuse: null,
+          developmentalDisabilities: null,
+          chronicHealthIssues: null,
+          drugAbuse: null,
+          HIVAIDs: null,
+          mentalIllness: null,
+          physicalDisabilities: null,
+          listIndefiniteConditions: null,
+          listIssues: null,
+        },
+        schools: {
+          highestGradeCompleted: null,
+          enrolledStatus: null,
+          reasonNotEnrolled: null,
+          attendanceStatus: null,
+          schoolType: null,
+          schoolName: null,
+          mckinneySchool: null,
+        },
+        caseMembers: null,
+        flag: null,
+        percentComplete: 0,
+      },
+      {
+        date_of_enrollment: null,
+        demographics: {
+          firstName: "Jake",
+          lastName: "Doe",
+          gender: "",
+          relationship: "Child",
+          dob: "",
+          ssn: "",
+          income: "",
+          // employer: null,
+          incomeSource: {
+            job: "",
+            TANF: "",
+            SSI: "",
+            SSDI: "",
+            childSupport: "",
+            other: "",
+          },
+          race: [],
+          ethnicity: "",
+        },
+        barriers: {
+          alcoholAbuse: null,
+          developmentalDisabilities: null,
+          chronicHealthIssues: null,
+          drugAbuse: null,
+          HIVAIDs: null,
+          mentalIllness: null,
+          physicalDisabilities: null,
+          listIndefiniteConditions: null,
+          listIssues: null,
+        },
+        schools: {
+          highestGradeCompleted: null,
+          enrolledStatus: null,
+          reasonNotEnrolled: null,
+          attendanceStatus: null,
+          schoolType: null,
+          schoolName: null,
+          mckinneySchool: null,
+        },
+        caseMembers: null,
+        flag: null,
+        percentComplete: 0,
+      },
+    ],
   });
 
   const onChange = (newFormValues) => {
@@ -88,7 +183,7 @@ const IntakeForm = (props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-            marginTop: '5%'
+            marginTop: "5%",
           }}
         >
           <RenderForm {...props} onChange={onChange} formValues={formValues} />
@@ -98,13 +193,21 @@ const IntakeForm = (props) => {
   );
 };
 
-const RenderForm = ({ step, nextStep, prevStep, onChange, formValues }) => {
+const RenderForm = ({
+  step,
+  nextStep,
+  prevStep,
+  onChange,
+  formValues,
+  setFormValues,
+}) => {
   const formProps = {
     step,
     nextStep,
     prevStep,
     onChange,
     formValues,
+    setFormValues,
   };
 
   switch (step) {

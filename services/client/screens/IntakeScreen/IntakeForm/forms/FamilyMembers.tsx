@@ -1,18 +1,21 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 
-import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
+import { Formik, Field, FieldArray, useFormik } from "formik";
 
 import TextInput from "../../../../components/TextInput";
 
 import * as Yup from "yup";
+
 import { Button, Select } from "native-base";
 
 import SelectInput from "../../../../components/SelectInput";
 
 import { Text } from "native-base";
 
-export default function FamilyMembers() {
+import memberValues from "../structures/member";
+
+export default function FamilyMembers({ nextStep, onChange }) {
   //Options for relationship drop down
   const relationshipOptions = [
     "Self",
@@ -31,19 +34,15 @@ export default function FamilyMembers() {
     members: [],
   };
 
-  const initialMemberValues = {
-    firstName: "",
-    lastName: "",
-    relationship: "",
-  };
-
   const validationSchema = Yup.object().shape({
     numberOfHouseholdMembers: Yup.string().required("Required"),
     members: Yup.array().of(
       Yup.object().shape({
-        firstName: Yup.string().required("First name is required"),
-        lastName: Yup.string().required("Last name is required"),
-        relationship: Yup.string().required("Relationship is required"),
+        demographics: Yup.object().shape({
+          firstName: Yup.string().required("First name is required"),
+          lastName: Yup.string().required("Last name is required"),
+          relationship: Yup.string().required("Relationship is required"),
+        }),
       })
     ),
   });
@@ -55,7 +54,7 @@ export default function FamilyMembers() {
     const previousNumber = parseInt(field.value || "0");
     if (previousNumber < numberOfHouseholdMembers) {
       for (let i = previousNumber; i < numberOfHouseholdMembers; i++) {
-        members.push({ firstName: "", lastName: "", relationship: "" });
+        members.push(memberValues());
       }
     } else {
       for (let i = previousNumber; i >= numberOfHouseholdMembers; i--) {
@@ -69,7 +68,8 @@ export default function FamilyMembers() {
   }
 
   function onSubmit(fields) {
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+    onChange({ members: [...fields.members] });
+    nextStep();
   }
 
   return (
@@ -95,6 +95,7 @@ export default function FamilyMembers() {
           }}
         >
           <Text fontSize="2xl">How many people belong to your household?</Text>
+
           <Field name="numberOfHouseholdMembers">
             {({ field }) => (
               <SelectInput
@@ -121,14 +122,22 @@ export default function FamilyMembers() {
             {() =>
               values.members.map((ticket, i) => {
                 const ticketErrors =
-                  (errors.members?.length && errors.members[i]) || {};
+                  (errors.members?.length &&
+                    errors.members[i] &&
+                    errors.members[i].demographics) ||
+                  {};
                 const ticketTouched =
-                  (touched.members && touched.members[i]) || {};
+                  (touched.members &&
+                    touched.members[i] &&
+                    touched.members[i].demographics) ||
+                  {};
 
-                const ticketValues = values.members[i];
+                const ticketValues =
+                  (values.members[i] && values.members[i].demographics) || {};
 
                 return (
                   <View
+                    key={i}
                     style={{
                       display: "flex",
                       alignItems: "flex-start",
@@ -136,7 +145,7 @@ export default function FamilyMembers() {
                       marginBottom: "3%",
                     }}
                   >
-                    <Text fontSize={"xl"}>{`Family member ${i + 1}`}`</Text>
+                    <Text fontSize={"xl"}>{`Family member ${i + 1}`}</Text>
                     <TextInput
                       width="100%"
                       placeholder="First name"
@@ -146,15 +155,13 @@ export default function FamilyMembers() {
                       value={ticketValues.firstName}
                       marginBottom={"20px"}
                       onChangeText={(value) => {
-                        setFieldValue("members", [
-                          ...values.members.map((ticket, key) => {
-                            if (key == i) {
-                              ticket["firstName"] = value;
-                            }
-
-                            return ticket;
-                          }),
-                        ]);
+                        handleChange(
+                          "firstName",
+                          value,
+                          values,
+                          setFieldValue,
+                          i
+                        );
                       }}
                     />
 
@@ -167,15 +174,14 @@ export default function FamilyMembers() {
                       value={ticketValues.lastName}
                       marginBottom={"20px"}
                       onChangeText={(value) => {
-                        setFieldValue("members", [
-                          ...values.members.map((ticket, key) => {
-                            if (key == i) {
-                              ticket["lastName"] = value;
-                            }
-
-                            return ticket;
-                          }),
-                        ]);
+                        console.log(errors);
+                        handleChange(
+                          "lastName",
+                          value,
+                          values,
+                          setFieldValue,
+                          i
+                        );
                       }}
                     />
 
@@ -187,15 +193,13 @@ export default function FamilyMembers() {
                       touched={ticketTouched.relationship}
                       blur={handleBlur("relationship")}
                       onValueChange={(value) => {
-                        setFieldValue("members", [
-                          ...values.members.map((ticket, key) => {
-                            if (key == i) {
-                              ticket["relationship"] = value;
-                            }
-
-                            return ticket;
-                          }),
-                        ]);
+                        handleChange(
+                          "relationship",
+                          value,
+                          values,
+                          setFieldValue,
+                          i
+                        );
                       }}
                     >
                       {relationshipOptions.map((opt, key) => (
@@ -217,4 +221,16 @@ export default function FamilyMembers() {
   );
 }
 
-const styles = StyleSheet.create({});
+const handleChange = (field, value, values, setFieldValue, position) => {
+  console.log(values);
+
+  return setFieldValue("members", [
+    ...values.members.map((member, i) => {
+      if (i == position) {
+        member.demographics[field] = value;
+      }
+
+      return member;
+    }),
+  ]);
+};
