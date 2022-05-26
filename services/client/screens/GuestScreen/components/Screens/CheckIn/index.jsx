@@ -90,7 +90,6 @@ const FormContainer = styled.View`
   text-align: center;
   width: 30%;
 
-  height: 800px;
 `;
 
 const Container = styled.View`

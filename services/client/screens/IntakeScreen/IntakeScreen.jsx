@@ -1,13 +1,13 @@
 import { Button } from "native-base";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import useStep from "../../hooks/useStep";
 import IntakeForm from "./IntakeForm";
 
 import Navigation from "./Navivgation";
 
 const IntakeScreen = ({ route }) => {
-  const [step, setStep, nextStep, prevStep] = useStep(1);
+  const [step, setStep, nextStep, prevStep] = useStep(2);
 
   const props = {
     step,
@@ -17,9 +17,9 @@ const IntakeScreen = ({ route }) => {
   };
 
   return (
-    <View>
+    <ScrollView>
       <IntakeForm {...props} />
-    </View>
+    </ScrollView>
   );
 };
 

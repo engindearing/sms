@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 
 import TextInput from "../../../../components/TextInput";
 
-import { Button, Checkbox, Text } from "native-base";
+import { Button, Checkbox, Text, Spacer } from "native-base";
 
 import * as Yup from "yup";
 
@@ -41,7 +41,9 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       try {
         onChange(newValues);
 
-        console.log(newValues)
+        nextStep();
+
+        console.log(newValues);
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -51,9 +53,15 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
   });
 
   return (
-    <View>
+    <View style={{ width: "100%" }}>
+      <Text style={{
+        textAlign: 'center',
+        marginBottom: '2%'
+      }} fontSize={"2xl"}>Contact Information</Text>
+
       <Text fontSize={"2xl"}>First contact</Text>
       <TextInput
+        width="100%"
         placeholder="Full name"
         onChangeText={handleChange("contactOneName")}
         name="contactOneName"
@@ -70,6 +78,8 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.contactOneNumber}
         value={values.contactOneNumber}
       />
+
+      <Spacer />
 
       <Checkbox
         value="safeToLeaveMsg"
@@ -96,6 +106,9 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched.contactTwoNumber}
         value={values.contactTwoNumber}
       />
+
+      <Spacer />
+
       <Checkbox
         value={"false"}
         defaultIsChecked={true}
@@ -127,7 +140,9 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       >
         Safe to leave msg
       </Checkbox>
-      <Button onPress={() => handleSubmit()}>Submit</Button>
+      <Button style={{ marginTop: "5%" }} onPress={() => handleSubmit()}>
+        Submit
+      </Button>
     </View>
   );
 }

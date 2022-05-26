@@ -19,6 +19,7 @@ import {
 } from "./forms";
 
 import styled from "styled-components/native";
+import { Wrap, Card } from "native-base";
 
 const IntakeForm = (props) => {
   const [formValues, setFormValues] = useState({
@@ -30,19 +31,70 @@ const IntakeForm = (props) => {
     contactTwoSafeToLeaveMsg: true,
     emergencyContactName: "Sheesh",
     emergencyContactNumber: "814 218 7640",
+
+    lastPermanentAddress: "1211 test st",
+    currentLocation: "1212 test st",
+    lengthAtCurrentLocation: "2 days",
+    priorLocation: "1213 test st",
+    lengthAtPriorLocation: "3 days",
+    homelessStartDate: "last week",
+    numTimesHomeless: "10",
+    totalLenHomeless: "4",
+
+    membersCovered: "2",
+    insuranceType: "Medicare",
+
+    make: "make",
+    model: "model",
+    year: "2022",
+    color: "red",
+    lic: "12312312312",
+
+    foodstamps: false,
+    cpsFps: false,
+    rrh: false,
+    housingVoucher: true,
+    veteranServices: false,
+    snap: true,
+
+    isPregnant: true,
+    ifYesWho: "stacy",
+    due: "2023",
+
+    pets: {
+      shelter: false,
+      amount: 2,
+      dog: true,
+      cat: true,
+      serviceAnimal: true,
+      supportAnimal: true,
+      nameOne: 'Doggo',
+      nameTwo: 'Catto',
+    },
   });
 
   const onChange = (newFormValues) => {
     setFormValues({
       ...formValues,
-      ...newFormValues
+      ...newFormValues,
     });
   };
 
   return (
-    <FormContainer>
-      <RenderForm {...props} onChange={onChange} formValues={formValues} />
-    </FormContainer>
+    <Wrapper>
+      <FormContainer>
+        <Card
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            marginTop: '5%'
+          }}
+        >
+          <RenderForm {...props} onChange={onChange} formValues={formValues} />
+        </Card>
+      </FormContainer>
+    </Wrapper>
   );
 };
 
@@ -87,8 +139,21 @@ const RenderForm = ({ step, nextStep, prevStep, onChange, formValues }) => {
   }
 };
 
-const FormContainer = styled.View`
+const Wrapper = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+`;
+
+const FormContainer = styled.View`
+  width: 50%;
+
+  ${(props) => props.theme.isLaptop && "width: 50%;"}
+
+  ${(props) => props.theme.isTablet && "width: 70%;"}
+
+  ${(props) => props.theme.isMobileL && "width: 100%;"}
 `;
 
 export default IntakeForm;

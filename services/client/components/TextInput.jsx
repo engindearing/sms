@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Input, FormControl } from "native-base";
+import { Input, FormControl, WarningOutlineIcon } from "native-base";
 
-import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function TextInput(props) {
@@ -14,12 +13,15 @@ export default function TextInput(props) {
       <Input
         size="xl"
         variant="underlined"
+        marginBottom={0}
         InputLeftElement={
           <MaterialIcons name={props.icon} size={25} color="black" />
         }
         {...props}
       />
-      <FormControl.ErrorMessage>{error}</FormControl.ErrorMessage>
+      <FormControl.ErrorMessage margin={0} leftIcon={<WarningOutlineIcon size="xs" />}>
+        {error}
+      </FormControl.ErrorMessage>
     </FormControl>
   );
 }

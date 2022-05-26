@@ -12,35 +12,29 @@ import { Button } from "native-base";
 
 import { Container, FormInputs } from "./LoginScreen.styles";
 const LoginScreen = () => {
-
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
 
-  const {
-    handleChange,
-    handleSubmit,
-    handleBlur,
-    errors,
-    touched,
-  } = useFormik({
-    initialValues: { email: "", password: "", onSubmit: "" },
-    validationSchema: LoginSchema,
+  const { handleChange, handleSubmit, handleBlur, errors, touched } = useFormik(
+    {
+      initialValues: { email: "", password: "", onSubmit: "" },
+      validationSchema: LoginSchema,
 
-    onSubmit: async ({ email, password }) => {
-      setLoading(true);
-      try {
-        await auth.signInWithEmailAndPassword(email, password);
-
-      } catch (error) {
-        // #TODO
-        // Handle specific errors, use a popup instead of alert
-        alert('Invalid username or password')
-      } finally {
-        setLoading(false);
-      }
-    },
-  });
+      onSubmit: async ({ email, password }) => {
+        setLoading(true);
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+        } catch (error) {
+          // #TODO
+          // Handle specific errors, use a popup instead of alert
+          alert("Invalid username or password");
+        } finally {
+          setLoading(false);
+        }
+      },
+    }
+  );
 
   return (
     <Container behavior="padding">
