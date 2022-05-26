@@ -26,7 +26,7 @@ const CheckboxInput = ({
 
 export const CheckboxGroup = ({
   children,
-  onChange,
+  onChange = (n, v) => {},
   error = null,
   touched = null,
 }) => {

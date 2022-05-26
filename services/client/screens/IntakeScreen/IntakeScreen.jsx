@@ -7,7 +7,7 @@ import IntakeForm from "./IntakeForm";
 import Navigation from "./Navivgation";
 
 const IntakeScreen = ({ route }) => {
-  const [step, setStep, nextStep, prevStep] = useStep(4);
+  const [step, setStep, nextStep, prevStep] = useStep(5);
 
   const props = {
     step,
