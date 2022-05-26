@@ -61,7 +61,7 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
           }),
 
           dob: Yup.string()
-            .required("required")
+            .required("Required")
             .test(
               "is-valid-date",
               "Invalid date. Make sure the format is correct (MM/DD/YYYY)",
@@ -167,13 +167,7 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
                       label="Birthdate"
                       marginBottom={"20px"}
                       onChangeText={(value) => {
-                        handleChange(
-                          "dob",
-                          value,
-                          values,
-                          setFieldValue,
-                          i
-                        );
+                        handleChange("dob", value, values, setFieldValue, i);
                       }}
                     />
 
@@ -201,13 +195,7 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
                       label="Monthly Income"
                       marginBottom={"20px"}
                       onChangeText={(value) => {
-                        handleChange(
-                          "income",
-                          value,
-                          values,
-                          setFieldValue,
-                          i
-                        );
+                        handleChange("income", value, values, setFieldValue, i);
                       }}
                     />
                     <Text fontSize={"xl"} marginBottom="3%">

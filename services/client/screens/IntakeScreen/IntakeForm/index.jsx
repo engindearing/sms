@@ -19,6 +19,7 @@ import {
 } from "./forms";
 
 import styled from "styled-components/native";
+
 import { Wrap, Card } from "native-base";
 
 const IntakeForm = (props) => {
@@ -131,12 +132,12 @@ const IntakeForm = (props) => {
           income: "",
           // employer: null,
           incomeSource: {
-            job: "",
-            TANF: "",
-            SSI: "",
-            SSDI: "",
-            childSupport: "",
-            other: "",
+            job: false,
+            TANF: false,
+            SSI: false,
+            SSDI: false,
+            childSupport: false,
+            other: false,
           },
           race: [],
           ethnicity: "",
