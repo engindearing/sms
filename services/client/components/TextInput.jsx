@@ -8,7 +8,10 @@ export default function TextInput(props) {
   let { error, label, touched, handleChange, name, value } = props;
 
   return (
-    <FormControl isInvalid={error && touched ? true : false}>
+    <FormControl
+      marginBottom={"3%"}
+      isInvalid={error && touched ? true : false}
+    >
       <FormControl.Label>{label}</FormControl.Label>
       <Input
         size="xl"
@@ -19,7 +22,10 @@ export default function TextInput(props) {
         }
         {...props}
       />
-      <FormControl.ErrorMessage margin={0} leftIcon={<WarningOutlineIcon size="xs" />}>
+      <FormControl.ErrorMessage
+        margin={0}
+        leftIcon={<WarningOutlineIcon size="xs" />}
+      >
         {error}
       </FormControl.ErrorMessage>
     </FormControl>

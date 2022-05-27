@@ -8,7 +8,7 @@ export default function TextAreaInput(props) {
   let { error, label, touched, handleChange, name, value } = props;
 
   return (
-    <FormControl style={{marginTop: '1%', marginBottom: '1%'}} isInvalid={error && touched ? true : false}>
+    <FormControl style={{marginTop: '2%', marginBottom: '2%'}} isInvalid={error && touched ? true : false}>
       <FormControl.Label>{label}</FormControl.Label>
       <TextArea
         size="xl"
