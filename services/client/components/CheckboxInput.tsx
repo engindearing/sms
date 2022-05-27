@@ -12,6 +12,7 @@ const CheckboxInput = ({
   error = null,
   touched = null,
   onChange = (n, v) => {},
+  style = {},
 }) => {
   return (
     <Checkbox
