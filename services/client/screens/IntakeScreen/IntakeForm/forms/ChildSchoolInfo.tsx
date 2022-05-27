@@ -120,8 +120,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
           <FieldArray name="members">
             {() =>
               values.members.map((ticket, i) => {
-                alert(getAge(ticket.demographics.dob));
-
                 const ticketErrors =
                   (errors.members?.length &&
                     errors.members[i] &&

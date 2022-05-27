@@ -16,6 +16,28 @@ import {
   IntakeStart,
   Pets,
   ValidateFormData,
+  ClientRelease,
+  ClientReleaseStaffSig,
+  ClientReleaseSignature,
+  ThirdPartyConsent,
+  ThirdPartySigs,
+  GuestWaiver,
+  CaseManagement,
+  PhotoRelease,
+  CoreValues,
+  AntiDiscrimination,
+  Expectations,
+  Decorum,
+  AbideBy,
+  SuspensionAgreement,
+  GrievanceAppeal,
+  Belongings,
+  Schedule,
+  Safety,
+  AnimalNo,
+  AnimalYes,
+  Neighborhood,
+  NeighborhoodExpectations,
 } from "./forms";
 
 import styled from "styled-components/native";
@@ -236,6 +258,50 @@ const RenderForm = ({
       return <Pets {...formProps} />;
     case 12:
       return <ValidateFormData {...formProps} />;
+    case 13:
+      return <ClientRelease {...formProps} />;
+    case 14:
+      return <ClientReleaseSignature {...formProps} />;
+    case 15:
+      return <ClientReleaseStaffSig {...formProps} />;
+    case 16:
+      return <ThirdPartyConsent {...formProps} />;
+    case 17:
+      return <ThirdPartySigs {...formProps} />;
+    case 18:
+      return <GuestWaiver {...formProps} />;
+    case 19:
+      return <CaseManagement {...formProps} />;
+    case 20:
+      return <PhotoRelease {...formProps} />;
+    case 21:
+      return <CoreValues {...formProps} />;
+    case 22:
+      return <AntiDiscrimination {...formProps} />;
+    case 23:
+      return <Expectations {...formProps} />;
+    case 24:
+      return <Decorum {...formProps} />;
+    case 25:
+      return <AbideBy {...formProps} />;
+    case 26:
+      return <SuspensionAgreement {...formProps} />;
+    case 27:
+      return <GrievanceAppeal {...formProps} />;
+    case 28:
+      return <Belongings {...formProps} />;
+    case 29:
+      return <Schedule {...formProps} />;
+    case 30:
+      return <Safety {...formProps} />;
+    case 31:
+      return <AnimalNo {...formProps} />;
+    case 32:
+      return <AnimalYes {...formProps} />;
+    case 33:
+      return <Neighborhood {...formProps} />;
+    case 34:
+      return <NeighborhoodExpectations {...formProps} />;
     default:
       return <Text>Invalid</Text>;
   }
