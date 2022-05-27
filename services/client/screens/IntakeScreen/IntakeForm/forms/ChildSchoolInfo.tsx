@@ -15,48 +15,50 @@ import TextAreaInput from "../../../../components/TextAreaInput";
 
 import { Text } from "native-base";
 
+import getAge from "../../../../utils/getAge";
+
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
 
-//Options for race
-const options = [
-  "Hispanic/Latino",
-  "American Indian or Alaska Native",
-  "Asian",
-  "Black or African American",
-  "Native Hawaiian or Pacific Islander",
-  "White",
-  "Unknown",
-  "Decline to Answer",
+const gradeOptions = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
 ];
+
+const attendStatOptions = [
+  "Regular",
+  "Irregular",
+  "Dropped out",
+  "Suspended",
+  "Expelled",
+];
+
+const schoolTypeOptions = ["Public", "Private"];
 
 export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
   //Options for relationship drop down
 
-  const options = [
-    "Alcohol Abuse",
-    "Developmental Disability",
-    "Chronic Health Issues",
-    "Drug Abuse",
-    "HIV/AIDS",
-    "Mental Illness",
-    "Physical Disability",
-  ];
-  const optionDataName = {
-    "Alcohol Abuse": "alcoholAbuse",
-    "Developmental Disability": "developmentalDisabilities",
-    "Chronic Health Issues": "chronicHealthIssues",
-    "Drug Abuse": "drugAbuse",
-    "HIV/AIDS": "HIVAIDs",
-    "Mental Illness": "mentalIllness",
-    "Physical Disability": "physicalDisabilities",
-  };
-
   const { members } = formValues;
 
+  let children = members.filter((mem) => getAge(mem.demographics.dob) <= 18);
+
+  if (children.length == 0) {
+    nextStep();
+  }
+
   const initialValues = {
-    members: [...members],
+    members: [...children],
   };
 
   const validationSchema = Yup.object().shape({
@@ -65,11 +67,13 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
         schools: Yup.object().shape({
           highestGradeCompleted: Yup.string().nullable().required("Required"),
           enrolledStatus: Yup.boolean(),
-          attendanceStatus: Yup.string().nullable().required('Required'),
-          reasonNotEnrolled: Yup.string().nullable().when("enrolledStatus", {
-            is: false,
-            then: Yup.string().nullable().required("Required"),
-          }),
+          attendanceStatus: Yup.string().nullable().required("Required"),
+          reasonNotEnrolled: Yup.string()
+            .nullable()
+            .when("enrolledStatus", {
+              is: false,
+              then: Yup.string().nullable().required("Required"),
+            }),
           schoolType: Yup.string().nullable().required("Required"),
           schoolName: Yup.string().nullable().required("Required"),
           mckinneySchool: Yup.boolean(),
@@ -85,31 +89,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
   }
 
-  const gradeOptions = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12",
-  ];
-
-  const attendStatOptions = [
-    "Regular",
-    "Irregular",
-    "Dropped out",
-    "Suspended",
-    "Expelled",
-  ];
-
-  const schoolTypeOptions = ["Public", "Private"];
-
   return (
     <Formik
       initialValues={initialValues}
@@ -120,7 +99,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
         errors,
         values,
         touched,
-        setValues,
         handleBlur,
         setFieldValue,
         handleSubmit,
@@ -142,6 +120,8 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
           <FieldArray name="members">
             {() =>
               values.members.map((ticket, i) => {
+                alert(getAge(ticket.demographics.dob));
+
                 const ticketErrors =
                   (errors.members?.length &&
                     errors.members[i] &&
