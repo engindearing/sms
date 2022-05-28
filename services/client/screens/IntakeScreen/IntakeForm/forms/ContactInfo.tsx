@@ -41,7 +41,7 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         phoneTwo: {
           name: formValues.contact.phoneTwo.name,
           number: formValues.contact.phoneTwo.number,
-          safeToLeaveMsg: formValues.contact.phoneTwo.emergencyContact,
+          safeToLeaveMsg: formValues.contact.phoneTwo.safeToLeaveMsg,
         },
 
         emergencyContact: {
@@ -53,11 +53,11 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
     validationSchema: ContactSchema,
     isInitialValid: true,
 
-    onSubmit: async (contacts) => {
+    onSubmit: async (contact) => {
       try {
-        // let data = await updateHouseholdContacts(formValues._id, contacts);
+        let data = await updateHouseholdContacts(formValues._id, contact);
 
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(contacts, null, 4));
+        alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
 
         // await updateHouseholdContacts()
       } catch (error) {
@@ -155,7 +155,7 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         touched={touched?.contact?.emergencyContact?.number}
         value={values?.contact?.emergencyContact?.number}
       />
-   
+
       <Button
         style={{ marginTop: "5%" }}
         onPress={() => {
@@ -172,20 +172,29 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
 const ContactSchema = Yup.object().shape({
   contact: Yup.object().shape({
     phoneOne: Yup.object().shape({
-      name: Yup.string().nullable().required(),
-      number: Yup.string().phone().nullable().required(),
+      name: Yup.string().nullable().required("Required"),
+      number: Yup.string()
+        .phone("IN", true, "Invalid phone number")
+        .nullable()
+        .required("Required"),
       safeToLeaveMsg: Yup.boolean().nullable(),
     }),
 
     phoneTwo: Yup.object().shape({
-      name: Yup.string().nullable().required(),
-      number: Yup.string().phone().nullable().required(),
+      name: Yup.string().nullable().required("Required"),
+      number: Yup.string()
+        .phone("IN", true, "Invalid phone number")
+        .nullable()
+        .required("Required"),
       safeToLeaveMsg: Yup.string().nullable(),
     }),
 
     emergencyContact: Yup.object().shape({
-      name: Yup.string().nullable().required(),
-      number: Yup.string().phone().nullable().required(),
+      name: Yup.string().nullable().required("Required"),
+      number: Yup.string()
+        .phone("IN", true, "Invalid phone number")
+        .nullable()
+        .required("Required"),
     }),
   }),
 });
