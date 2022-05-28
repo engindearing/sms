@@ -1,5 +1,7 @@
 import { Household } from "../../../models/Household"
 
+import { Member } from "../../../models/Member"
+
 export const updateHousehold = async (req:any,res:any) => {
 
     const { id } = req.params
@@ -13,7 +15,21 @@ export const updateHousehold = async (req:any,res:any) => {
     }
 }
 
-export const addMember = (req:any,res:any) => {
-    res.send('household member added')
+export const addMembers = async (req:any,res:any) => {
+    const { id } = req.params
+
+    let membersData = req.body.map((mem:any) => ({ ...mem, household: id }))
+
+    try {
+
+        let members = await Member.create(membersData)
+
+        res.json(members)
+        
+    } catch (error) {
+
+        res.json(error)
+        
+    }
 }
 
