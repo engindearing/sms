@@ -15,6 +15,7 @@ import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import "yup-phone";
+import { updateHousehold } from "../../../../api/household";
 
 export default function AdditionalInfo({ formValues, onChange, nextStep }) {
   //Options for Gov Benifits w/dataBase name counterpart
@@ -30,7 +31,7 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
   const GOVBenifitsDataName = {
     "Food Stamps": "foodstamps",
     "CPS/FPS (Open case)": "cpsFps",
-    "RRH (Rapid Rehousing) ": "rrh",
+    "RRH (Rapid Rehousing) ": "RRH",
     "Housing Voucher (Current)": "housingVoucher",
     "Veteran Services": "veteranServices",
     "SNAP assistance": "snap",
@@ -46,30 +47,37 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      make: formValues.make,
-      model: formValues.model,
-      year: formValues.year,
-      color: formValues.color,
-      lic: formValues.lic,
+      vehicle: {
+        make: formValues.vehicle.make,
+        model: formValues.vehicle.model,
+        year: formValues.vehicle.year,
+        color: formValues.vehicle.color,
+        lic: formValues.vehicle.lic,
+      },
 
-      foodstamps: formValues.foodstamps,
-      cpsFps: formValues.cpsFps,
-      rrh: formValues.rrh,
-      housingVoucher: formValues.housingVoucher,
-      veteranServices: formValues.veteranServices,
-      snap: formValues.snap,
+      govBenefits: {
+        foodstamps: formValues.govBenefits.foodstamps,
+        cpsFps: formValues.govBenefits.cpsFps,
+        RRH: formValues.govBenefits.RRH,
+        housingVoucher: formValues.govBenefits.housingVoucher,
+        veteranServices: formValues.govBenefits.veteranServices,
+        snap: formValues.govBenefits.snap,
+      },
 
-      isPregnant: formValues.isPregnant,
-      ifYesWho: formValues.ifYesWho,
-      due: formValues.due,
+      pregnancies: {
+        isPregnant: formValues.pregnancies.isPregnant,
+        ifYesWho: formValues.pregnancies.ifYesWho,
+        due: formValues.pregnancies.due,
+      },
     },
 
     onSubmit: async (newValues) => {
       try {
-        console.log(newValues);
-        onChange(newValues);
+        let data = await updateHousehold(formValues._id, newValues);
 
-        alert("Finished");
+        onChange(data);
+
+        nextStep()
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -96,60 +104,60 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="make"
-        onChangeText={handleChange("make")}
+        onChangeText={handleChange("vehicle.make")}
         name="make"
-        onBlur={handleBlur("make")}
-        error={errors.make}
-        touched={touched.make}
-        value={values.make}
+        onBlur={handleBlur("vehicle.make")}
+        error={errors.vehicle?.make}
+        touched={touched.vehicle?.make}
+        value={values.vehicle?.make}
         label="Make"
       />
 
       <TextInput
         width="100%"
         placeholder="model"
-        onChangeText={handleChange("model")}
+        onChangeText={handleChange("vehicle.model")}
         name="model"
-        onBlur={handleBlur("model")}
-        error={errors.model}
-        touched={touched.model}
-        value={values.model}
+        onBlur={handleBlur("vehicle.model")}
+        error={errors.vehicle?.model}
+        touched={touched.vehicle?.model}
+        value={values.vehicle?.model}
         label="Model"
       />
 
       <TextInput
         width="100%"
         placeholder="year"
-        onChangeText={handleChange("year")}
+        onChangeText={handleChange("vehicle.year")}
         name="year"
-        onBlur={handleBlur("year")}
-        error={errors.year}
-        touched={touched.year}
-        value={values.year}
+        onBlur={handleBlur("vehicle.year")}
+        error={errors.vehicle?.year}
+        touched={touched.vehicle?.year}
+        value={values.vehicle?.year}
         label="Year"
       />
 
       <TextInput
         width="100%"
         placeholder="color"
-        onChangeText={handleChange("color")}
+        onChangeText={handleChange("vehicle.color")}
         name="color"
-        onBlur={handleBlur("color")}
-        error={errors.color}
-        touched={touched.color}
-        value={values.color}
+        onBlur={handleBlur("vehicle.color")}
+        error={errors.vehicle?.color}
+        touched={touched.vehicle?.color}
+        value={values.vehicle?.color}
         label="Color"
       />
 
       <TextInput
         width="100%"
         placeholder="#"
-        onChangeText={handleChange("lic")}
+        onChangeText={handleChange("vehicle.lic")}
         name="lic"
-        onBlur={handleBlur("lic")}
-        error={errors.lic}
-        touched={touched.lic}
-        value={values.lic}
+        onBlur={handleBlur("vehicle.lic")}
+        error={errors.vehicle?.lic}
+        touched={touched.vehicle?.lic}
+        value={values.vehicle?.lic}
         label="Liscence #"
       />
 
@@ -163,8 +171,10 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
         return (
           <Checkbox
             value="isPregnant"
-            defaultIsChecked={values[GOVBenifitsDataName[key]]}
-            onChange={(e) => setFieldValue(GOVBenifitsDataName[key], e)}
+            defaultIsChecked={values.govBenefits[GOVBenifitsDataName[key]]}
+            onChange={(e) =>
+              setFieldValue(`govBenefits.${GOVBenifitsDataName[key]}`, e)
+            }
             key={key}
           >
             {key}
@@ -180,37 +190,37 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
 
       <Checkbox
         value="isPregnant"
-        defaultIsChecked={values.isPregnant}
-        onChange={(e) => setFieldValue("isPregnant", e)}
+        defaultIsChecked={values.pregnancies?.isPregnant}
+        onChange={(e) => setFieldValue("pregnancies.isPregnant", e)}
       >
         Is any one in your household pregnant?
       </Checkbox>
 
       <Spacer />
 
-      {values.isPregnant && (
+      {values.pregnancies?.isPregnant && (
         <>
           <TextInput
             width="100%"
             placeholder="name"
-            onChangeText={handleChange("ifYesWho")}
+            onChangeText={handleChange("pregnancies.ifYesWho")}
             name="ifYesWho"
-            onBlur={handleBlur("ifYesWho")}
-            error={errors.ifYesWho}
-            touched={touched.ifYesWho}
-            value={values.ifYesWho}
+            onBlur={handleBlur("pregnancies.ifYesWho")}
+            error={errors.pregnancies?.ifYesWho}
+            touched={touched.pregnancies?.ifYesWho}
+            value={values.pregnancies?.ifYesWho}
             label="If yes, who?"
           />
 
           <TextInput
             width="100%"
             placeholder="date"
-            onChangeText={handleChange("due")}
+            onChangeText={handleChange("pregnancies.due")}
             name="due"
             onBlur={handleBlur("due")}
-            error={errors.due}
-            touched={touched.due}
-            value={values.due}
+            error={errors.pregnancies?.due}
+            touched={touched.pregnancies?.due}
+            value={values.pregnancies?.due}
             label="When is the due date?"
           />
         </>
@@ -224,22 +234,28 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
 }
 
 const ContactSchema = Yup.object().shape({
-  make: Yup.string(),
-  model: Yup.string(),
-  year: Yup.string(),
-  color: Yup.string(),
-  lic: Yup.string(),
+  vehicle: Yup.object().shape({
+    make: Yup.string(),
+    model: Yup.string(),
+    year: Yup.string(),
+    color: Yup.string(),
+    lic: Yup.string(),
+  }),
 
-  foodstamps: Yup.boolean(),
-  cpsFps: Yup.boolean(),
-  rrh: Yup.boolean(),
-  housingVoucher: Yup.boolean(),
-  veteranServices: Yup.boolean(),
-  snap: Yup.boolean(),
+  pregnancies: Yup.object().shape({
+    isPregnant: Yup.boolean(),
+    ifYesWho: Yup.string(),
+    due: Yup.string(),
+  }),
 
-  isPregnant: Yup.boolean(),
-  ifYesWho: Yup.string(),
-  due: Yup.string(),
+  govBenefits: Yup.object().shape({
+    foodstamps: Yup.boolean(),
+    cpsFps: Yup.boolean(),
+    rrh: Yup.boolean(),
+    housingVoucher: Yup.boolean(),
+    veteranServices: Yup.boolean(),
+    snap: Yup.boolean(),
+  }),
 });
 
 const Spacer = styled.View`

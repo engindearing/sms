@@ -41,11 +41,11 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
     validationSchema: ContactSchema,
 
     onSubmit: async (homeless) => {
-      console.log(homeless);
       try {
         let data = await updateHousehold(formValues._id, homeless);
 
-        alert("SUCCxESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+        onChange(data);
+        nextStep();
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert

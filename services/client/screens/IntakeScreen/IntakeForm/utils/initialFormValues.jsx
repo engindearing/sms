@@ -24,22 +24,28 @@ const devValues = {
   membersCovered: "2",
   insuranceType: "Medicare",
 
-  make: "make",
-  model: "model",
-  year: "2022",
-  color: "red",
-  lic: "12312312312",
+  vehicle: {
+    make: "",
+    model: "",
+    year: "",
+    color: "",
+    lic: "",
+  },
 
-  foodstamps: false,
-  cpsFps: false,
-  rrh: false,
-  housingVoucher: true,
-  veteranServices: false,
-  snap: true,
+  govBenefits: {
+    foodstamps: false,
+    cpsFps: false,
+    rrh: false,
+    housingVoucher: true,
+    veteranServices: false,
+    snap: true,
+  },
 
-  isPregnant: true,
-  ifYesWho: "stacy",
-  due: "2023",
+  pregnancies: {
+    isPregnant: true,
+    ifYesWho: "stacy",
+    due: "2023",
+  },
 
   domesticViolence: {
     fleeingDv: true,
@@ -167,23 +173,20 @@ const prodValues = {
   membersCovered: "",
   insuranceType: "",
 
-  make: "",
-  model: "",
-  year: "",
-  color: "",
-  lic: "",
+  govBenefits: {
+    foodstamps: false,
+    cpsFps: false,
+    rrh: false,
+    housingVoucher: true,
+    veteranServices: false,
+    snap: true,
+  },
 
-  foodstamps: false,
-  cpsFps: false,
-  rrh: false,
-  housingVoucher: false,
-  veteranServices: false,
-  snap: false,
-
-  isPregnant: false,
-  ifYesWho: "",
-  due: "",
-
+  pregnancies: {
+    isPregnant: true,
+    ifYesWho: "stacy",
+    due: "2023",
+  },
   domesticViolence: {
     fleeingDv: true,
     YWCAcontacted: true,
@@ -201,6 +204,14 @@ const prodValues = {
     homelessStartDate: "last week",
     numTimesHomeless: "10",
     totalLenHomeless: "4",
+  },
+
+  vehicle: {
+    make: "",
+    model: "",
+    year: "",
+    color: "",
+    lic: "",
   },
 
   pets: {

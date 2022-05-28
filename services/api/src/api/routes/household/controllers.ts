@@ -12,6 +12,7 @@ export const updateHousehold = async (req: any, res: any) => {
 
     res.status(200).json(updatedHousehold);
   } catch (error) {
+    console.log(error)
     res.status(400).json(error);
   }
 };

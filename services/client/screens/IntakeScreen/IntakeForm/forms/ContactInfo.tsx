@@ -57,7 +57,8 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       try {
         let data = await updateHousehold(formValues._id, contact);
 
-        // await updateHouseholdContacts()
+        onChange(data)
+        nextStep()
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert

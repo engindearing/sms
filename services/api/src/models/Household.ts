@@ -69,6 +69,33 @@ const householdSchema: Schema = new mongoose.Schema(
       },
     },
 
+    govBenefits: {
+      RRH: {
+        type: Boolean,
+        default: null,
+      },
+      snap: {
+        type: Boolean,
+        default: null,
+      },
+      cpsFps: {
+        type: Boolean,
+        default: null,
+      },
+      foodstamps: {
+        type: Boolean,
+        default: null,
+      },
+      housingVoucher: {
+        type: Boolean,
+        default: null,
+      },
+      veteranServices: {
+        type: Boolean,
+        default: null,
+      },
+    },
+
     vehicle: {
       make: {
         type: String,
@@ -86,7 +113,7 @@ const householdSchema: Schema = new mongoose.Schema(
         type: String,
         default: null,
       },
-      liscensePlate: {
+      lic: {
         type: String,
         default: null,
       },
@@ -125,22 +152,22 @@ const householdSchema: Schema = new mongoose.Schema(
       },
     },
 
-    insurance: {
-      pregnancies: {
-        isPregnant: {
-          type: Boolean,
-          default: null,
-        },
-        ifYesWho: {
-          type: String,
-          default: null,
-        },
-        dueDate: {
-          type: Date,
-          default: null,
-        },
+    pregnancies: {
+      isPregnant: {
+        type: Boolean,
+        default: null,
       },
+      ifYesWho: {
+        type: String,
+        default: null,
+      },
+      due: {
+        type: String,
+        default: null,
+      },
+    },
 
+    insurance: {
       hasInsurance: {
         type: Boolean,
         default: null,

@@ -19,7 +19,6 @@ import "yup-phone";
 import { updateHousehold } from "../../../../api/household";
 
 export default function ContactInfo({ formValues, onChange, nextStep }) {
-  console.log(formValues);
   const {
     handleChange,
     handleSubmit,
@@ -44,7 +43,7 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       try {
         let data = await updateHousehold(formValues._id, domesticViolence);
 
-        onChange({ ...data });
+        onChange(data);
 
         nextStep();
       } catch (error) {
