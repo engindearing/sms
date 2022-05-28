@@ -13,12 +13,15 @@ const CheckboxInput = ({
   touched = null,
   onChange = (n, v) => {},
   style = {},
+  isChecked = false,
 }) => {
   return (
     <Checkbox
       isInvalid={error && touched}
       value={value}
       onChange={(value) => onChange(name, value)}
+      isChecked={isChecked}
+      
     >
       {children}
     </Checkbox>
