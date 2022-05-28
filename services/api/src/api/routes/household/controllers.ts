@@ -6,7 +6,9 @@ export const updateHousehold = async (req: any, res: any) => {
   const { id } = req.params;
 
   try {
-    let updatedHousehold = await Household.findByIdAndUpdate(id, req.body);
+    let updatedHousehold = await Household.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
     res.status(200).json(updatedHousehold);
   } catch (error) {

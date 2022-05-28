@@ -16,7 +16,11 @@ import * as Yup from "yup";
 
 import "yup-phone";
 
+import { updateHouseholdContacts } from "../../../../api/household";
+
 export default function ContactInfo({ formValues, onChange, nextStep }) {
+  const { contact } = formValues;
+
   const {
     handleChange,
     handleSubmit,
@@ -27,25 +31,35 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      contactOneName: formValues.contactOneName,
-      contactOneNumber: formValues.contactOneNumber,
-      contactOneSafeToLeaveMsg: formValues.contactOneSafeToLeaveMsg,
-      contactTwoName: formValues.contactTwoName,
-      contactTwoNumber: formValues.contactTwoNumber,
-      contactTwoSafeToLeaveMsg: formValues.contactTwoSafeToLeaveMsg,
-      emergencyContactName: formValues.emergencyContactName,
-      emergencyContactNumber: formValues.emergencyContactNumber,
-      emergencyContactSafeToLeaveMsg: formValues.emergencyContactSafeToLeaveMsg,
+      contact: {
+        phoneOne: {
+          name: formValues.contact.phoneOne.name,
+          number: formValues.contact.phoneOne.number,
+          safeToLeaveMsg: formValues.contact.phoneOne.safeToLeaveMsg,
+        },
+
+        phoneTwo: {
+          name: formValues.contact.phoneTwo.name,
+          number: formValues.contact.phoneTwo.number,
+          safeToLeaveMsg: formValues.contact.phoneTwo.emergencyContact,
+        },
+
+        emergencyContact: {
+          name: formValues.contact.emergencyContact.name,
+          number: formValues.contact.emergencyContact.number,
+        },
+      },
     },
     validationSchema: ContactSchema,
+    isInitialValid: true,
 
-    onSubmit: async (newValues) => {
+    onSubmit: async (contacts) => {
       try {
-        onChange(newValues);
+        // let data = await updateHouseholdContacts(formValues._id, contacts);
 
-        nextStep();
+        alert("SUCCESS!! :-)\n\n" + JSON.stringify(contacts, null, 4));
 
-        console.log(newValues);
+        // await updateHouseholdContacts()
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -70,54 +84,55 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Full name"
-        onChangeText={handleChange("contactOneName")}
+        onChangeText={handleChange("contact.phoneOne.name")}
         name="contactOneName"
-        onBlur={handleBlur("contactOneName")}
-        error={errors.contactOneName}
-        touched={touched.contactOneName}
-        value={values.contactOneName}
+        onBlur={handleBlur("contact.phoneOne.name")}
+        error={errors?.contact?.phoneOne?.name}
+        touched={touched?.contact?.phoneOne?.name}
+        value={values?.contact?.phoneOne?.name}
       />
       <TextInput
         placeholder="Number"
-        onChangeText={handleChange("contactOneNumber")}
-        onBlur={handleBlur("contactOneNumber")}
-        error={errors.contactOneNumber}
-        touched={touched.contactOneNumber}
-        value={values.contactOneNumber}
+        onChangeText={handleChange("contact.phoneOne.number")}
+        onBlur={handleBlur("contact.phoneOne.number")}
+        error={errors?.contact?.phoneOne?.number}
+        touched={touched?.contact?.phoneOne?.number}
+        value={values?.contact?.phoneOne?.number}
       />
 
       <Checkbox
         value="safeToLeaveMsg"
-        defaultIsChecked={values.contactOneSafeToLeaveMsg}
-        onChange={(e) => setFieldValue("contactOneSafeToLeaveMsg", e)}
+        defaultIsChecked={values.contact?.phoneOne.safeToLeaveMsg}
+        onChange={(e) => setFieldValue("contact.phoneOne.safeToLeaveMsg", e)}
       >
         Safe to leave msg
       </Checkbox>
-      
+
       <Spacer />
 
       <Text fontSize={"2xl"}>Second contact</Text>
+
       <TextInput
         placeholder="Full name"
-        onChangeText={handleChange("contactTwoName")}
-        onBlur={handleBlur("contactTwoName")}
-        error={errors.contactTwoName}
-        touched={touched.contactTwoName}
-        value={values.contactTwoName}
+        onChangeText={handleChange("contact.phoneTwo.name")}
+        onBlur={handleBlur("contact.phoneTwo.name")}
+        error={errors?.contact?.phoneTwo?.name}
+        touched={touched?.contact?.phoneTwo?.name}
+        value={values?.contact?.phoneTwo?.name}
       />
       <TextInput
         placeholder="Phone number"
-        onChangeText={handleChange("contactTwoNumber")}
-        onBlur={handleBlur("contactTwoNumber")}
-        error={errors.contactTwoNumber}
-        touched={touched.contactTwoNumber}
-        value={values.contactTwoNumber}
+        onChangeText={handleChange("contact.phoneTwo.number")}
+        onBlur={handleBlur("contact.phoneTwo.number")}
+        error={errors?.contact?.phoneTwo?.number}
+        touched={touched?.contact?.phoneTwo?.number}
+        value={values?.contact?.phoneTwo?.number}
       />
 
       <Checkbox
         value={"false"}
-        defaultIsChecked={values.contactTwoSafeToLeaveMsg}
-        onChange={(e) => setFieldValue("contactTwoSafeToLeaveMsg", e)}
+        defaultIsChecked={values?.contact?.phoneTwo?.safeToLeaveMsg}
+        onChange={(e) => setFieldValue("contact.phoneTwo.safeToLeaveMsg", e)}
       >
         Safe to leave msg
       </Checkbox>
@@ -126,28 +141,28 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       <Text fontSize={"2xl"}>Emergency contact</Text>
       <TextInput
         placeholder="Full name"
-        onChangeText={handleChange("emergencyContactName")}
-        onBlur={handleBlur("emergencyContactName")}
-        error={errors.emergencyContactName}
-        touched={touched.emergencyContactName}
-        value={values.emergencyContactName}
+        onChangeText={handleChange("contact.emergencyContact.name")}
+        onBlur={handleBlur("contact.emergencyContact.name")}
+        error={errors?.contact?.emergencyContact?.name}
+        touched={touched?.contact?.emergencyContact?.name}
+        value={values?.contact?.emergencyContact?.name}
       />
       <TextInput
         placeholder="Number"
-        onChangeText={handleChange("emergencyContactNumber")}
-        onBlur={handleBlur("emergencyContactNumber")}
-        error={errors.emergencyContactNumber}
-        touched={touched.emergencyContactNumber}
-        value={values.emergencyContactNumber}
+        onChangeText={handleChange("contact.emergencyContact.number")}
+        onBlur={handleBlur("contact.emergencyContact.number")}
+        error={errors?.contact?.emergencyContact?.number}
+        touched={touched?.contact?.emergencyContact?.number}
+        value={values?.contact?.emergencyContact?.number}
       />
-      <Checkbox
-        value={"false"}
-        defaultIsChecked={values.emergencyContactSafeToLeaveMsg}
-        onChange={(e) => setFieldValue("emergencyContactSafeToLeaveMsg", e)}
+   
+      <Button
+        style={{ marginTop: "5%" }}
+        onPress={() => {
+          console.log(values);
+          handleSubmit();
+        }}
       >
-        Safe to leave msg
-      </Checkbox>
-      <Button style={{ marginTop: "5%" }} onPress={() => handleSubmit()}>
         Submit
       </Button>
     </View>
@@ -155,12 +170,24 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
 }
 
 const ContactSchema = Yup.object().shape({
-  contactOneName: Yup.string().required("Required"),
-  contactOneNumber: Yup.string().phone().required("This field is Required"),
-  contactTwoName: Yup.string().required("Required"),
-  contactTwoNumber: Yup.string().phone().required("Required"),
-  emergencyContactName: Yup.string().required("Required"),
-  emergencyContactNumber: Yup.string().phone().required("Required"),
+  contact: Yup.object().shape({
+    phoneOne: Yup.object().shape({
+      name: Yup.string().nullable().required(),
+      number: Yup.string().phone().nullable().required(),
+      safeToLeaveMsg: Yup.boolean().nullable(),
+    }),
+
+    phoneTwo: Yup.object().shape({
+      name: Yup.string().nullable().required(),
+      number: Yup.string().phone().nullable().required(),
+      safeToLeaveMsg: Yup.string().nullable(),
+    }),
+
+    emergencyContact: Yup.object().shape({
+      name: Yup.string().nullable().required(),
+      number: Yup.string().phone().nullable().required(),
+    }),
+  }),
 });
 
 const Spacer = styled.View`
