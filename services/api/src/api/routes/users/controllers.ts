@@ -12,8 +12,6 @@ export const getCurrentUser = (req: any, res: any) => {
 
 
 export const getOrCreateIntakeData = async (req: any, res: any) => {
-
-
   try {
     let householdData = await Household.findOne({user: req.user._id})
 
