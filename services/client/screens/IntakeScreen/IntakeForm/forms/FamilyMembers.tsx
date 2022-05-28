@@ -15,8 +15,13 @@ import { Text } from "native-base";
 
 import memberValues from "../structures/member";
 
-export default function FamilyMembers({ nextStep, onChange }) {
+import styled from "styled-components/native";
+
+export default function FamilyMembers({ nextStep, onChange, formValues }) {
   //Options for relationship drop down
+
+  const { members } = formValues;
+
   const relationshipOptions = [
     "Self",
     "Partner",
@@ -30,8 +35,8 @@ export default function FamilyMembers({ nextStep, onChange }) {
   ];
 
   const initialValues = {
-    numberOfHouseholdMembers: "",
-    members: [],
+    numberOfHouseholdMembers: String(members.length),
+    members: [...members],
   };
 
   const validationSchema = Yup.object().shape({
@@ -106,6 +111,7 @@ export default function FamilyMembers({ nextStep, onChange }) {
                 onBlur={handleBlur("numberOfHouseholdMembers")}
                 marginBottom={"3%"}
                 error={errors.numberOfHouseholdMembers}
+                selectedValue={values.numberOfHouseholdMembers}
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((opt, key) => (
                   <Select.Item
@@ -146,9 +152,11 @@ export default function FamilyMembers({ nextStep, onChange }) {
                     }}
                   >
                     <Text fontSize={"xl"}>{`Family member ${i + 1}`}</Text>
+                    <Spacer />
                     <TextInput
                       width="100%"
                       placeholder="First name"
+                      label="First name:"
                       onBlur={handleBlur("members")}
                       error={ticketErrors.firstName}
                       touched={ticketTouched.firstName}
@@ -168,6 +176,7 @@ export default function FamilyMembers({ nextStep, onChange }) {
                     <TextInput
                       width="100%"
                       placeholder="Last name"
+                      label="Last name:"
                       onBlur={handleBlur("members")}
                       error={ticketErrors.lastName}
                       touched={ticketTouched.lastName}
@@ -189,9 +198,11 @@ export default function FamilyMembers({ nextStep, onChange }) {
                       accessibilityLabel="Choose Service"
                       minWidth={"100%"}
                       placeholder="Relationship"
+                      label="Relationship:"
                       error={ticketErrors.relationship}
                       touched={ticketTouched.relationship}
                       blur={handleBlur("relationship")}
+                      selectedValue={ticketValues.relationship}
                       onValueChange={(value) => {
                         handleChange(
                           "relationship",
@@ -234,3 +245,9 @@ const handleChange = (field, value, values, setFieldValue, position) => {
     }),
   ]);
 };
+
+const Spacer = styled.View`
+  margin-top: 10;
+
+  margin-bottom: 10;
+`;

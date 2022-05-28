@@ -6,7 +6,10 @@ export default function SelectInput(props) {
   const { error, label, touched, children } = props;
 
   return (
-    <FormControl marginBottom={'2%'} isInvalid={error && touched ? true : false}>
+    <FormControl
+      marginBottom={"2%"}
+      isInvalid={error && touched ? true : false}
+    >
       <FormControl.Label>{label}</FormControl.Label>
       <Select {...props}>{children}</Select>
       <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

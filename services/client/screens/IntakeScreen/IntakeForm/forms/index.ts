@@ -10,7 +10,6 @@ import Insurance from "./Insurance";
 import IntakeStart from "./IntakeStart";
 import Pets from "./Pets";
 import RaceEthnicityInfo from "./RaceEthnicityInfo";
-import ValidateFormData from "./ValidateFormData";
 import ClientRelease from "./ClientRelease/ClientRelease";
 import ClientReleaseSignature from "./ClientRelease/ClientReleaseSignature";
 import ClientReleaseStaffSig from "./ClientRelease/ClientReleaseStaffSig";
@@ -71,5 +70,4 @@ export {
     Insurance,
     IntakeStart,
     Pets,
-    ValidateFormData,
 }

@@ -5,7 +5,7 @@ import { Button, Text } from "native-base";
 export default function IntakeStart({ nextStep }) {
   return (
     <View>
-      <Text>
+      <Text fontSize={'lg'}>
         Be sure to complete as much information as possible when filling the
         form. Don’t leave any required sections blank. Please note in order to
         have 100% complete all values must be filled in. You should type “N/A”

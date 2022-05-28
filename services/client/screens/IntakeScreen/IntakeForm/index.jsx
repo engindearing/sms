@@ -15,7 +15,6 @@ import {
   Insurance,
   IntakeStart,
   Pets,
-  ValidateFormData,
   ClientRelease,
   ClientReleaseStaffSig,
   ClientReleaseSignature,
@@ -104,16 +103,16 @@ const IntakeForm = (props) => {
           gender: "",
           relationship: "Self",
           dob: "04/04/1990",
-          ssn: "",
-          income: "",
+          ssn: "1234",
+          income: "400",
           // employer: null,
           incomeSource: {
-            job: "",
-            TANF: "",
-            SSI: "",
-            SSDI: "",
-            childSupport: "",
-            other: "",
+            job: false,
+            TANF: false,
+            SSI: false,
+            SSDI: false,
+            childSupport: false,
+            other: false,
           },
           race: [],
           ethnicity: "",
@@ -150,8 +149,8 @@ const IntakeForm = (props) => {
           gender: "",
           relationship: "Child",
           dob: "04/04/2005",
-          ssn: "",
-          income: "",
+          ssn: "1149",
+          income: "800",
           // employer: null,
           incomeSource: {
             job: false,
@@ -165,8 +164,8 @@ const IntakeForm = (props) => {
           ethnicity: "",
         },
         barriers: {
-          highestGradeCompleted: null,
-          enrolledStatus: false,
+          highestGradeCompleted: "9",
+          enrolledStatus: true,
           reasonNotEnrolled: "",
           attendanceStatus: null,
           schoolType: null,
@@ -177,9 +176,9 @@ const IntakeForm = (props) => {
           highestGradeCompleted: "",
           enrolledStatus: false,
           reasonNotEnrolled: "",
-          attendanceStatus: "",
-          schoolType: "",
-          schoolName: "",
+          attendanceStatus: "Regular",
+          schoolType: "public",
+          schoolName: "Lincoln",
           mckinneySchool: false,
         },
         caseMembers: null,
@@ -256,51 +255,50 @@ const RenderForm = ({
       return <AdditionalInfo {...formProps} />;
     case 11:
       return <Pets {...formProps} />;
+
     case 12:
-      return <ValidateFormData {...formProps} />;
-    case 13:
       return <ClientRelease {...formProps} />;
-    case 14:
+    case 13:
       return <ClientReleaseSignature {...formProps} />;
-    case 15:
+    case 14:
       return <ClientReleaseStaffSig {...formProps} />;
-    case 16:
+    case 15:
       return <ThirdPartyConsent {...formProps} />;
-    case 17:
+    case 16:
       return <ThirdPartySigs {...formProps} />;
-    case 18:
+    case 17:
       return <GuestWaiver {...formProps} />;
-    case 19:
+    case 18:
       return <CaseManagement {...formProps} />;
-    case 20:
+    case 19:
       return <PhotoRelease {...formProps} />;
-    case 21:
+    case 20:
       return <CoreValues {...formProps} />;
-    case 22:
+    case 21:
       return <AntiDiscrimination {...formProps} />;
-    case 23:
+    case 22:
       return <Expectations {...formProps} />;
-    case 24:
+    case 23:
       return <Decorum {...formProps} />;
-    case 25:
+    case 24:
       return <AbideBy {...formProps} />;
-    case 26:
+    case 25:
       return <SuspensionAgreement {...formProps} />;
-    case 27:
+    case 26:
       return <GrievanceAppeal {...formProps} />;
-    case 28:
+    case 27:
       return <Belongings {...formProps} />;
-    case 29:
+    case 28:
       return <Schedule {...formProps} />;
-    case 30:
+    case 29:
       return <Safety {...formProps} />;
-    case 31:
+    case 30:
       return <AnimalNo {...formProps} />;
-    case 32:
+    case 31:
       return <AnimalYes {...formProps} />;
-    case 33:
+    case 32:
       return <Neighborhood {...formProps} />;
-    case 34:
+    case 33:
       return <NeighborhoodExpectations {...formProps} />;
     default:
       return <Text>Invalid</Text>;
