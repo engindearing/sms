@@ -46,8 +46,7 @@ import { Card } from "native-base";
 import { initialValues } from "./utils/initialFormValues";
 
 const IntakeForm = (props) => {
-  
-  const [formValues, setFormValues] = useState(initialValues());
+  const { formValues, setFormValues } = props;
 
   const onChange = (newFormValues) => {
     setFormValues({

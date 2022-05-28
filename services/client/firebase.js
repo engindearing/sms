@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase";
+import { axiosWithAuth } from "./auth/axiosWithAuth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,16 +12,16 @@ const firebaseConfig = {
   projectId: "authsms-b4af9",
   storageBucket: "authsms-b4af9.appspot.com",
   messagingSenderId: "336516402007",
-  appId: "1:336516402007:web:4f4f5d4b3c5826af728c12"
+  appId: "1:336516402007:web:4f4f5d4b3c5826af728c12",
 };
 
 let app;
 if (firebase.apps.length === 0) {
   app = firebase.initializeApp(firebaseConfig);
 } else {
-  app = firebase.app()
+  app = firebase.app();
 }
 
-const auth = firebase.auth()
+const auth = firebase.auth();
 
-export { auth }
+export { auth };

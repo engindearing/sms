@@ -40,6 +40,8 @@ const userSchema: Schema = new mongoose.Schema(
 );
 
 userSchema.static("findUserByEmailOrCreate", async function (email: string) {
+
+  
   try {
     let user = await this.findOne({ email })
       .populate({
@@ -52,8 +54,6 @@ userSchema.static("findUserByEmailOrCreate", async function (email: string) {
         ]
       })
   
-
-
     if (!user) {
       let newUser = await this.insertMany({ email });
 

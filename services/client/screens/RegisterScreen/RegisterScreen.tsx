@@ -9,7 +9,7 @@ import { Container, FormInputs } from "./RegisterScreen.styles";
 import { useFormik } from "formik";
 
 import { auth } from "../../firebase";
-1;
+
 import RegisterFormSchema from "./RegisterFormSchema";
 import TextInput from "../../components/TextInput";
 
@@ -27,11 +27,10 @@ const RegisterScreen = () => {
         try {
           await auth.createUserWithEmailAndPassword(email, password);
         } catch (error) {
-
           // #TODO
           // Check if user exists before trying to create
           // Handle specific errors, use popup
-          alert('User already exists')
+          alert("User already exists");
         } finally {
           setLoading(false);
         }
@@ -70,7 +69,12 @@ const RegisterScreen = () => {
           touched={touched.passwordConfirmation}
         />
 
-        <Button isLoading={loading} isLoadingText={'Creating user..'} style={{ marginTop: "3%" }} onPress={() => handleSubmit()}>
+        <Button
+          isLoading={loading}
+          isLoadingText={"Creating user.."}
+          style={{ marginTop: "3%" }}
+          onPress={() => handleSubmit()}
+        >
           Register
         </Button>
         <Button

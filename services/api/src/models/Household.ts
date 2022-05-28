@@ -12,6 +12,7 @@ interface IFamilyModel extends Model<IFamily> {
 
 const householdSchema: Schema = new mongoose.Schema(
     {
+        user: {type: mongoose.SchemaTypes.ObjectId, ref: 'User', required: true, default: null},
         status: {
           type: String,
           enum: ["start", "completed"],
@@ -86,12 +87,12 @@ const householdSchema: Schema = new mongoose.Schema(
           },
         },
   
-        lastPermanentAddress: {
-          type: String,
-          default: null,
-        },
-  
         homeless: {
+          lastPermanentAddress: {
+            type: String,
+            default: null,
+          },
+    
           priorLocation: {
             type: String,
             default: null,
@@ -207,5 +208,5 @@ const householdSchema: Schema = new mongoose.Schema(
   );
   
   
-  export const Family: IFamilyModel = model<IFamily, IFamilyModel>("household", householdSchema);
+  export const Household: IFamilyModel = model<IFamily, IFamilyModel>("household", householdSchema);
   
