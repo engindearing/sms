@@ -206,6 +206,11 @@ const householdSchema: Schema = new mongoose.Schema(
     },
 
     pets: {
+      amount: {
+        type: Number,
+        default: null,
+      },
+
       shelter: {
         type: Boolean,
         default: null,

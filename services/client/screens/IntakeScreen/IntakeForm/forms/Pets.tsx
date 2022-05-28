@@ -15,6 +15,7 @@ import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import "yup-phone";
+import { updateHousehold } from "../../../../api/household";
 
 export default function AdditionalInfo({ formValues, onChange, nextStep }) {
   //Options for Gov Benifits w/dataBase name counterpart
@@ -46,24 +47,27 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      shelter: formValues?.pets?.shelter,
-      amount: formValues?.pets?.amount,
-      dog: formValues?.pets?.dog,
-      cat: formValues?.pets.cat,
-      serviceAnimal: formValues?.pets?.serviceAnimal,
-      supportAnimal: formValues?.pets?.supportAnimal,
-      nameOne: formValues?.pets?.nameOne,
-      nameTwo: formValues?.pets?.nameTwo,
+      pets: {
+        shelter: formValues?.pets?.shelter,
+        amount: formValues?.pets?.amount,
+        dog: formValues?.pets?.dog,
+        cat: formValues?.pets.cat,
+        serviceAnimal: formValues?.pets?.serviceAnimal,
+        supportAnimal: formValues?.pets?.supportAnimal,
+        nameOne: formValues?.pets?.nameOne,
+        nameTwo: formValues?.pets?.nameTwo,
+      },
     },
 
     validationSchema: ContactSchema,
 
-    onSubmit: async (newValues) => {
+    onSubmit: async (pets) => {
       try {
-        console.log(newValues);
-        onChange(newValues);
+        let data = await updateHousehold(formValues._id, pets);
+        onChange(pets);
+        nextStep();
 
-        alert("Finished");
+        alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -87,8 +91,8 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
 
       <Checkbox
         value="shelter"
-        defaultIsChecked={values.shelter}
-        onChange={(e) => setFieldValue("shelter", e)}
+        defaultIsChecked={values.pets?.shelter}
+        onChange={(e) => setFieldValue("pets.shelter", e)}
       >
         Is your family bringing an animal with you into the shelter at the time
         of your intake?
@@ -96,17 +100,17 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
 
       <Spacer />
 
-      {values.shelter && (
+      {values.pets.shelter && (
         <>
           <TextInput
             width="100%"
             placeholder="#"
-            onChangeText={handleChange("amount")}
+            onChangeText={handleChange("pets.amount")}
             name="amount"
-            onBlur={handleBlur("amount")}
-            error={errors.amount}
-            touched={touched.amount}
-            value={values.amount}
+            onBlur={handleBlur("pets.amount")}
+            error={errors.pets?.amount}
+            touched={touched.pets?.amount}
+            value={values.pets?.amount}
             label="How many pets will you be bringing? (Max 2)"
           />
           <Spacer />
@@ -117,32 +121,32 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
 
           <Checkbox
             value="dog"
-            defaultIsChecked={values.dog}
-            onChange={(e) => setFieldValue("dog", e)}
+            defaultIsChecked={values.pets?.dog}
+            onChange={(e) => setFieldValue("pets.dog", e)}
           >
             Dog?
           </Checkbox>
 
           <Checkbox
             value="cat"
-            defaultIsChecked={values.cat}
-            onChange={(e) => setFieldValue("cat", e)}
+            defaultIsChecked={values.pets?.cat}
+            onChange={(e) => setFieldValue("pets.cat", e)}
           >
             Cat?
           </Checkbox>
 
           <Checkbox
             value="serviceAnimal"
-            defaultIsChecked={values.serviceAnimal}
-            onChange={(e) => setFieldValue("serviceAnimal", e)}
+            defaultIsChecked={values.pets?.serviceAnimal}
+            onChange={(e) => setFieldValue("pets.serviceAnimal", e)}
           >
             Service Animal?
           </Checkbox>
 
           <Checkbox
             value="supportAnimal"
-            defaultIsChecked={values.supportAnimal}
-            onChange={(e) => setFieldValue("supportAnimal", e)}
+            defaultIsChecked={values.pets?.supportAnimal}
+            onChange={(e) => setFieldValue("pets.supportAnimal", e)}
           >
             Emotional Support Animal?
           </Checkbox>
@@ -156,24 +160,24 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
           <TextInput
             width="100%"
             placeholder="name"
-            onChangeText={handleChange("nameOne")}
+            onChangeText={handleChange("pets.nameOne")}
             name="nameOne"
-            onBlur={handleBlur("nameOne")}
-            error={errors.nameOne}
-            touched={touched.nameOne}
-            value={values.nameOne}
+            onBlur={handleBlur("pets.nameOne")}
+            error={errors.pets?.nameOne}
+            touched={touched.pets?.nameOne}
+            value={values.pets?.nameOne}
             label="First pet name"
           />
 
           <TextInput
             width="100%"
             placeholder="name"
-            onChangeText={handleChange("nameTwo")}
+            onChangeText={handleChange("pets.nameTwo")}
             name="nameTwo"
-            onBlur={handleBlur("nameTwo")}
-            error={errors.nameTwo}
-            touched={touched.nameTwo}
-            value={values.nameTwo}
+            onBlur={handleBlur("pets.nameTwo")}
+            error={errors.pets?.nameTwo}
+            touched={touched.pets?.nameTwo}
+            value={values.pets?.nameTwo}
             label="Second pet name"
           />
         </>
@@ -187,18 +191,22 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
 }
 
 const ContactSchema = Yup.object().shape({
-  shelter: Yup.boolean(),
-  amount: Yup.number()
-    .typeError("Please pick a number between 0-2")
-    .min(0)
-    .max(2),
+  pets: Yup.object().shape({
+    shelter: Yup.boolean().nullable(),
+    amount: Yup.number()
+      .nullable()
+      .typeError("Please pick a number between 0-2")
+      .min(0)
+      .max(2)
+      .nullable(),
 
-  dog: Yup.boolean(),
-  cat: Yup.boolean(),
-  serviceAnimal: Yup.boolean(),
-  supportAnimal: Yup.boolean(),
-  nameOne: Yup.string(),
-  nameTwo: Yup.string(),
+    dog: Yup.boolean().nullable(),
+    cat: Yup.boolean().nullable(),
+    serviceAnimal: Yup.boolean().nullable(),
+    supportAnimal: Yup.boolean().nullable(),
+    nameOne: Yup.string().nullable(),
+    nameTwo: Yup.string().nullable(),
+  }),
 });
 
 const Spacer = styled.View`
