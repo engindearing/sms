@@ -16,7 +16,7 @@ import * as Yup from "yup";
 
 import "yup-phone";
 
-import { updateHouseholdContacts } from "../../../../api/household";
+import { updateHousehold } from "../../../../api/household";
 
 export default function ContactInfo({ formValues, onChange, nextStep }) {
   const { contact } = formValues;
@@ -55,9 +55,7 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
 
     onSubmit: async (contact) => {
       try {
-        let data = await updateHouseholdContacts(formValues._id, contact);
-
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+        let data = await updateHousehold(formValues._id, contact);
 
         // await updateHouseholdContacts()
       } catch (error) {

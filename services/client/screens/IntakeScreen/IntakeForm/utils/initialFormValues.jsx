@@ -1,7 +1,6 @@
 import { NODE_ENV, ENV } from "@env";
 
 const devValues = {
-
   contactOneName: "Sheesh",
   contactOneNumber: "814 218 7640",
   contactOneSafeToLeaveMsg: true,
@@ -39,6 +38,14 @@ const devValues = {
   isPregnant: true,
   ifYesWho: "stacy",
   due: "2023",
+
+  domesticViolence: {
+    fleeingDv: true,
+    YWCAcontacted: true,
+    hasCourtOrder: true,
+    dateLastIncident: "A few days ago",
+    anonymityPreferred: true,
+  },
 
   pets: {
     shelter: false,
@@ -146,15 +153,6 @@ const devValues = {
 };
 
 const prodValues = {
-  contactOneName: "",
-  contactOneNumber: "",
-  contactOneSafeToLeaveMsg: false,
-  contactTwoName: "",
-  contactTwoNumber: "",
-  contactTwoSafeToLeaveMsg: true,
-  emergencyContactName: "",
-  emergencyContactNumber: "",
-
   lastPermanentAddress: "",
   currentLocation: "",
   lengthAtCurrentLocation: "",
@@ -183,6 +181,14 @@ const prodValues = {
   isPregnant: false,
   ifYesWho: "",
   due: "",
+
+  domesticViolence: {
+    fleeingDv: true,
+    YWCAcontacted: true,
+    hasCourtOrder: true,
+    dateLastIncident: "A few days ago",
+    anonymityPreferred: true,
+  },
 
   pets: {
     shelter: false,

@@ -169,7 +169,7 @@ const householdSchema: Schema = new mongoose.Schema(
         default: null,
       },
       dateLastIncident: {
-        type: Date,
+        type: String,
         default: null,
       },
       anonymityPreferred: {

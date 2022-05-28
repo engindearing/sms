@@ -16,7 +16,10 @@ import * as Yup from "yup";
 
 import "yup-phone";
 
+import { updateHousehold } from "../../../../api/household";
+
 export default function ContactInfo({ formValues, onChange, nextStep }) {
+  console.log(formValues);
   const {
     handleChange,
     handleSubmit,
@@ -27,22 +30,25 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      fleeingDv: formValues.fleeingDv,
-      anonymityPreferred: formValues.anonymityPreferred,
-      dateLastIncident: "",
-      hasCourtOrder: formValues.hasCourtOrder,
-      ywcaContacted: formValues.ywcaContacted,
+      domesticViolence: {
+        fleeingDv: formValues.domesticViolence.fleeingDv,
+        anonymityPreferred: formValues.domesticViolence.anonymityPreferred,
+        dateLastIncident: formValues.domesticViolence.dateLastIncident,
+        hasCourtOrder: formValues.domesticViolence.hasCourtOrder,
+        YWCAcontacted: formValues.domesticViolence.YWCAcontacted,
+      },
     },
     validationSchema: ContactSchema,
 
-    onSubmit: async (newValues) => {
+    onSubmit: async (domesticViolence) => {
       try {
-        alert("submitted");
-        console.log(newValues);
+        let data = await updateHousehold(formValues._id, domesticViolence);
+
+        alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
-        alert("Invalid username or password");
+        alert("Failed");
       }
     },
   });
@@ -60,47 +66,49 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
 
       <Checkbox
         value="fleeingDv"
-        defaultIsChecked={values.anonymityPreferred}
-        onChange={(e) => setFieldValue("fleeingDv", e)}
+        defaultIsChecked={values.domesticViolence.fleeingDv}
+        onChange={(e) => setFieldValue("domesticViolence.fleeingDv", e)}
       >
         Are you currently fleeing a DV situation?
       </Checkbox>
 
-      {values.fleeingDv && (
+      {values.domesticViolence.fleeingDv && (
         <>
           <Spacer />
           <TextInput
             width="100%"
             placeholder="Date of last incident"
-            onChangeText={handleChange("dateLastIncident")}
+            onChangeText={handleChange("domesticViolence.dateLastIncident")}
             name="dateLastIncident"
             onBlur={handleBlur("dateLastIncident")}
-            error={errors.dateLastIncident}
-            touched={touched.dateLastIncident}
-            value={values.dateLastIncident}
+            error={errors.domesticViolence?.dateLastIncident}
+            touched={touched.domesticViolence?.dateLastIncident}
+            value={values.domesticViolence?.dateLastIncident}
             marginBottom={"20px"}
           />
 
           <Checkbox
-            value="fleeingDv"
-            defaultIsChecked={values.anonymityPreferred}
-            onChange={(e) => setFieldValue("anonymityPreferred", e)}
+            value="domesticViolence"
+            defaultIsChecked={values.domesticViolence?.anonymityPreferred}
+            onChange={(e) =>
+              setFieldValue("domesticViolence.anonymityPreferred", e)
+            }
           >
             Do you wish to be entered in HMIS anonymously?
           </Checkbox>
 
           <Checkbox
             value="fleeingDv"
-            defaultIsChecked={values.hasCourtOrder}
-            onChange={(e) => setFieldValue("hasCourtOrder", e)}
+            defaultIsChecked={values.domesticViolence?.hasCourtOrder}
+            onChange={(e) => setFieldValue("domesticViolence.hasCourtOrder", e)}
           >
             Is there a No Contact or any other Court Order in place?
           </Checkbox>
 
           <Checkbox
             value="ywcaContacted"
-            defaultIsChecked={values.ywcaContacted}
-            onChange={(e) => setFieldValue("ywcaContacted", e)}
+            defaultIsChecked={values.domesticViolence?.YWCAcontacted}
+            onChange={(e) => setFieldValue("domesticViolence.YWCAcontacted", e)}
           >
             If you are fleeing DV, have you contacted the YWCA?
           </Checkbox>
@@ -126,11 +134,13 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
 }
 
 const ContactSchema = Yup.object().shape({
-  fleeingDv: Yup.boolean(),
-  anonymityPreferred: Yup.boolean(),
-  dateLastIncident: Yup.string(),
-  hasCourtOrder: Yup.boolean(),
-  ywcaContacted: Yup.boolean(),
+  domesticViolence: Yup.object().shape({
+    fleeingDv: Yup.boolean().nullable(),
+    anonymityPreferred: Yup.boolean().nullable(),
+    dateLastIncident: Yup.string().nullable(),
+    hasCourtOrder: Yup.boolean().nullable(),
+    ywcaContacted: Yup.boolean().nullable(),
+  }),
 });
 
 const Spacer = styled.View`
