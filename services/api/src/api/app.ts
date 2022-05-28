@@ -43,11 +43,15 @@ import usersRouter from "./routes/users";
 import orgsRouter from "./routes/orgs";
 import sheltersRouter from "./routes/shelters";
 import reservationsRouter from "./routes/reservations";
+import householdRouter from './routes/household'
+import memberRouter from './routes/members'
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/orgs", orgsRouter);
 app.use("/shelters", sheltersRouter);
 app.use("/reservations", reservationsRouter);
+app.use("/households", householdRouter);
+app.use("/members", memberRouter);
 
 export default app;
