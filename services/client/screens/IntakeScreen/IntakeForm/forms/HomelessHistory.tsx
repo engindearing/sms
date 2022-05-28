@@ -14,6 +14,7 @@ import * as Yup from "yup";
 
 import "yup-phone";
 import { ScrollView } from "react-native-gesture-handler";
+import { updateHousehold } from "../../../../api/household";
 
 export default function HomelessHistory({ formValues, onChange, nextStep }) {
   const {
@@ -26,22 +27,25 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      lastPermanentAddress: formValues.lastPermanentAddress,
-      currentLocation: formValues.currentLocation,
-      lengthAtCurrentLocation: formValues.lengthAtCurrentLocation,
-      priorLocation: formValues.priorLocation,
-      lengthAtPriorLocation: formValues.lengthAtPriorLocation,
-      homelessStartDate: formValues.homelessStartDate,
-      numTimesHomeless: formValues.numTimesHomeless,
-      totalLenHomeless: formValues.totalLenHomeless,
+      homeless: {
+        lastPermanentAddress: formValues.homeless.lastPermanentAddress,
+        currentLocation: formValues.homeless.currentLocation,
+        lengthAtCurrentLocation: formValues.homeless.lengthAtCurrentLocation,
+        priorLocation: formValues.homeless.priorLocation,
+        lengthAtPriorLocation: formValues.homeless.lengthAtPriorLocation,
+        homelessStartDate: formValues.homeless.homelessStartDate,
+        numTimesHomeless: formValues.homeless.numTimesHomeless,
+        totalLenHomeless: formValues.homeless.totalLenHomeless,
+      },
     },
     validationSchema: ContactSchema,
 
-    onSubmit: async (newValues) => {
+    onSubmit: async (homeless) => {
+      console.log(homeless);
       try {
-        onChange(newValues);
+        let data = await updateHousehold(formValues._id, homeless);
 
-        console.log(newValues);
+        alert("SUCCxESS!! :-)\n\n" + JSON.stringify(data, null, 4));
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -64,12 +68,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Last Permanent Address"
-        onChangeText={handleChange("lastPermanentAddress")}
-        name="lastPermanentAddress"
-        onBlur={handleBlur("lastPermanentAddress")}
-        error={errors.lastPermanentAddress}
-        touched={touched.lastPermanentAddress}
-        value={values.lastPermanentAddress}
+        onChangeText={handleChange("homeless.lastPermanentAddress")}
+        name="homeless.lastPermanentAddress"
+        onBlur={handleBlur("homeless.lastPermanentAddress")}
+        error={errors.homeless?.lastPermanentAddress}
+        touched={touched.homeless?.lastPermanentAddress}
+        value={values.homeless?.lastPermanentAddress}
         label="Last address you lived where you did not consider yourself to be homeless)"
         marginBottom={"3%"}
       />
@@ -77,12 +81,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Current location"
-        onChangeText={handleChange("currentLocation")}
+        onChangeText={handleChange("homeless.currentLocation")}
         name="currentLocation"
-        onBlur={handleBlur("currentLocation")}
-        error={errors.currentLocation}
-        touched={touched.currentLocation}
-        value={values.currentLocation}
+        onBlur={handleBlur("homeless.currentLocation")}
+        error={errors.homeless?.currentLocation}
+        touched={touched.homeless?.currentLocation}
+        value={values.homeless?.currentLocation}
         label="Where did you stay last night?"
         marginBottom={"3%"}
       />
@@ -90,12 +94,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Length of stay"
-        onChangeText={handleChange("lengthAtCurrentLocation")}
+        onChangeText={handleChange("homeless.lengthAtCurrentLocation")}
         name="lengthAtCurrentLocation"
-        onBlur={handleBlur("lengthAtCurrentLocation")}
-        error={errors.lengthAtCurrentLocation}
-        touched={touched.lengthAtCurrentLocation}
-        value={values.lengthAtCurrentLocation}
+        onBlur={handleBlur("homeless.lengthAtCurrentLocation")}
+        error={errors.homeless?.lengthAtCurrentLocation}
+        touched={touched.homeless?.lengthAtCurrentLocation}
+        value={values.homeless?.lengthAtCurrentLocation}
         label="How long were you at this location?"
         marginBottom={"3%"}
       />
@@ -103,12 +107,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Prior location"
-        onChangeText={handleChange("priorLocation")}
+        onChangeText={handleChange("homeless.priorLocation")}
         name="priorLocation"
-        onBlur={handleBlur("priorLocation")}
-        error={errors.priorLocation}
-        touched={touched.priorLocation}
-        value={values.priorLocation}
+        onBlur={handleBlur("homeless.priorLocation")}
+        error={errors.homeless?.priorLocation}
+        touched={touched.homeless?.priorLocation}
+        value={values.homeless?.priorLocation}
         label="If less than 7 nights, where did you stay immediately prior to that?"
         marginBottom={"3%"}
       />
@@ -116,12 +120,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Length of stay"
-        onChangeText={handleChange("lengthAtPriorLocation")}
+        onChangeText={handleChange("homeless.lengthAtPriorLocation")}
         name="lengthAtPriorLocation"
-        onBlur={handleBlur("lengthAtPriorLocation")}
-        error={errors.lengthAtPriorLocation}
-        touched={touched.lengthAtPriorLocation}
-        value={values.lengthAtPriorLocation}
+        onBlur={handleBlur("homeless.lengthAtPriorLocation")}
+        error={errors.homeless?.lengthAtPriorLocation}
+        touched={touched.homeless?.lengthAtPriorLocation}
+        value={values.homeless?.lengthAtPriorLocation}
         label="How long were you at this location?"
         marginBottom={"3%"}
       />
@@ -129,12 +133,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Homeless start date"
-        onChangeText={handleChange("homelessStartDate")}
+        onChangeText={handleChange("homeless.homelessStartDate")}
         name="homelessStartDate"
-        onBlur={handleBlur("homelessStartDate")}
-        error={errors.homelessStartDate}
-        touched={touched.homelessStartDate}
-        value={values.homelessStartDate}
+        onBlur={handleBlur("homeless.homelessStartDate")}
+        error={errors.homeless?.homelessStartDate}
+        touched={touched.homeless?.homelessStartDate}
+        value={values.homeless?.homelessStartDate}
         label="Approximately when did you become homeless?"
         marginBottom={"3%"}
       />
@@ -142,12 +146,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Number of times homeless"
-        onChangeText={handleChange("numTimesHomeless")}
+        onChangeText={handleChange("homeless.numTimesHomeless")}
         name="numTimesHomeless"
-        onBlur={handleBlur("numTimesHomeless")}
-        error={errors.numTimesHomeless}
-        touched={touched.numTimesHomeless}
-        value={values.numTimesHomeless}
+        onBlur={handleBlur("homeless.numTimesHomeless")}
+        error={errors.homeless?.numTimesHomeless}
+        touched={touched.homeless?.numTimesHomeless}
+        value={values.homeless?.numTimesHomeless}
         label="How many times in the last 3 years have you been homeless?"
         marginBottom={"3%"}
       />
@@ -155,12 +159,12 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
       <TextInput
         width="100%"
         placeholder="Total months homeless"
-        onChangeText={handleChange("totalLenHomeless")}
+        onChangeText={handleChange("homeless.totalLenHomeless")}
         name="totalLenHomeless"
-        onBlur={handleBlur("totalLenHomeless")}
-        error={errors.totalLenHomeless}
-        touched={touched.totalLenHomeless}
-        value={values.totalLenHomeless}
+        onBlur={handleBlur("homeless.totalLenHomeless")}
+        error={errors.homeless?.totalLenHomeless}
+        touched={touched.homeless?.totalLenHomeless}
+        value={values.homeless?.totalLenHomeless}
         label="How many total months in those 3 years have you been homeless?"
         marginBottom={"3%"}
       />
@@ -173,18 +177,22 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
 }
 
 const ContactSchema = Yup.object().shape({
-  lastPermanentAddress: Yup.string().required("Required"),
-  currentLocation: Yup.string().required("Required"),
-  lengthAtCurrentLocation: Yup.string().required("Required"),
-  priorLocation: Yup.string().required("Required"),
-  lengthAtPriorLocation: Yup.string().required("Required"),
-  homelessStartDate: Yup.string().required("Required"),
-  numTimesHomeless: Yup.number()
-    .typeError("Please type in a number")
-    .positive("Must be greater than zero")
-    .required("Required"),
-  totalLenHomeless: Yup.number()
-    .typeError(" Please type in a number")
-    .required("Required"),
-});
+  homeless: Yup.object().shape({
+    lastPermanentAddress: Yup.string().required("Required").nullable(),
+    currentLocation: Yup.string().required("Required").nullable(),
+    lengthAtCurrentLocation: Yup.string().required("Required").nullable(),
+    priorLocation: Yup.string().required("Required").nullable(),
+    lengthAtPriorLocation: Yup.string().required("Required").nullable(),
+    homelessStartDate: Yup.string().required("Required").nullable(),
+    numTimesHomeless: Yup.number()
+      .typeError("Please type in a number")
+      .positive("Must be greater than zero")
+      .nullable()
+      .required("Required"),
 
+    totalLenHomeless: Yup.number()
+      .typeError(" Please type in a number")
+      .nullable()
+      .required("Required"),
+  }),
+});

@@ -104,15 +104,15 @@ const householdSchema: Schema = new mongoose.Schema(
       },
       currentLocation: String,
       numTimesHomeless: {
-        type: String,
+        type: Number,
         default: null,
       },
       totalLenHomeless: {
-        type: String,
+        type: Number,
         default: null,
       },
       homelessStartDate: {
-        type: Date,
+        type: String,
         default: null,
       },
       lengthAtPriorLocation: {

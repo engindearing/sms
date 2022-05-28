@@ -44,7 +44,9 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       try {
         let data = await updateHousehold(formValues._id, domesticViolence);
 
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+        onChange({ ...data });
+
+        nextStep();
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert

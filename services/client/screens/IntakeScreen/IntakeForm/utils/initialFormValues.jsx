@@ -10,14 +10,16 @@ const devValues = {
   emergencyContactName: "Sheesh",
   emergencyContactNumber: "814 218 7640",
 
-  lastPermanentAddress: "1211 test st",
-  currentLocation: "1212 test st",
-  lengthAtCurrentLocation: "2 days",
-  priorLocation: "1213 test st",
-  lengthAtPriorLocation: "3 days",
-  homelessStartDate: "last week",
-  numTimesHomeless: "10",
-  totalLenHomeless: "4",
+  homeless: {
+    lastPermanentAddress: "1211 test st",
+    currentLocation: "1212 test st",
+    lengthAtCurrentLocation: "2 days",
+    priorLocation: "1213 test st",
+    lengthAtPriorLocation: "3 days",
+    homelessStartDate: "last week",
+    numTimesHomeless: "10",
+    totalLenHomeless: "4",
+  },
 
   membersCovered: "2",
   insuranceType: "Medicare",
@@ -188,6 +190,17 @@ const prodValues = {
     hasCourtOrder: true,
     dateLastIncident: "A few days ago",
     anonymityPreferred: true,
+  },
+
+  homeless: {
+    lastPermanentAddress: "1211 test st",
+    currentLocation: "1212 test st",
+    lengthAtCurrentLocation: "2 days",
+    priorLocation: "1213 test st",
+    lengthAtPriorLocation: "3 days",
+    homelessStartDate: "last week",
+    numTimesHomeless: "10",
+    totalLenHomeless: "4",
   },
 
   pets: {
