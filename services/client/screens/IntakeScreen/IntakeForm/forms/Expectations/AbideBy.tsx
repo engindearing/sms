@@ -81,7 +81,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
     in6: Yup.string().required("Required"),
     in7: Yup.string().required("Required"),
 
-
     members: Yup.array().of(
       Yup.object().shape({
         signature: Yup.string().required("Required").nullable(),
