@@ -9,7 +9,7 @@ import IntakeForm from "./IntakeForm";
 import { initialValues } from "./IntakeForm/utils/initialFormValues";
 
 const IntakeScreen = ({ route }) => {
-  const [step, setStep, nextStep, prevStep] = useStep(11);
+  const [step, setStep, nextStep, prevStep] = useStep(9);
 
   const [formValues, setFormValues] = useState(initialValues());
 

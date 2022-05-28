@@ -15,6 +15,7 @@ import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import "yup-phone";
+import { updateHousehold } from "../../../../api/household";
 
 export default function Insurance({ formValues, onChange, nextStep }) {
   const {
@@ -27,18 +28,19 @@ export default function Insurance({ formValues, onChange, nextStep }) {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      hasInsurance: formValues.hasInsurance,
-      insuranceType: formValues.insuranceType,
-      membersCovered: formValues.membersCovered,
+      insurance: {
+        hasInsurance: formValues.insurance.hasInsurance,
+        healthInsuranceType: formValues.insurance.healthInsuranceType,
+        membersCovered: formValues.insurance.membersCovered,
+      },
     },
     validationSchema: ContactSchema,
 
-    onSubmit: async (newValues) => {
+    onSubmit: async (insurance) => {
       try {
-        onChange(newValues);
-
-        alert("finished");
-        console.log(newValues);
+        let data = await updateHousehold(formValues._id, insurance);
+        onChange(data);
+        nextStep();
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -61,37 +63,37 @@ export default function Insurance({ formValues, onChange, nextStep }) {
 
       <Checkbox
         value="hasInsurance"
-        defaultIsChecked={values.hasInsurance}
-        onChange={(e) => setFieldValue("hasInsurance", e)}
+        defaultIsChecked={values.insurance.hasInsurance}
+        onChange={(e) => setFieldValue("insurance.hasInsurance", e)}
       >
         Do you have health insurance?
       </Checkbox>
 
       <Spacer />
 
-      {values.hasInsurance && (
+      {values.insurance.hasInsurance && (
         <>
           <TextInput
             width="100%"
             placeholder="source"
-            onChangeText={handleChange("insuranceType")}
+            onChangeText={handleChange("insurance.healthInsuranceType")}
             name="insuranceType"
-            onBlur={handleBlur("insuranceType")}
-            error={errors.insuranceType}
-            touched={touched.insuranceType}
-            value={values.insuranceType}
+            onBlur={handleBlur("insurance.healthInsuranceType")}
+            error={errors.insurance?.healthInsuranceType}
+            touched={touched.insurance?.healthInsuranceType}
+            value={values.insurance?.healthInsuranceType}
             label="Health insurance source"
           />
 
           <TextInput
             width="100%"
             placeholder="covered"
-            onChangeText={handleChange("membersCovered")}
+            onChangeText={handleChange("insurance.membersCovered")}
             name="membersCovered"
-            onBlur={handleBlur("membersCovered")}
-            error={errors.membersCovered}
-            touched={touched.membersCovered}
-            value={values.membersCovered}
+            onBlur={handleBlur("insurance.membersCovered")}
+            error={errors.insurance?.membersCovered}
+            touched={touched.insurance?.membersCovered}
+            value={values.insurance?.membersCovered}
             label="Household Members covered"
           />
         </>
@@ -105,15 +107,16 @@ export default function Insurance({ formValues, onChange, nextStep }) {
 }
 
 const ContactSchema = Yup.object().shape({
-  hasInsurance: Yup.boolean(),
+  insurance: Yup.object().shape({
+    hasInsurance: Yup.boolean(),
 
-  insuranceType: Yup.string(),
+    healthInsuranceType: Yup.string(),
 
-  membersCovered: Yup.number()
-    .typeError("Please type in a number")
-    .positive("Must be greater than zero")
-    .min(0)
- 
+    membersCovered: Yup.number()
+      .typeError("Please type in a number")
+      .positive("Must be greater than zero")
+      .min(0),
+  }),
 });
 
 const Spacer = styled.View`

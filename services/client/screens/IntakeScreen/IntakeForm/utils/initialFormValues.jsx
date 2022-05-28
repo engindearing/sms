@@ -21,8 +21,11 @@ const devValues = {
     totalLenHomeless: "4",
   },
 
-  membersCovered: "2",
-  insuranceType: "Medicare",
+  insurance: {
+    hasInsurance: false,
+    membersCovered: "2",
+    insuranceType: "Medicare",
+  },
 
   vehicle: {
     make: "",
