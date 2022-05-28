@@ -96,7 +96,7 @@ export default function GrievanceAppeal({ nextStep, onChange, formValues }) {
             width: "100%",
           }}
         >
-          <Text fontSize="3xl" marginBottom={5}>
+          <Text fontSize="3xl">
             Open Doors Family Shelter Animal Agreement (continued)
           </Text>
 
@@ -110,59 +110,56 @@ export default function GrievanceAppeal({ nextStep, onChange, formValues }) {
 
           <Spacer />
 
-          <View>
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                No animal is to be left unattended by their owners.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              No animal is to be left unattended by their owners.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                All animals must be kenneled or on a leash at all times.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              All animals must be kenneled or on a leash at all times.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                Cats must have access to litter box at all times.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              Cats must have access to litter box at all times.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                Dogs must be consistently taken outside to go to the bathroom.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              Dogs must be consistently taken outside to go to the bathroom.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                Animals exhibiting aggressive behavior toward people or other
-                animals may be asked to leave.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              Animals exhibiting aggressive behavior toward people or other
+              animals may be asked to leave.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                Owners are responsible for any damage or injury their pet may
-                cause property or persons.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text>
+              Owners are responsible for any damage or injury their pet may
+              cause property or persons.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                Only animals that are brought in at the time of intake will be
-                allowed.
-              </Text>
-            </Unorderedlist>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              Only animals that are brought in at the time of intake will be
+              allowed.
+            </Text>
+          </Unorderedlist>
 
-            <Unorderedlist>
-              <Text marginBottom={3}>
-                Animals that keep other guests up at night will be asked to
-                leave.
-              </Text>
-            </Unorderedlist>
-          </View>
+          <Unorderedlist>
+            <Text marginBottom={3}>
+              Animals that keep other guests up at night will be asked to leave.
+            </Text>
+          </Unorderedlist>
 
           <Spacer />
 
