@@ -147,6 +147,7 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
                       placeholder="gender"
                       error={ticketErrors.gender}
                       touched={ticketTouched.gender}
+                      selectedValue={ticketValues.gender}
                       blur={handleBlur("gender")}
                       onValueChange={(value) => {
                         handleChange("gender", value, values, setFieldValue, i);
