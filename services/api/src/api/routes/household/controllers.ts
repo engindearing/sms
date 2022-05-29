@@ -36,7 +36,21 @@ export const deleteMembers = async (req: any, res: any) => {
   try {
     memberIds.forEach(async (id: any) => await Member.findByIdAndDelete(id));
 
-    res.status(204);
+    res.status(200).json({ message: "Deleted members" });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const updateMembers = async (req: any, res: any) => {
+  let members = req.body;
+
+  try {
+    members.forEach(
+      async (mem: any) => await Member.findByIdAndUpdate(mem._id, mem)
+    );
+
+    res.status(200);
   } catch (error) {
     res.status(400).json(error);
   }

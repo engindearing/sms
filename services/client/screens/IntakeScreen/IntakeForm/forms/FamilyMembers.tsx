@@ -37,7 +37,7 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
   ];
 
   const initialValues = {
-    numberOfHouseholdMembers: String(members.length),
+    numberOfHouseholdMembers: members.length ? String(members.length) : "",
     members: [...members],
   };
 
@@ -89,10 +89,11 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
     if (currentMembers.length < previousMembers.length) {
       let deletedMembers = getDeletedMembers(members, fields.members);
 
-      await deleteMembers(formValues._id, deletedMembers)
+      await deleteMembers(formValues._id, deletedMembers);
     }
 
     onChange({ members: currentMembers });
+    nextStep();
   }
 
   return (
@@ -127,8 +128,8 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
                   onChangeMembers(e, setFieldValue, field, values, setValues)
                 }
                 onBlur={handleBlur("numberOfHouseholdMembers")}
-                marginBottom={"3%"}
                 error={errors.numberOfHouseholdMembers}
+                touched={touched.numberOfHouseholdMembers}
                 selectedValue={values.numberOfHouseholdMembers}
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((opt, key) => (
@@ -241,7 +242,14 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
             }
           </FieldArray>
 
-          <Button marginTop={"3%"} onPress={() => handleSubmit()}>
+          <Button
+            marginTop={"3%"}
+            onPress={() => {
+              console.log(errors);
+
+              handleSubmit();
+            }}
+          >
             Submit
           </Button>
         </View>
