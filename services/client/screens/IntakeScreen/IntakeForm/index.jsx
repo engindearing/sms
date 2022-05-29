@@ -90,75 +90,75 @@ const RenderForm = ({
     setFormValues,
   };
 
-  switch (step) {
-    case 0:
+  switch (step.id) {
+    case "IntakeStart":
       return <IntakeStart {...formProps} />;
-    case 1:
+    case "ContactInfo":
       return <ContactInfo {...formProps} />;
-    case 2:
+    case "FamilyMembers":
       return <FamilyMembers {...formProps} />;
-    case 3:
+    case "FamilyDemographics":
       return <FamilyDemographics {...formProps} />;
-    case 4:
+    case "RaceEthnicityInfo":
       return <RaceEthnicityInfo {...formProps} />;
-    case 5:
+    case "BarriersPage":
       return <BarriersPage {...formProps} />;
-    case 6:
+    case "ChildSchoolInfo":
       return <ChildSchoolInfo {...formProps} />;
-    case 7:
+    case "DomesticViolence":
       return <DomesticViolence {...formProps} />;
-    case 8:
+    case "HomelessHistory":
       return <HomelessHistory {...formProps} />;
-    case 9:
+    case "Insurance":
       return <Insurance {...formProps} />;
-    case 10:
+    case "AdditionalInfo":
       return <AdditionalInfo {...formProps} />;
-    case 11:
+    case "Pets":
       return <Pets {...formProps} />;
 
-    case 12:
+    case "ClientRelease":
       return <ClientRelease {...formProps} />;
-    case 13:
+    case "ClientReleaseSignature":
       return <ClientReleaseSignature {...formProps} />;
-    case 14:
+    case "ClientReleaseStaffSig":
       return <ClientReleaseStaffSig {...formProps} />;
-    case 15:
+    case "ThirdPartyConsent":
       return <ThirdPartyConsent {...formProps} />;
-    case 16:
+    case "ThirdPartySigs":
       return <ThirdPartySigs {...formProps} />;
-    case 17:
+    case "GuestWaiver":
       return <GuestWaiver {...formProps} />;
-    case 18:
+    case "CaseManagement":
       return <CaseManagement {...formProps} />;
-    case 19:
+    case "PhotoRelease":
       return <PhotoRelease {...formProps} />;
-    case 20:
+    case "CoreValues":
       return <CoreValues {...formProps} />;
-    case 21:
+    case "AntiDiscrimination":
       return <AntiDiscrimination {...formProps} />;
-    case 22:
+    case "Expectations":
       return <Expectations {...formProps} />;
-    case 23:
+    case "Decorum":
       return <Decorum {...formProps} />;
-    case 24:
+    case "AbideBy":
       return <AbideBy {...formProps} />;
-    case 25:
+    case "SuspensionAgreement":
       return <SuspensionAgreement {...formProps} />;
-    case 26:
+    case "GrievanceAppeal":
       return <GrievanceAppeal {...formProps} />;
-    case 27:
+    case "Belongings":
       return <Belongings {...formProps} />;
-    case 28:
+    case "Schedule":
       return <Schedule {...formProps} />;
-    case 29:
+    case "Safety":
       return <Safety {...formProps} />;
-    case 30:
+    case "AnimalNo":
       return <AnimalNo {...formProps} />;
-    case 31:
+    case "AnimalYes":
       return <AnimalYes {...formProps} />;
-    case 32:
+    case "Neighborhood":
       return <Neighborhood {...formProps} />;
-    case 33:
+    case "NeighborhoodExpectations":
       return <NeighborhoodExpectations {...formProps} />;
     default:
       return <Text>Invalid</Text>;

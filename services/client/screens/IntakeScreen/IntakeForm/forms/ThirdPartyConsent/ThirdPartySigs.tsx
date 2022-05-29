@@ -50,7 +50,6 @@ const schoolTypeOptions = ["Public", "Private"];
 
 export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
   //Options for relationship drop down
-
   const { members } = formValues;
 
   let copyOfMembers = members.map((mem) => ({

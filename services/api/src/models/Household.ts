@@ -18,6 +18,10 @@ const householdSchema: Schema = new mongoose.Schema(
       required: true,
       default: null,
     },
+    lastFormVisited: {
+      type: String,
+      default: null,
+    },
     status: {
       type: String,
       enum: ["start", "completed"],
