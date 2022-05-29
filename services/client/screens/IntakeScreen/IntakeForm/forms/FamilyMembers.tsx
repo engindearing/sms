@@ -7,7 +7,7 @@ import TextInput from "../../../../components/TextInput";
 
 import * as Yup from "yup";
 
-import { Button, Select } from "native-base";
+import { Button, FormControl, Select } from "native-base";
 
 import SelectInput from "../../../../components/SelectInput";
 
@@ -17,7 +17,11 @@ import memberValues from "../structures/member";
 
 import styled from "styled-components/native";
 
-import { addMembers, deleteMembers } from "../../../../api/members";
+import {
+  addMembers,
+  deleteMembers,
+  updateMembers,
+} from "../../../../api/members";
 
 export default function FamilyMembers({ nextStep, onChange, formValues }) {
   //Options for relationship drop down
@@ -91,6 +95,8 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
 
       await deleteMembers(formValues._id, deletedMembers);
     }
+
+    await updateMembers(formValues._id, currentMembers);
 
     onChange({ members: currentMembers });
     nextStep();

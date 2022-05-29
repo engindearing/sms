@@ -16,6 +16,7 @@ import { Text } from "native-base";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
+import { updateMembers } from "../../../../api/members";
 
 const options = ["Job", "TANF", "SSI", "SSDI", "Child Support", "Other"];
 
@@ -24,7 +25,7 @@ const optionDataName = {
   TANF: "TANF",
   SSI: "SSI",
   SSDI: "SSDI",
-  "Child Support": "child_support",
+  "Child Support": "childSupport",
   Other: "other",
 };
 
@@ -74,11 +75,14 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
     ),
   });
 
-  function onSubmit(fields) {
+  async function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
     // nextStep();
 
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+    await updateMembers(formValues._id, fields.members);
+
+    onChange({ members: fields.members });
+    nextStep();
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];
@@ -93,7 +97,6 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
         errors,
         values,
         touched,
-        setValues,
         handleBlur,
         setFieldValue,
         handleSubmit,
@@ -216,7 +219,14 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
                       }}
                     >
                       {options.map((opt) => (
-                        <CheckboxInput name={optionDataName[opt]}>
+                        <CheckboxInput
+                          defaultIsChecked={
+                            values.members[i].demographics.incomeSource[
+                              optionDataName[opt]
+                            ]
+                          }
+                          name={optionDataName[opt]}
+                        >
                           {opt}
                         </CheckboxInput>
                       ))}
