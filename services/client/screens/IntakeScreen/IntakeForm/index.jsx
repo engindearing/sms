@@ -43,8 +43,6 @@ import styled from "styled-components/native";
 
 import { Card } from "native-base";
 
-import { initialValues } from "./utils/initialFormValues";
-
 const IntakeForm = (props) => {
   const { formValues, setFormValues } = props;
 
@@ -177,7 +175,7 @@ const FormContainer = styled.View`
 
   ${(props) => props.theme.isLaptop && "width: 50%;"}
 
-  ${(props) => props.theme.isTablet && "width: 70%;"}
+  ${(props) => props.theme.isTablet && "width: 95%;"}
 
   ${(props) => props.theme.isMobileL && "width: 100%;"}
 `;

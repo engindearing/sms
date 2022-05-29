@@ -14,8 +14,9 @@ import { Text } from "native-base";
 import getAge from "../../../../../utils/getAge";
 
 import styled from "styled-components/native";
+import Navigation from "../../Navigation";
 
-export default function Decorum({ nextStep, onChange, formValues }) {
+export default function Decorum({ nextStep, onChange, formValues, prevStep }) {
   //Options for relationship drop down
 
   const initialValues = {
@@ -261,16 +262,7 @@ export default function Decorum({ nextStep, onChange, formValues }) {
 
           <Spacer />
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

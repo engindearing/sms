@@ -6,12 +6,12 @@ import { fetchOrCreateIntakeValues } from "../../api/intake";
 import useStep from "../../hooks/useStep";
 
 import IntakeForm from "./IntakeForm";
+import Navigation from "./IntakeForm/Navigation";
 
-import { initialValues } from "./IntakeForm/utils/initialFormValues";
 import steps from "./steps";
 
 const IntakeScreen = ({ route }) => {
-  const [formValues, setFormValues] = useState(initialValues());
+  const [formValues, setFormValues] = useState({});
 
   const [loading, setLoading] = useState(false);
 
@@ -23,8 +23,6 @@ const IntakeScreen = ({ route }) => {
 
   useEffect(async () => {
     setLoading(true);
-
-    console.log(step);
 
     try {
       let intakeValues = await fetchOrCreateIntakeValues();

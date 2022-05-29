@@ -22,8 +22,14 @@ import {
   deleteMembers,
   updateMembers,
 } from "../../../../api/members";
+import Navigation from "../Navigation";
 
-export default function FamilyMembers({ nextStep, onChange, formValues }) {
+export default function FamilyMembers({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -248,16 +254,7 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
             }
           </FieldArray>
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

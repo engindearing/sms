@@ -15,8 +15,14 @@ import * as Yup from "yup";
 import "yup-phone";
 import { ScrollView } from "react-native-gesture-handler";
 import { updateHousehold } from "../../../../api/household";
+import Navigation from "../Navigation";
 
-export default function HomelessHistory({ formValues, onChange, nextStep }) {
+export default function HomelessHistory({
+  formValues,
+  onChange,
+  nextStep,
+  prevStep,
+}) {
   const {
     handleChange,
     handleSubmit,
@@ -169,9 +175,7 @@ export default function HomelessHistory({ formValues, onChange, nextStep }) {
         marginBottom={"3%"}
       />
 
-      <Button style={{ marginTop: "5%" }} onPress={() => handleSubmit()}>
-        Submit
-      </Button>
+      <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
     </ScrollView>
   );
 }

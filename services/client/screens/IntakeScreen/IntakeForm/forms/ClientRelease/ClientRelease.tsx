@@ -4,7 +4,9 @@ import { Button, Text } from "native-base";
 
 import styled from "styled-components/native";
 
-export default function ClientRelease({ nextStep }) {
+import Navigation from "../../Navigation";
+
+export default function ClientRelease({ nextStep, prevStep }) {
   return (
     <View>
       <Text fontSize={"2xl"}>Spokane CMIS</Text>
@@ -60,9 +62,7 @@ export default function ClientRelease({ nextStep }) {
 
       <Spacer />
 
-      <Button style={{ marginTop: "5%" }} onPress={nextStep}>
-        Next
-      </Button>
+      <Navigation prevStep={prevStep} handleSubmit={() => nextStep()} />
     </View>
   );
 }

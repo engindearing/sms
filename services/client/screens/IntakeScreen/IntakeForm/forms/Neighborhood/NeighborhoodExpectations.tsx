@@ -18,6 +18,9 @@ import styled from "styled-components/native";
 
 import Unorderedlist from "react-native-unordered-list";
 
+import Navigation from "../../Navigation";
+
+
 const gradeOptions = [
   "1",
   "2",
@@ -47,6 +50,7 @@ export default function NeighborhoodExpectations({
   nextStep,
   onChange,
   formValues,
+  prevStep,
 }) {
   //Options for relationship drop down
 
@@ -347,16 +351,7 @@ export default function NeighborhoodExpectations({
 
           <Spacer />
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

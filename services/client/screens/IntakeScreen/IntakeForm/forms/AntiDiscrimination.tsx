@@ -22,6 +22,7 @@ import styled from "styled-components/native";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
+import Navigation from "../Navigation";
 
 const gradeOptions = [
   "1",
@@ -48,7 +49,7 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function AntiDiscrimination({ nextStep, onChange, formValues }) {
+export default function AntiDiscrimination({ nextStep, onChange, formValues, prevStep }) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -204,16 +205,8 @@ export default function AntiDiscrimination({ nextStep, onChange, formValues }) {
             }
           </FieldArray>
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
 
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
         </View>
       )}
     </Formik>

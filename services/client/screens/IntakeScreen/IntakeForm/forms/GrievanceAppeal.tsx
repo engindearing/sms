@@ -21,6 +21,7 @@ import getAge from "../../../../utils/getAge";
 import styled from "styled-components/native";
 
 import Unorderedlist from "react-native-unordered-list";
+import Navigation from "../Navigation";
 
 const gradeOptions = [
   "1",
@@ -47,7 +48,12 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function GrievanceAppeal({ nextStep, onChange, formValues }) {
+export default function GrievanceAppeal({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -267,17 +273,7 @@ export default function GrievanceAppeal({ nextStep, onChange, formValues }) {
           </FieldArray>
 
           <Spacer />
-
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

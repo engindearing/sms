@@ -20,6 +20,7 @@ import getAge from "../../../../../utils/getAge";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../../components/CheckboxInput";
+import Navigation from "../../Navigation";
 
 const gradeOptions = [
   "1",
@@ -46,7 +47,12 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
+export default function RaceEthnicityInfo({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -291,16 +297,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
             *** Please return device to staff member. ***
           </Text>
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

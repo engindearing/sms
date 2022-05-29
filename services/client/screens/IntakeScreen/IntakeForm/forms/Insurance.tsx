@@ -16,8 +16,14 @@ import * as Yup from "yup";
 
 import "yup-phone";
 import { updateHousehold } from "../../../../api/household";
+import Navigation from "../Navigation";
 
-export default function Insurance({ formValues, onChange, nextStep }) {
+export default function Insurance({
+  formValues,
+  onChange,
+  nextStep,
+  prevStep,
+}) {
   const {
     handleChange,
     handleSubmit,
@@ -99,9 +105,7 @@ export default function Insurance({ formValues, onChange, nextStep }) {
         </>
       )}
 
-      <Button style={{ marginTop: "5%" }} onPress={() => handleSubmit()}>
-        Submit
-      </Button>
+      <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
     </View>
   );
 }

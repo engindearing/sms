@@ -17,8 +17,14 @@ import * as Yup from "yup";
 import "yup-phone";
 
 import { updateHousehold } from "../../../../api/household";
+import Navigation from "../Navigation";
 
-export default function ContactInfo({ formValues, onChange, nextStep }) {
+export default function ContactInfo({
+  formValues,
+  onChange,
+  nextStep,
+  prevStep,
+}) {
   const { contact } = formValues;
 
   const {
@@ -57,8 +63,8 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
       try {
         let data = await updateHousehold(formValues._id, contact);
 
-        onChange(data)
-        nextStep()
+        onChange(data);
+        nextStep();
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
@@ -155,15 +161,7 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
         value={values?.contact?.emergencyContact?.number}
       />
 
-      <Button
-        style={{ marginTop: "5%" }}
-        onPress={() => {
-          console.log(values);
-          handleSubmit();
-        }}
-      >
-        Submit
-      </Button>
+      <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
     </View>
   );
 }

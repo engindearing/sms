@@ -23,6 +23,9 @@ import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../../components/CheckboxInput";
 
+import Navigation from "../../Navigation";
+
+
 const gradeOptions = [
   "1",
   "2",
@@ -48,7 +51,12 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
+export default function RaceEthnicityInfo({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -81,7 +89,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
     // onChange({ members: [...fields.members] });
     // nextStep();
     nextStep();
-
   }
 
   return (
@@ -135,7 +142,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                 setFieldValue(name, checked);
               }}
               name="animalYes"
-              isChecked={values.animalYes}
+              defaultIsChecked={values.animalYes}
             >
               Yes
             </CheckboxInput>
@@ -154,7 +161,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                 setFieldValue(name, checked);
               }}
               name="animalNo"
-              isChecked={values.animalNo}
+              defaultIsChecked={values.animalNo}
             >
               No
             </CheckboxInput>
@@ -179,21 +186,14 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
             marginBottom={"20px"}
           />
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>
   );
 }
+
+
 
 const handleCheckboxChange = (
   field,

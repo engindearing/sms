@@ -16,8 +16,14 @@ import * as Yup from "yup";
 
 import "yup-phone";
 import { updateHousehold } from "../../../../api/household";
+import Navigation from "../Navigation";
 
-export default function AdditionalInfo({ formValues, onChange, nextStep }) {
+export default function AdditionalInfo({
+  formValues,
+  onChange,
+  nextStep,
+  prevStep,
+}) {
   //Options for Gov Benifits w/dataBase name counterpart
   const GOVBenifits = [
     "Food Stamps",
@@ -183,9 +189,7 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
         </>
       )}
 
-      <Button style={{ marginTop: "5%" }} onPress={() => handleSubmit()}>
-        Submit
-      </Button>
+      <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
     </View>
   );
 }

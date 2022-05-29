@@ -19,6 +19,9 @@ import getAge from "../../../../utils/getAge";
 
 import styled from "styled-components/native";
 
+import Navigation from "../Navigation";
+
+
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
@@ -48,7 +51,12 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function Belongings({ nextStep, onChange, formValues }) {
+export default function Belongings({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -90,7 +98,6 @@ export default function Belongings({ nextStep, onChange, formValues }) {
     // onChange({ members: [...fields.members] });
     // nextStep();
     nextStep();
-
   }
 
   return (
@@ -316,16 +323,7 @@ export default function Belongings({ nextStep, onChange, formValues }) {
             }
           </FieldArray>
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

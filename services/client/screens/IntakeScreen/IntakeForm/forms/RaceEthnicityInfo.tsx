@@ -17,6 +17,7 @@ import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
 import { updateMembers } from "../../../../api/members";
+import Navigation from "../Navigation";
 
 //Options for race
 const options = [
@@ -30,7 +31,12 @@ const options = [
   "Decline to Answer",
 ];
 
-export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
+export default function RaceEthnicityInfo({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -159,10 +165,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
               })
             }
           </FieldArray>
-
-          <Button marginTop={"3%"} onPress={() => handleSubmit()}>
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

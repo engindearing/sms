@@ -21,6 +21,9 @@ import styled from "styled-components/native";
 
 import Unorderedlist from "react-native-unordered-list";
 
+import Navigation from "../Navigation";
+
+
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
@@ -50,7 +53,12 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
+export default function RaceEthnicityInfo({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
 
   const { members } = formValues;
@@ -291,16 +299,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
             onChangeText={handleChange("date")}
           />
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>
