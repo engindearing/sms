@@ -164,6 +164,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       placeholder="Grade"
                       error={ticketErrors.highestGradeCompleted}
                       touched={ticketTouched.highestGradeCompleted}
+                      selectedValue={ticketValues.highestGradeCompleted}
                       blur={handleBlur("highestGradeCompleted")}
                       onValueChange={(value) => {
                         handleChange(
@@ -187,6 +188,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       placeholder="status"
                       error={ticketErrors.attendanceStatus}
                       touched={ticketTouched.attendanceStatus}
+                      selectedValue={ticketValues.attendanceStatus}
                       blur={handleBlur("attendanceStatus")}
                       onValueChange={(value) => {
                         handleChange(
@@ -210,6 +212,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       placeholder="type"
                       error={ticketErrors.schoolType}
                       touched={ticketTouched.schoolType}
+                      selectedValue={ticketValues.schoolType}
                       blur={handleBlur("schoolType")}
                       onValueChange={(value) => {
                         handleChange(
@@ -249,6 +252,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       name={"mckinneySchool"}
                       error={ticketErrors.mckinneySchool}
                       touched={ticketTouched.mckinneySchool}
+                      defaultIsChecked={ticketValues.mckinneySchool}
                       onChange={(name, checked) => {
                         handleChange(name, checked, values, setFieldValue, i);
                       }}
@@ -260,6 +264,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       name={"enrolledStatus"}
                       error={ticketErrors.enrolledStatus}
                       touched={ticketTouched.enrolledStatus}
+                      defaultIsChecked={ticketValues.enrolledStatus}
                       onChange={(name, checked) => {
                         handleChange(name, checked, values, setFieldValue, i);
                       }}

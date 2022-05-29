@@ -56,6 +56,8 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
 
   const { members } = formValues;
 
+  console.log(members);
+
   const initialValues = {
     numberOfHouseholdMembers: "",
     members: [...members],
@@ -80,10 +82,9 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
   });
 
   async function onSubmit(fields) {
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
     await updateMembers(formValues._id, fields.members);
 
-    onChange();
+    onChange({ members: fields.members });
     nextStep();
   }
 
@@ -124,16 +125,19 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                 const ticketErrors =
                   (errors.members?.length &&
                     errors.members[i] &&
-                    errors.members[i].demographics) ||
+                    errors.members[i].barriers) ||
                   {};
                 const ticketTouched =
                   (touched.members &&
                     touched.members[i] &&
-                    touched.members[i].demographics) ||
+                    touched.members[i].barriers) ||
                   {};
 
                 const ticketValues =
-                  (values.members[i] && values.members[i].demographics) || {};
+                  (values.members &&
+                    values.members[i] &&
+                    values.members[i].barriers) ||
+                  {};
 
                 return (
                   <View
@@ -167,7 +171,12 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       }}
                     >
                       {options.map((opt) => (
-                        <CheckboxInput name={optionDataName[opt]}>
+                        <CheckboxInput
+                          defaultIsChecked={
+                            values.members[i].barriers[optionDataName[opt]]
+                          }
+                          name={optionDataName[opt]}
+                        >
                           {opt}
                         </CheckboxInput>
                       ))}
@@ -180,7 +189,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       onBlur={handleBlur("members")}
                       error={ticketErrors.listIssues}
                       touched={ticketTouched.listIssues}
-                      value={ticketValues.listIssues}
+                      defaultValue={ticketValues.listIssues}
                       marginBottom={"20px"}
                       onChangeText={(value) => {
                         console.log(errors);
@@ -220,7 +229,12 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
             }
           </FieldArray>
 
-          <Button marginTop={"3%"} onPress={() => handleSubmit()}>
+          <Button
+            marginTop={"3%"}
+            onPress={() => {
+              handleSubmit();
+            }}
+          >
             Submit
           </Button>
         </View>

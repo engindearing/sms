@@ -51,10 +51,9 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
   });
 
   async function onSubmit(fields) {
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
     await updateMembers(formValues._id, fields.members);
 
-    onChange();
+    onChange({ members: fields.members });
     nextStep();
   }
 
