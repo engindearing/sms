@@ -94,7 +94,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
     if (fields.consent && fields.anonymous)
       return alert("Please add your initials to only one of the options");
 
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+    nextStep();
   }
 
   return (

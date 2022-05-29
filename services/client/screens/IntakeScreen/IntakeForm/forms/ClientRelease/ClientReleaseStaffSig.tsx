@@ -64,20 +64,14 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
     members: [...copyOfMembers],
   };
 
-
-
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
     // nextStep();
-
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+    nextStep();
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({
         errors,
         values,

@@ -64,10 +64,10 @@ export default function AdditionalInfo({ formValues, onChange, nextStep }) {
     onSubmit: async (pets) => {
       try {
         let data = await updateHousehold(formValues._id, pets);
-        onChange(pets);
-        nextStep();
 
-        alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+        onChange(data);
+
+        nextStep();
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert

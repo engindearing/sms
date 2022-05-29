@@ -33,20 +33,20 @@ export default function ContactInfo({ formValues, onChange, nextStep }) {
     initialValues: {
       contact: {
         phoneOne: {
-          name: formValues.contact.phoneOne.name,
-          number: formValues.contact.phoneOne.number,
-          safeToLeaveMsg: formValues.contact.phoneOne.safeToLeaveMsg,
+          name: formValues.contact?.phoneOne.name,
+          number: formValues.contact?.phoneOne.number,
+          safeToLeaveMsg: formValues.contact?.phoneOne.safeToLeaveMsg,
         },
 
         phoneTwo: {
-          name: formValues.contact.phoneTwo.name,
-          number: formValues.contact.phoneTwo.number,
-          safeToLeaveMsg: formValues.contact.phoneTwo.safeToLeaveMsg,
+          name: formValues.contact?.phoneTwo.name,
+          number: formValues.contact?.phoneTwo.number,
+          safeToLeaveMsg: formValues.contact?.phoneTwo.safeToLeaveMsg,
         },
 
         emergencyContact: {
-          name: formValues.contact.emergencyContact.name,
-          number: formValues.contact.emergencyContact.number,
+          name: formValues.contact?.emergencyContact.name,
+          number: formValues.contact?.emergencyContact.number,
         },
       },
     },

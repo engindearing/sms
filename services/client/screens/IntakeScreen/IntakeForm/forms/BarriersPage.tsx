@@ -100,7 +100,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
         errors,
         values,
         touched,
-        setValues,
         handleBlur,
         setFieldValue,
         handleSubmit,

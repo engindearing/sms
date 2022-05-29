@@ -88,8 +88,7 @@ export default function NeighborhoodExpectations({
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
     // nextStep();
-
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+    nextStep();
   }
 
   return (

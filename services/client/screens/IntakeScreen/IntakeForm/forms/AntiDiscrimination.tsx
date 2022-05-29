@@ -75,9 +75,9 @@ export default function AntiDiscrimination({ nextStep, onChange, formValues }) {
 
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
-    // nextStep();
+    nextStep();
 
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+
   }
 
   return (
