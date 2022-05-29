@@ -16,6 +16,7 @@ import { Text } from "native-base";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
+import { updateMembers } from "../../../../api/members";
 
 //Options for race
 const options = [
@@ -49,11 +50,12 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
     ),
   });
 
-  function onSubmit(fields) {
-    // onChange({ members: [...fields.members] });
-    // nextStep();
-
+  async function onSubmit(fields) {
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(fields, null, 4));
+    await updateMembers(formValues._id, fields.members);
+
+    onChange();
+    nextStep();
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];
@@ -143,7 +145,14 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
                       }}
                     >
                       {options.map((opt) => (
-                        <CheckboxInput name={opt}>{opt}</CheckboxInput>
+                        <CheckboxInput
+                          defaultIsChecked={values.members[
+                            i
+                          ].demographics.race.includes(opt)}
+                          name={opt}
+                        >
+                          {opt}
+                        </CheckboxInput>
                       ))}
                     </CheckboxGroup>
                   </View>
