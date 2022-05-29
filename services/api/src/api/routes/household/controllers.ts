@@ -12,7 +12,6 @@ export const updateHousehold = async (req: any, res: any) => {
 
     res.status(200).json(updatedHousehold);
   } catch (error) {
-    console.log(error)
     res.status(400).json(error);
   }
 };
@@ -32,15 +31,13 @@ export const addMembers = async (req: any, res: any) => {
 };
 
 export const deleteMembers = async (req: any, res: any) => {
-  const { id } = req.params;
-
-  let memberIds = req.body;
+  let memberIds = req.body.map((mem: any) => mem._id);
 
   try {
-    memberIds.map(async (id: string) => await Member.findByIdAndDelete(id));
+    memberIds.forEach(async (id: any) => await Member.findByIdAndDelete(id));
 
     res.status(204);
   } catch (error) {
-    res.json(error);
+    res.status(400).json(error);
   }
 };

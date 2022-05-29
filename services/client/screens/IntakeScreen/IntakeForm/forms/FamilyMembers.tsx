@@ -17,6 +17,8 @@ import memberValues from "../structures/member";
 
 import styled from "styled-components/native";
 
+import { addMembers, deleteMembers } from "../../../../api/members";
+
 export default function FamilyMembers({ nextStep, onChange, formValues }) {
   //Options for relationship drop down
 
@@ -57,9 +59,10 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
     const members = [...values.members];
     const numberOfHouseholdMembers = value || 0;
     const previousNumber = parseInt(field.value || "0");
+
     if (previousNumber < numberOfHouseholdMembers) {
       for (let i = previousNumber; i < numberOfHouseholdMembers; i++) {
-        members.push(memberValues());
+        members.push({ ...memberValues(), household: formValues._id });
       }
     } else {
       for (let i = previousNumber; i >= numberOfHouseholdMembers; i--) {
@@ -72,9 +75,24 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
     setFieldValue(field.name, value);
   }
 
-  function onSubmit(fields) {
-    onChange({ members: [...fields.members] });
-    nextStep();
+  async function onSubmit(fields) {
+    let previousMembers = members;
+
+    let currentMembers = fields.members;
+
+    if (previousMembers.length < currentMembers.length) {
+      let newMembers = getNewMembers(members, fields.members);
+
+      await addMembers(formValues._id, newMembers);
+    }
+
+    if (currentMembers.length < previousMembers.length) {
+      let deletedMembers = getDeletedMembers(members, fields.members);
+
+      await deleteMembers(formValues._id, deletedMembers)
+    }
+
+    onChange({ members: currentMembers });
   }
 
   return (
@@ -232,9 +250,27 @@ export default function FamilyMembers({ nextStep, onChange, formValues }) {
   );
 }
 
-const handleChange = (field, value, values, setFieldValue, position) => {
-  console.log(values);
+const getNewMembers = (previousMembers, currentMembers) => {
+  let newMembers = [];
 
+  for (let i = previousMembers.length; i < currentMembers.length; i++) {
+    newMembers.push(currentMembers[i]);
+  }
+
+  return newMembers;
+};
+
+const getDeletedMembers = (previousMembers, currentMembers) => {
+  let deletedMembers = [];
+
+  for (let i = currentMembers.length; i < previousMembers.length; i++) {
+    deletedMembers.push(previousMembers[i]);
+  }
+
+  return deletedMembers;
+};
+
+const handleChange = (field, value, values, setFieldValue, position) => {
   return setFieldValue("members", [
     ...values.members.map((member, i) => {
       if (i == position) {
