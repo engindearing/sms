@@ -125,8 +125,6 @@ export default function FamilyMembers({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
             width: "100%",
           }}
         >
@@ -253,7 +251,6 @@ export default function FamilyMembers({
               })
             }
           </FieldArray>
-
           <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}

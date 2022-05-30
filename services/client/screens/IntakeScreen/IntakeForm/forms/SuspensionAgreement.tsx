@@ -104,8 +104,6 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
             width: "100%",
           }}
         >

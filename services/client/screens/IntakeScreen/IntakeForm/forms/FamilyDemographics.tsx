@@ -109,8 +109,7 @@ export default function FamilyMembers({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+      
             width: "100%",
           }}
         >

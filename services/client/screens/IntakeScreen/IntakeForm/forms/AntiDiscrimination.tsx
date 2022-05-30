@@ -98,8 +98,7 @@ export default function AntiDiscrimination({ nextStep, onChange, formValues, pre
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+
             width: "100%",
           }}
         >

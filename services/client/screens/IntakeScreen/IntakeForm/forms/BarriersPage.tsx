@@ -62,8 +62,6 @@ export default function RaceEthnicityInfo({
 
   const { members } = formValues;
 
-  console.log(members);
-
   const initialValues = {
     numberOfHouseholdMembers: "",
     members: [...members],
@@ -94,8 +92,6 @@ export default function RaceEthnicityInfo({
     nextStep();
   }
 
-  const genderOptions = ["Male", "Female", "Decline to Answer"];
-
   return (
     <Formik
       initialValues={initialValues}
@@ -112,8 +108,7 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+       
             width: "100%",
           }}
         >
@@ -148,8 +143,6 @@ export default function RaceEthnicityInfo({
                   <View
                     key={i}
                     style={{
-                      display: "flex",
-                      alignItems: "flex-start",
                       width: "100%",
                       marginBottom: "3%",
                     }}

@@ -1,12 +1,11 @@
 import { Text } from "native-base";
-import React, { useEffect, useState } from "react";
-import { View, ScrollView } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { ScrollView } from "react-native";
 import { updateHousehold } from "../../api/household";
 import { fetchOrCreateIntakeValues } from "../../api/intake";
 import useStep from "../../hooks/useStep";
 
 import IntakeForm from "./IntakeForm";
-import Navigation from "./IntakeForm/Navigation";
 
 import steps from "./steps";
 
@@ -15,11 +14,13 @@ const IntakeScreen = ({ route }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const { step, navigation } = useStep({ initialStep: 0, steps });
+  const { step, navigation: formNavigator } = useStep({ initialStep: 0, steps });
 
-  const nextStep = () => navigation.next();
-  const prevStep = () => navigation.previous();
-  const setStep = (step) => navigation.go(step);
+  const scrollRef = useRef();
+
+  const nextStep = () => formNavigator.next();
+  const prevStep = () => formNavigator.previous();
+  const setStep = (step) => formNavigator.go(step);
 
   useEffect(async () => {
     setLoading(true);
@@ -30,8 +31,9 @@ const IntakeScreen = ({ route }) => {
       setFormValues(intakeValues);
 
       if (intakeValues.lastFormVisited) {
-        navigation.go(intakeValues.lastFormVisited);
+        setStep(intakeValues.lastFormVisited);
       }
+      
     } catch (error) {
       // redirect to error page
 
@@ -43,6 +45,10 @@ const IntakeScreen = ({ route }) => {
 
   useEffect(async () => {
     if (step.id == "IntakeStart") return;
+
+    scrollRef.current?.scrollTo({
+      y: 0,
+    });
 
     await updateHousehold(formValues._id, { lastFormVisited: step.id });
   }, [step]);
@@ -61,7 +67,7 @@ const IntakeScreen = ({ route }) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView ref={scrollRef}>
       <IntakeForm {...props} />
     </ScrollView>
   );

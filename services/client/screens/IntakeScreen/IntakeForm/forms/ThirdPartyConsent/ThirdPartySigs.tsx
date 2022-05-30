@@ -13,6 +13,8 @@ import SelectInput from "../../../../../components/SelectInput";
 
 import TextAreaInput from "../../../../../components/TextAreaInput";
 
+import Unorderedlist from "react-native-unordered-list";
+
 import { Text } from "native-base";
 
 import getAge from "../../../../../utils/getAge";
@@ -22,6 +24,7 @@ import styled from "styled-components/native";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../../components/CheckboxInput";
+import Navigation from "../../Navigation";
 
 const gradeOptions = [
   "1",
@@ -48,7 +51,12 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
+export default function RaceEthnicityInfo({
+  nextStep,
+  onChange,
+  formValues,
+  prevStep,
+}) {
   //Options for relationship drop down
   const { members } = formValues;
 
@@ -107,8 +115,6 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
             width: "100%",
           }}
         >
@@ -144,34 +150,74 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
 
           <Text fontSize={"lg"}>Name of Facility:</Text>
 
-          <Text>Family Promise/Open Doors of Spokane</Text>
-
-          <Text> Address: 2002 E Mission Ave, Spokane, WA 99202</Text>
-
-          <Spacer />
-
-          <Text fontSize={"lg"}> Name of Individual, Agency, or Facility:</Text>
-
-          <Text>Salvation Army of Spokane</Text>
+          <Unorderedlist>
+            <Text> Family Promise/Open Doors of Spokane</Text>
+            <Text> Address: 2002 E Mission Ave, Spokane, WA 99202</Text>
+          </Unorderedlist>
 
           <Spacer />
 
           <Text fontSize={"lg"}> Name of Individual, Agency, or Facility:</Text>
 
-          <Text> DSHS</Text>
-          <Text> CPS</Text>
-          <Text> DCYF</Text>
-          <Text> Passages</Text>
-          <Text> SHA</Text>
-          <Text> SVA</Text>
-          <Text> Vanessa Behan Crisis Nursery</Text>
-          <Text> Catholic Charities</Text>
+          <Unorderedlist>
+            <Text> Salvation Army of Spokane</Text>
+          </Unorderedlist>
 
-          <Text>HFCA</Text>
-          <Text>Spokane Public Schools</Text>
-          <Text> Frontier Behavioral Health</Text>
-          <Text>St. Margarets</Text>
-          <Text> Any agency deemed appropriate by FPS</Text>
+          <Spacer />
+
+          <Text fontSize={"lg"}> Name of Individual, Agency, or Facility:</Text>
+
+          <Unorderedlist>
+            <Text> DSHS</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> CPS</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> DCYF</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> Passages</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> SHA</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> SVA</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> Vanessa Behan Crisis Nursery</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> Catholic Charities</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text>HFCA</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text>Spokane Public Schools</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> Frontier Behavioral Health</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> St. Margarets</Text>
+          </Unorderedlist>
+
+          <Unorderedlist>
+            <Text> Any agency deemed appropriate by FPS</Text>
+          </Unorderedlist>
 
           <Spacer />
 
@@ -352,16 +398,7 @@ export default function RaceEthnicityInfo({ nextStep, onChange, formValues }) {
             onChangeText={handleChange("date")}
           />
 
-          <Button
-            marginTop={"3%"}
-            onPress={() => {
-              console.log(errors);
-
-              handleSubmit();
-            }}
-          >
-            Submit
-          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
         </View>
       )}
     </Formik>

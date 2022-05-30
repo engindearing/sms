@@ -1,33 +1,17 @@
-import React, { useEffect, useState } from "react";
-
 import { axiosWithAuth } from "../axiosWithAuth";
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const useGetCurrentUserQuery = () => {
-    const [user, setUser] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+export const getCurrentUser = async () => {
+  const token = await AsyncStorage.getItem("accessToken");
 
-    const getCurrentUser = async () => {
-        const token = await AsyncStorage.getItem('accessToken')
+  try {
+    let userData = await axiosWithAuth(token)
+      .get("/users/me")
+      .then((res) => res.data.user);
 
-        setLoading(true)
-        try {
-            let userData = await axiosWithAuth(token).get('/users/me').then(res => res.data.user)
-
-            setUser(userData)
-
-        } catch (error) {
-            setError(error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        getCurrentUser()
-    }, [])  
-
-    return [user, loading, error]
-}
+    return userData;
+  } catch (error) {
+    throw error;
+  }
+};

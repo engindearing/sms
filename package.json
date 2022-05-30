@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "seeds": "bash ./services/api/src/seeds/run-seeds.sh"
+  },
+
   "devDependencies": {
     "@types/react": "~16.9.35",
     "@types/react-native": "^0.63.60",

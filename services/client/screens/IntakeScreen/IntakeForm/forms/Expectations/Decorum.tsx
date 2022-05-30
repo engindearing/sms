@@ -61,8 +61,7 @@ export default function Decorum({ nextStep, onChange, formValues, prevStep }) {
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+       
             width: "100%",
           }}
         >

@@ -33,6 +33,7 @@ const steps = [
   { id: "AnimalYes" },
   { id: "Neighborhood" },
   { id: "NeighborhoodExpectations" },
+  { id: "IntakeComplete" },
 ];
 
 export default steps;

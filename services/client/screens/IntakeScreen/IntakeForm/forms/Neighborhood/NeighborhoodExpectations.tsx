@@ -112,8 +112,7 @@ export default function NeighborhoodExpectations({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+   
             width: "100%",
           }}
         >

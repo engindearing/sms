@@ -3,8 +3,9 @@ import React from "react";
 import { Button, Text } from "native-base";
 
 import styled from "styled-components/native";
+import Navigation from "../../Navigation";
 
-export default function ClientRelease({ nextStep }) {
+export default function ClientRelease({ nextStep, prevStep }) {
   return (
     <View>
       <Text fontSize={"2xl"}>
@@ -113,9 +114,7 @@ export default function ClientRelease({ nextStep }) {
         assistance understanding any part of this form.
       </Text>
 
-      <Button style={{ marginTop: "5%" }} onPress={nextStep}>
-        Next
-      </Button>
+      <Navigation prevStep={prevStep} handleSubmit={nextStep} />
     </View>
   );
 }

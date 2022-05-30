@@ -15,14 +15,11 @@ export const authRequired = async (req: any, res: any, next: any) => {
   if (!token)
     return res.status(401).json({ message: "Access token is required." });
 
-
   try {
     let result = await verifyIdToken(token);
 
-
     if (!result)
       return res.status(401).json({ message: "Invalid Access Token" });
-  
 
     let currentUser = await User.findUserByEmailOrCreate(result.email);
 
@@ -30,7 +27,7 @@ export const authRequired = async (req: any, res: any, next: any) => {
 
     next();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ message: "Unable to verify user" });
   }
 };

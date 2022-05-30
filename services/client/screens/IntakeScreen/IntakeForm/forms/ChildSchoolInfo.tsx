@@ -24,7 +24,6 @@ import { updateMembers } from "../../../../api/members";
 
 import Navigation from "../Navigation";
 
-
 const gradeOptions = [
   "1",
   "2",
@@ -114,8 +113,6 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
             width: "100%",
           }}
         >

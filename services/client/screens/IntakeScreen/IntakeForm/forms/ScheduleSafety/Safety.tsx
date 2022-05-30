@@ -95,8 +95,7 @@ export default function Belongings({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+  
             width: "100%",
           }}
         >

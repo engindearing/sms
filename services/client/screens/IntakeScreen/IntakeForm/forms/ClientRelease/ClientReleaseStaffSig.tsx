@@ -65,7 +65,7 @@ export default function RaceEthnicityInfo({
 
   const initialValues = {
     consent: "",
-    anonymous: "",
+    agency: "",
     date: "",
     members: [...copyOfMembers],
   };
@@ -77,7 +77,7 @@ export default function RaceEthnicityInfo({
   }
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} >
       {({
         errors,
         values,
@@ -89,8 +89,7 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+
             width: "100%",
           }}
         >
@@ -103,10 +102,10 @@ export default function RaceEthnicityInfo({
             placeholder="Signature"
             name="dateLastIncident"
             onBlur={handleBlur("dateLastIncident")}
-            onChangeText={handleChange("anonymous")}
-            error={errors.anonymous}
-            touched={touched.anonymous}
-            value={values.anonymous}
+            onChangeText={handleChange("signature")}
+            error={errors.signature}
+            touched={touched.signature}
+            value={values.signature}
             label="Staff signature"
             marginBottom={"20px"}
           />
@@ -146,10 +145,10 @@ export default function RaceEthnicityInfo({
             placeholder="Signature"
             name="dateLastIncident"
             onBlur={handleBlur("dateLastIncident")}
-            onChangeText={handleChange("anonymous")}
-            error={errors.anonymous}
-            touched={touched.anonymous}
-            value={values.anonymous}
+            onChangeText={handleChange("agency")}
+            error={errors.agency}
+            touched={touched.agency}
+            value={values.agency}
             label="Staff signature"
             marginBottom={"20px"}
           />
@@ -177,11 +176,11 @@ export default function RaceEthnicityInfo({
             width="100%"
             placeholder="Signature"
             name="dateLastIncident"
-            onBlur={handleBlur("dateLastIncident")}
-            onChangeText={handleChange("anonymous")}
-            error={errors.anonymous}
-            touched={touched.anonymous}
-            value={values.anonymous}
+            onBlur={handleBlur("sig2")}
+            onChangeText={handleChange("sig2")}
+            error={errors.sig2}
+            touched={touched.sig2}
+            value={values.sig2}
             label="Staff signature"
             marginBottom={"20px"}
           />
@@ -189,24 +188,24 @@ export default function RaceEthnicityInfo({
           <TextInput
             width="100%"
             placeholder="MM/DD/YYYY"
-            onBlur={handleBlur("members")}
-            error={errors.date}
-            touched={touched.date}
-            value={values.date}
+            onBlur={handleBlur("date2")}
+            error={errors.date2}
+            touched={touched.date2}
+            value={values.date2}
             label="Date"
             marginBottom={"20px"}
-            onChangeText={handleChange("date")}
+            onChangeText={handleChange("date2")}
           />
 
           <TextInput
             width="100%"
             placeholder="Agency Name"
             name="dateLastIncident"
-            onBlur={handleBlur("dateLastIncident")}
-            onChangeText={handleChange("anonymous")}
-            error={errors.anonymous}
-            touched={touched.anonymous}
-            value={values.anonymous}
+            onBlur={handleBlur("agency2")}
+            onChangeText={handleChange("agency2")}
+            error={errors.agency2}
+            touched={touched.agency2}
+            value={values.agency2}
             label="Agency"
             marginBottom={"20px"}
           />

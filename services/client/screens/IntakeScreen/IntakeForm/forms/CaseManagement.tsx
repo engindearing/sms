@@ -63,21 +63,20 @@ export default function RaceEthnicityInfo({
 
   const { members } = formValues;
 
-  let copyOfMembers = members.map((mem) => ({
+  let adults = members.filter(mem => getAge(mem.demographics.dob) >= 18)
+
+  let copyOfAdults = adults.map((mem) => ({
     ...mem,
     signature: "",
     date: "",
   }));
 
   const initialValues = {
-    consent: "",
     date: "",
-    members: [...copyOfMembers],
+    members: [...copyOfAdults],
   };
 
   const validationSchema = Yup.object().shape({
-    consent: Yup.string().required("Required"),
-
     date: Yup.string()
       .required("Required")
       .test(
@@ -118,8 +117,7 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+        
             width: "100%",
           }}
         >
@@ -299,7 +297,11 @@ export default function RaceEthnicityInfo({
             onChangeText={handleChange("date")}
           />
 
-          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
+          <Navigation prevStep={prevStep} handleSubmit={() => {
+            console.log(errors)
+
+            handleSubmit()
+          }} />
         </View>
       )}
     </Formik>
