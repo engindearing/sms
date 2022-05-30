@@ -10,14 +10,9 @@ const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
 
-const dotenv = require("dotenv").config({ silent: true });
+const dotenv = require("dotenv");
 
 const morgan = require("morgan");
-
-const config_result = dotenv.config();
-if (process.env.NODE_ENV != "production" && config_result.error) {
-  throw config_result.error;
-}
 
 app.use(helmet());
 
