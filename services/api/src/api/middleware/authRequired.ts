@@ -5,7 +5,6 @@ import { User } from "../../models/User";
 export const authRequired = async (req: any, res: any, next: any) => {
   let token;
 
-  
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -28,7 +27,7 @@ export const authRequired = async (req: any, res: any, next: any) => {
 
     next();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ message: "Unable to verify user" });
   }
 };

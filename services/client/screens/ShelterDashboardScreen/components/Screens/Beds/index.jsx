@@ -44,10 +44,6 @@ const Index = ({ shelterId }) => {
     getReservations();
   }, []);
 
-  useEffect(() => {
-    console.log(reservations);
-  }, [reservations]);
-
   if (loading) {
     return <Text>Loading</Text>;
   }
@@ -112,7 +108,6 @@ const ListItem = ({ setReservations, verified, hoh, beds, navigation, id }) => {
 const ListItemContainer = styled.View`
   display: flex;
 
-
   flex-direction: row;
 
   align-items: center;
@@ -139,8 +134,6 @@ const Container = styled.View`
 `;
 
 const Reservations = styled.View`
-
-
   width: 40%;
 
   ${(props) => props.theme.isLaptop && "width: 45%;"}

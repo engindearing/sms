@@ -46,8 +46,6 @@ const Container = styled.View`
 
   display: flex;
 
-  height: 800px;
-
   justify-content: center;
 
   align-items: center;

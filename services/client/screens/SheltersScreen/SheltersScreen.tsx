@@ -34,8 +34,8 @@ const SheltersScreen = () => {
     <ScrollView>
       <Container>
         <Shelters>
-          {dummyData.map((data) => (
-            <Shelter image={data.image} name={data.name} id={data.id} navigation={navigation} />
+          {dummyData.map((data, key) => (
+            <Shelter key={data.id} image={data.image} name={data.name} id={data.id} navigation={navigation} />
           ))}
         </Shelters>
       </Container>
@@ -73,7 +73,7 @@ const Shelters = styled.View`
 
 const Shelter = ({ name, id, navigation, image }) => {
   return (
-    <Card>
+    <Card key={id}>
       <Card.Title>{name}</Card.Title>
       <Card.Divider />
       <Card.Image
