@@ -14,11 +14,6 @@ const dotenv = require("dotenv");
 
 const morgan = require("morgan");
 
-const config_result = dotenv.config();
-if (process.env.NODE_ENV != "production" && config_result.error) {
-  throw config_result.error;
-}
-
 app.use(helmet());
 
 app.use(morgan("tiny"));
@@ -43,8 +38,8 @@ import usersRouter from "./routes/users";
 import orgsRouter from "./routes/orgs";
 import sheltersRouter from "./routes/shelters";
 import reservationsRouter from "./routes/reservations";
-import householdRouter from './routes/household'
-import memberRouter from './routes/members'
+import householdRouter from "./routes/household";
+import memberRouter from "./routes/members";
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
