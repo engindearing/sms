@@ -14,7 +14,7 @@ export default function IntakeComplete({ nextStep, prevStep, formValues }) {
 
   const onIntakeComplete = async () => {
     await updateHousehold(formValues._id, { status: "complete" });
-
+    
     navigation.navigate("Guest");
   };
 
