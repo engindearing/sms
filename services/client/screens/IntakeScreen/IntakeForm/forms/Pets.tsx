@@ -1,14 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import {  View } from "react-native";
 
 import React from "react";
 
-import { useNavigation } from "@react-navigation/native";
-
-import { useFormik, yupToFormErrors } from "formik";
+import { useFormik } from "formik";
 
 import TextInput from "../../../../components/TextInput";
 
-import { Button, Checkbox, Text } from "native-base";
+import { Checkbox, Text } from "native-base";
 
 import styled from "styled-components/native";
 
@@ -24,24 +22,6 @@ export default function AdditionalInfo({
   nextStep,
   prevStep,
 }) {
-  //Options for Gov Benifits w/dataBase name counterpart
-  const GOVBenifits = [
-    "Food Stamps",
-    "CPS/FPS (Open case)",
-    "RRH (Rapid Rehousing) ",
-    "Housing Voucher (Current)",
-    "Veteran Services",
-    "SNAP assistance",
-  ];
-
-  const GOVBenifitsDataName = {
-    "Food Stamps": "foodstamps",
-    "CPS/FPS (Open case)": "cpsFps",
-    "RRH (Rapid Rehousing) ": "rrh",
-    "Housing Voucher (Current)": "housingVoucher",
-    "Veteran Services": "veteranServices",
-    "SNAP assistance": "snap",
-  };
 
   const {
     handleChange,

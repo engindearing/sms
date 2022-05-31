@@ -1,6 +1,6 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
-import { Button, Text } from "native-base";
+import { Text } from "native-base";
 
 import styled from "styled-components/native";
 import Navigation from "../../Navigation";
@@ -169,5 +169,3 @@ const Spacer = styled.View`
 
   margin-bottom: 10;
 `;
-
-const styles = StyleSheet.create({});

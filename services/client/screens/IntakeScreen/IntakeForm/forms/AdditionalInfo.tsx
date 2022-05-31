@@ -1,21 +1,21 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
 import React from "react";
 
-import { useNavigation } from "@react-navigation/native";
-
-import { useFormik, yupToFormErrors } from "formik";
+import { useFormik } from "formik";
 
 import TextInput from "../../../../components/TextInput";
 
-import { Button, Checkbox, Text } from "native-base";
+import { Checkbox, Text } from "native-base";
 
 import styled from "styled-components/native";
 
 import * as Yup from "yup";
 
 import "yup-phone";
+
 import { updateHousehold } from "../../../../api/household";
+
 import Navigation from "../Navigation";
 
 export default function AdditionalInfo({ formValues, onChange, nextStep, prevStep }) {
@@ -82,7 +82,7 @@ export default function AdditionalInfo({ formValues, onChange, nextStep, prevSte
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
-        alert("Invalid username or password");
+        alert(" Unable to update password");
       }
     },
   });

@@ -1,25 +1,19 @@
 import { View } from "react-native";
 import React from "react";
 
-import { Formik, FieldArray } from "formik";
+import { Formik } from "formik";
 
 import TextInput from "../../../../../components/TextInput";
 
 import * as Yup from "yup";
 
-import { Button } from "native-base";
-
 import { Text } from "native-base";
-
-import getAge from "../../../../../utils/getAge";
 
 import styled from "styled-components/native";
 import Navigation from "../../Navigation";
 
 export default function RaceEthnicityInfo({
   nextStep,
-  onChange,
-  formValues,
   prevStep,
 }) {
   //Options for relationship drop down
@@ -43,10 +37,7 @@ export default function RaceEthnicityInfo({
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({
         errors,
         values,
@@ -57,7 +48,6 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-
             width: "100%",
           }}
         >
@@ -169,29 +159,10 @@ export default function RaceEthnicityInfo({
   );
 }
 
-const handleSigChange = (field, value, values, setFieldValue, position) => {
-  return setFieldValue("members", [
-    ...values.members.map((member, i) => {
-      if (i == position) {
-        member[field] = value;
-      }
-
-      return member;
-    }),
-  ]);
-};
-
 const Spacer = styled.View`
   margin-top: 10;
 
   margin-bottom: 10;
 `;
 
-const Hr = styled.View`
-  margin-top: 30;
-  margin-bottom: 30;
-  border-bottom-width: 1;
-  margin-bottom: 30;
 
-  border-color: #6960602d;
-`;

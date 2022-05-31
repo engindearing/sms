@@ -1,17 +1,14 @@
-import { View } from "react-native";
 import React from "react";
 
-import { Formik, FieldArray } from "formik";
+import { View } from "react-native";
+
+import { Formik } from "formik";
 
 import TextInput from "../../../../../components/TextInput";
 
 import * as Yup from "yup";
 
-import { Button } from "native-base";
-
 import { Text } from "native-base";
-
-import getAge from "../../../../../utils/getAge";
 
 import styled from "styled-components/native";
 import Navigation from "../../Navigation";
@@ -267,29 +264,8 @@ export default function Decorum({ nextStep, onChange, formValues, prevStep }) {
   );
 }
 
-const handleSigChange = (field, value, values, setFieldValue, position) => {
-  return setFieldValue("members", [
-    ...values.members.map((member, i) => {
-      if (i == position) {
-        member[field] = value;
-      }
-
-      return member;
-    }),
-  ]);
-};
-
 const Spacer = styled.View`
   margin-top: 10;
 
   margin-bottom: 10;
-`;
-
-const Hr = styled.View`
-  margin-top: 30;
-  margin-bottom: 30;
-  border-bottom-width: 1;
-  margin-bottom: 30;
-
-  border-color: #6960602d;
 `;

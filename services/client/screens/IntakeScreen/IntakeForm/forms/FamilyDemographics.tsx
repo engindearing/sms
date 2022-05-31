@@ -1,4 +1,5 @@
 import { View } from "react-native";
+
 import React from "react";
 
 import { Formik, FieldArray } from "formik";
@@ -7,7 +8,7 @@ import TextInput from "../../../../components/TextInput";
 
 import * as Yup from "yup";
 
-import { Button, Select } from "native-base";
+import { Select } from "native-base";
 
 import SelectInput from "../../../../components/SelectInput";
 
@@ -16,7 +17,9 @@ import { Text } from "native-base";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../components/CheckboxInput";
+
 import { updateMembers } from "../../../../api/members";
+
 import Navigation from "../Navigation";
 
 const options = ["Job", "TANF", "SSI", "SSDI", "Child Support", "Other"];

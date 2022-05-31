@@ -1,4 +1,5 @@
 import { View } from "react-native";
+
 import React from "react";
 
 import { Formik, FieldArray } from "formik";
@@ -6,12 +7,6 @@ import { Formik, FieldArray } from "formik";
 import TextInput from "../../../../../components/TextInput";
 
 import * as Yup from "yup";
-
-import { Button, Select } from "native-base";
-
-import SelectInput from "../../../../../components/SelectInput";
-
-import TextAreaInput from "../../../../../components/TextAreaInput";
 
 import Unorderedlist from "react-native-unordered-list";
 
@@ -21,39 +16,10 @@ import getAge from "../../../../../utils/getAge";
 
 import styled from "styled-components/native";
 
-import CheckboxInput, {
-  CheckboxGroup,
-} from "../../../../../components/CheckboxInput";
 import Navigation from "../../Navigation";
-
-const gradeOptions = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "11",
-  "12",
-];
-
-const attendStatOptions = [
-  "Regular",
-  "Irregular",
-  "Dropped out",
-  "Suspended",
-  "Expelled",
-];
-
-const schoolTypeOptions = ["Public", "Private"];
 
 export default function RaceEthnicityInfo({
   nextStep,
-  onChange,
   formValues,
   prevStep,
 }) {
@@ -93,8 +59,7 @@ export default function RaceEthnicityInfo({
   // });
 
   function onSubmit(fields) {
-    // onChange({ members: [...fields.members] });
-    // nextStep();
+
     nextStep();
   }
 
@@ -431,25 +396,3 @@ const Hr = styled.View`
   border-color: #6960602d;
 `;
 
-function isValidDate(dateString) {
-  // First check for the pattern
-  if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) return false;
-
-  // Parse the date parts to integers
-  var parts = dateString.split("/");
-  var day = parseInt(parts[1], 10);
-  var month = parseInt(parts[0], 10);
-  var year = parseInt(parts[2], 10);
-
-  // Check the ranges of month and year
-  if (year < 1000 || year > 3000 || month == 0 || month > 12) return false;
-
-  var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-  // Adjust for leap years
-  if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
-    monthLength[1] = 29;
-
-  // Check the range of the day
-  return day > 0 && day <= monthLength[month - 1];
-}

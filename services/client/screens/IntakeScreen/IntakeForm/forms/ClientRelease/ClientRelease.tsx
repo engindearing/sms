@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { Button, Text } from "native-base";
+import { Text } from "native-base";
 
 import styled from "styled-components/native";
 
@@ -82,4 +82,3 @@ const Hr = styled.View`
   border-color: #6960602d;
 `;
 
-const styles = StyleSheet.create({});

@@ -53,9 +53,8 @@ export default function HomelessHistory({
         onChange(data);
         nextStep();
       } catch (error) {
-        // #TODO
-        // Handle specific errors, use a popup instead of alert
-        alert("Invalid username or password");
+       
+        alert("Unable to update household");
       }
     },
   });

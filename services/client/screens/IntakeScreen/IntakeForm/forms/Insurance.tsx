@@ -1,14 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
 import React from "react";
 
-import { useNavigation } from "@react-navigation/native";
-
-import { useFormik, yupToFormErrors } from "formik";
+import { useFormik } from "formik";
 
 import TextInput from "../../../../components/TextInput";
 
-import { Button, Checkbox, Text } from "native-base";
+import { Checkbox, Text } from "native-base";
 
 import styled from "styled-components/native";
 
@@ -45,12 +43,13 @@ export default function Insurance({
     onSubmit: async (insurance) => {
       try {
         let data = await updateHousehold(formValues._id, insurance);
+
         onChange(data);
         nextStep();
       } catch (error) {
         // #TODO
         // Handle specific errors, use a popup instead of alert
-        alert("Invalid username or password");
+        alert("Unable to update household");
       }
     },
   });

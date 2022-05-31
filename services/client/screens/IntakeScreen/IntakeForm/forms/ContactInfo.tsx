@@ -1,14 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
 import React from "react";
-
-import { useNavigation } from "@react-navigation/native";
 
 import { useFormik } from "formik";
 
 import TextInput from "../../../../components/TextInput";
 
-import { Button, Checkbox, Text } from "native-base";
+import { Checkbox, Text } from "native-base";
 
 import styled from "styled-components/native";
 
@@ -17,6 +15,7 @@ import * as Yup from "yup";
 import "yup-phone";
 
 import { updateHousehold } from "../../../../api/household";
+
 import Navigation from "../Navigation";
 
 export default function ContactInfo({
@@ -25,8 +24,6 @@ export default function ContactInfo({
   nextStep,
   prevStep,
 }) {
-  const { contact } = formValues;
-
   const {
     handleChange,
     handleSubmit,
@@ -202,11 +199,3 @@ const Spacer = styled.View`
   margin-bottom: 2%;
 `;
 
-// contactOneName: "",
-// contactOneNumber: "",
-// contactOneSafeToLeaveMsg: true,
-// contactTwoName: "",
-// contactTwoNumber: "",
-// contactTwoSafeToLeaveMsg: true,
-// emergencyContactName: "",
-// emergencyContactNumber: "",

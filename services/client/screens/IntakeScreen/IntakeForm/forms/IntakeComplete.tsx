@@ -62,5 +62,3 @@ const Hr = styled.View`
 
   border-color: #6960602d;
 `;
-
-const styles = StyleSheet.create({});
