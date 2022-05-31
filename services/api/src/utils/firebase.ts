@@ -14,7 +14,11 @@ export const verifyIdToken = (token: string) => {
     .auth()
     .verifyIdToken(token)
     .then((res) => res)
-    .catch(() => false);
+    .catch((error) => {
+      console.log(error);
+
+      return false;
+    });
 };
 
 export default firebase;
