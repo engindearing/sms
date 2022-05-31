@@ -1,3 +1,5 @@
+const path = require("path");
+
 const express = require("express");
 
 const app = express();
@@ -16,6 +18,8 @@ const morgan = require("morgan");
 
 dotenv.config();
 
+app.use(express.static("web-build"));
+
 app.use(helmet());
 
 app.use(morgan("tiny"));
@@ -27,6 +31,8 @@ app.use(
     origin: "*",
   })
 );
+
+app.use(express.static("./web-build")); // serve static files (css & js) from the 'public' directory
 
 app.use(logger("dev"));
 
@@ -43,7 +49,7 @@ import reservationsRouter from "./routes/reservations";
 import householdRouter from "./routes/household";
 import memberRouter from "./routes/members";
 
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
 app.use("/users", usersRouter);
 app.use("/orgs", orgsRouter);
 app.use("/shelters", sheltersRouter);
