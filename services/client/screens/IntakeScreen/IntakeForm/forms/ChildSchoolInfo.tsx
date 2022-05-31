@@ -69,26 +69,26 @@ export default function RaceEthnicityInfo({
     members: [...children],
   };
 
-  const validationSchema = Yup.object().shape({
-    members: Yup.array().of(
-      Yup.object().shape({
-        schools: Yup.object().shape({
-          highestGradeCompleted: Yup.string().nullable().required("Required"),
-          enrolledStatus: Yup.boolean(),
-          attendanceStatus: Yup.string().nullable().required("Required"),
-          reasonNotEnrolled: Yup.string()
-            .nullable()
-            .when("enrolledStatus", {
-              is: false,
-              then: Yup.string().nullable().required("Required"),
-            }),
-          schoolType: Yup.string().nullable().required("Required"),
-          schoolName: Yup.string().nullable().required("Required"),
-          mckinneySchool: Yup.boolean(),
-        }),
-      })
-    ),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   members: Yup.array().of(
+  //     Yup.object().shape({
+  //       schools: Yup.object().shape({
+  //         highestGradeCompleted: Yup.string().nullable().required("Required"),
+  //         enrolledStatus: Yup.boolean(),
+  //         attendanceStatus: Yup.string().nullable().required("Required"),
+  //         reasonNotEnrolled: Yup.string()
+  //           .nullable()
+  //           .when("enrolledStatus", {
+  //             is: false,
+  //             then: Yup.string().nullable().required("Required"),
+  //           }),
+  //         schoolType: Yup.string().nullable().required("Required"),
+  //         schoolName: Yup.string().nullable().required("Required"),
+  //         mckinneySchool: Yup.boolean(),
+  //       }),
+  //     })
+  //   ),
+  // });
 
   async function onSubmit(fields) {
     await updateMembers(formValues._id, fields.members);
@@ -100,7 +100,6 @@ export default function RaceEthnicityInfo({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({

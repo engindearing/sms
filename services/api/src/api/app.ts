@@ -14,6 +14,8 @@ const dotenv = require("dotenv");
 
 const morgan = require("morgan");
 
+dotenv.config();
+
 app.use(helmet());
 
 app.use(morgan("tiny"));

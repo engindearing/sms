@@ -5,7 +5,11 @@ import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./state/store";
 
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import {
@@ -86,7 +90,6 @@ function SMS() {
         await AsyncStorage.setItem("accessToken", token);
 
         navigation.reset({
-          index: 0,
           routes: [{ name: "Home" }],
         });
       }
@@ -115,6 +118,8 @@ function SMS() {
         },
       }}
     >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="shelters" component={SheltersScreen} />
       <Stack.Screen name="Reservation" component={ReservationScreen} />
 
@@ -129,9 +134,7 @@ function SMS() {
         component={ShelterDashboardScreen}
       />
 
-      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
 
       <Stack.Screen
         name="Intake"

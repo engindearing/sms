@@ -18,6 +18,12 @@ const householdSchema: Schema = new mongoose.Schema(
       required: true,
       default: null,
     },
+
+    cmisAnonymous: {
+      type: Boolean,
+      default: null,
+    },
+
     lastFormVisited: {
       type: String,
       default: null,
