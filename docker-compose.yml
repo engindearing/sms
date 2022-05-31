@@ -23,16 +23,4 @@ services:
     ports:
       - "27017:27017"
 
-  # redis:
-  #   image: redis:latest
-
-  proxy:
-    depends_on:
-      - api
-    restart: always
-    build:
-      context: ./services/proxy
-      dockerfile: Dockerfile.dev      
-    ports:
-      - 3000:80
 
