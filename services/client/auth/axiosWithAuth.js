@@ -1,8 +1,6 @@
 import axios from "axios";
 
-import Constants from "expo-constants";
-
-import { NATIVE_API_URI } from '@env'
+import { NATIVE_API_URI } from "@env";
 
 export const axiosWithAuth = (accessToken) => {
   return axios.create({
@@ -11,5 +9,4 @@ export const axiosWithAuth = (accessToken) => {
     },
     baseURL: NATIVE_API_URI,
   });
-}
-
+};

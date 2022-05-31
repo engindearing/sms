@@ -78,21 +78,21 @@ export default function RaceEthnicityInfo({
     members: [...copyOfAdults],
   };
 
-  const validationSchema = Yup.object().shape({
-    in1: Yup.string().required("Required"),
-    in2: Yup.string().required("Required"),
-    in3: Yup.string().required("Required"),
-    in4: Yup.string().required("Required"),
-    in5: Yup.string().required("Required"),
-    in6: Yup.string().required("Required"),
-    in7: Yup.string().required("Required"),
+  // const validationSchema = Yup.object().shape({
+  //   in1: Yup.string().required("Required"),
+  //   in2: Yup.string().required("Required"),
+  //   in3: Yup.string().required("Required"),
+  //   in4: Yup.string().required("Required"),
+  //   in5: Yup.string().required("Required"),
+  //   in6: Yup.string().required("Required"),
+  //   in7: Yup.string().required("Required"),
 
-    members: Yup.array().of(
-      Yup.object().shape({
-        signature: Yup.string().required("Required").nullable(),
-      })
-    ),
-  });
+  //   members: Yup.array().of(
+  //     Yup.object().shape({
+  //       signature: Yup.string().required("Required").nullable(),
+  //     })
+  //   ),
+  // });
 
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
@@ -103,7 +103,6 @@ export default function RaceEthnicityInfo({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({

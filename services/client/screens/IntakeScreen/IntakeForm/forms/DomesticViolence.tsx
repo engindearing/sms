@@ -133,7 +133,7 @@ export default function ContactInfo({
         </>
       )}
 
-      <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
+      <Navigation prevStep={() => prevStep()} handleSubmit={handleSubmit} />
     </View>
   );
 }

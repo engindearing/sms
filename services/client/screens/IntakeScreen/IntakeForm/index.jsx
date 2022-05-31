@@ -37,7 +37,7 @@ import {
   AnimalYes,
   Neighborhood,
   NeighborhoodExpectations,
-  IntakeComplete
+  IntakeComplete,
 } from "./forms";
 
 import styled from "styled-components/native";
@@ -159,8 +159,8 @@ const RenderForm = ({
       return <Neighborhood {...formProps} />;
     case "NeighborhoodExpectations":
       return <NeighborhoodExpectations {...formProps} />;
-    case 'IntakeComplete':
-      return <IntakeComplete {...formProps} />
+    case "IntakeComplete":
+      return <IntakeComplete {...formProps} />;
     default:
       return <Text>Invalid</Text>;
   }

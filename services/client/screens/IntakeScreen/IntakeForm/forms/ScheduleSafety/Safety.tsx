@@ -64,13 +64,13 @@ export default function Belongings({
     members: [...copyOfAdults],
   };
 
-  const validationSchema = Yup.object().shape({
-    members: Yup.array().of(
-      Yup.object().shape({
-        signature: Yup.string().required("Required").nullable(),
-      })
-    ),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   members: Yup.array().of(
+  //     Yup.object().shape({
+  //       signature: Yup.string().required("Required").nullable(),
+  //     })
+  //   ),
+  // });
 
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
@@ -81,7 +81,6 @@ export default function Belongings({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({

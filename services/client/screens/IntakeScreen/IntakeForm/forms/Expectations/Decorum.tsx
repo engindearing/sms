@@ -29,15 +29,15 @@ export default function Decorum({ nextStep, onChange, formValues, prevStep }) {
     in7: "",
   };
 
-  const validationSchema = Yup.object().shape({
-    in1: Yup.string().required("Required"),
-    in2: Yup.string().required("Required"),
-    in3: Yup.string().required("Required"),
-    in4: Yup.string().required("Required"),
-    in5: Yup.string().required("Required"),
-    in6: Yup.string().required("Required"),
-    in7: Yup.string().required("Required"),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   in1: Yup.string().required("Required"),
+  //   in2: Yup.string().required("Required"),
+  //   in3: Yup.string().required("Required"),
+  //   in4: Yup.string().required("Required"),
+  //   in5: Yup.string().required("Required"),
+  //   in6: Yup.string().required("Required"),
+  //   in7: Yup.string().required("Required"),
+  // });
 
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
@@ -48,7 +48,6 @@ export default function Decorum({ nextStep, onChange, formValues, prevStep }) {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({

@@ -25,6 +25,7 @@ const LoginScreen = () => {
         setLoading(true);
         try {
           await auth.signInWithEmailAndPassword(email, password);
+
         } catch (error) {
           // #TODO
           // Handle specific errors, use a popup instead of alert

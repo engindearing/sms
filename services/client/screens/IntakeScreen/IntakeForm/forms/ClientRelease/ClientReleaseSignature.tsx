@@ -22,6 +22,8 @@ import CheckboxInput, {
 } from "../../../../../components/CheckboxInput";
 import Navigation from "../../Navigation";
 
+import { updateHousehold } from "../../../../../api/household";
+
 const gradeOptions = [
   "1",
   "2",
@@ -70,45 +72,35 @@ export default function RaceEthnicityInfo({
     members: [...copyOfMembers],
   };
 
-  const validationSchema = Yup.object().shape({
-    consent: Yup.string(),
-    anonymous: Yup.string(),
-    date: Yup.string()
-      .required("Required")
-      .test(
-        "is-valid-date",
-        "Invalid date. Make sure the format is correct (MM/DD/YYYY)",
-        function (value) {
-          return isValidDate(value);
-        }
-      ),
+  // const validationSchema = Yup.object().shape({
+  //   consent: Yup.string(),
+  //   anonymous: Yup.string(),
+  //   date: Yup.string()
+  //     .required("Required")
+  //     .test(
+  //       "is-valid-date",
+  //       "Invalid date. Make sure the format is correct (MM/DD/YYYY)",
+  //       function (value) {
+  //         return isValidDate(value);
+  //       }
+  //     ),
 
-    members: Yup.array().of(
-      Yup.object().shape({
-        signature: Yup.string().required("Required").nullable(),
-      })
-    ),
-  });
+  //   members: Yup.array().of(
+  //     Yup.object().shape({
+  //       signature: Yup.string().required("Required").nullable(),
+  //     })
+  //   ),
+  // });
 
-  function onSubmit(fields) {
+  async function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
     // nextStep();
-
-    if (!fields.consent && !fields.anonymous)
-      return alert("Please add your initials to one of the options");
-
-    if (fields.consent && fields.anonymous)
-      return alert("Please add your initials to only one of the options");
 
     nextStep();
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({
         errors,
         values,
@@ -120,7 +112,6 @@ export default function RaceEthnicityInfo({
       }) => (
         <View
           style={{
-  
             width: "100%",
           }}
         >

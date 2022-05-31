@@ -30,11 +30,11 @@ export default function RaceEthnicityInfo({
     in3: "",
   };
 
-  const validationSchema = Yup.object().shape({
-    in1: Yup.string().required("Required"),
-    in2: Yup.string().required("Required"),
-    in3: Yup.string().required("Required"),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   in1: Yup.string().required("Required"),
+  //   in2: Yup.string().required("Required"),
+  //   in3: Yup.string().required("Required"),
+  // });
 
   function onSubmit(fields) {
     // onChange({ members: [...fields.members] });
@@ -45,7 +45,6 @@ export default function RaceEthnicityInfo({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({

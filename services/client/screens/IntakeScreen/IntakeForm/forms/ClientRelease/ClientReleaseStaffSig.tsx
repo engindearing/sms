@@ -103,9 +103,7 @@ export default function RaceEthnicityInfo({
             name="dateLastIncident"
             onBlur={handleBlur("dateLastIncident")}
             onChangeText={handleChange("signature")}
-            error={errors.signature}
-            touched={touched.signature}
-            value={values.signature}
+       
             label="Staff signature"
             marginBottom={"20px"}
           />
@@ -114,9 +112,7 @@ export default function RaceEthnicityInfo({
             width="100%"
             placeholder="MM/DD/YYYY"
             onBlur={handleBlur("members")}
-            error={errors.date}
-            touched={touched.date}
-            value={values.date}
+     
             label="Date"
             marginBottom={"20px"}
             onChangeText={handleChange("date")}
@@ -128,9 +124,7 @@ export default function RaceEthnicityInfo({
             name="dateLastIncident"
             onBlur={handleBlur("dateLastIncident")}
             onChangeText={handleChange("anonymous")}
-            error={errors.anonymous}
-            touched={touched.anonymous}
-            value={values.anonymous}
+         
             label="Agency"
             marginBottom={"20px"}
           />
@@ -146,9 +140,7 @@ export default function RaceEthnicityInfo({
             name="dateLastIncident"
             onBlur={handleBlur("dateLastIncident")}
             onChangeText={handleChange("agency")}
-            error={errors.agency}
-            touched={touched.agency}
-            value={values.agency}
+         
             label="Staff signature"
             marginBottom={"20px"}
           />
@@ -157,9 +149,7 @@ export default function RaceEthnicityInfo({
             width="100%"
             placeholder="MM/DD/YYYY"
             onBlur={handleBlur("members")}
-            error={errors.date}
-            touched={touched.date}
-            value={values.date}
+         
             label="Date"
             marginBottom={"20px"}
             onChangeText={handleChange("date")}
@@ -178,9 +168,7 @@ export default function RaceEthnicityInfo({
             name="dateLastIncident"
             onBlur={handleBlur("sig2")}
             onChangeText={handleChange("sig2")}
-            error={errors.sig2}
-            touched={touched.sig2}
-            value={values.sig2}
+        
             label="Staff signature"
             marginBottom={"20px"}
           />
@@ -189,9 +177,7 @@ export default function RaceEthnicityInfo({
             width="100%"
             placeholder="MM/DD/YYYY"
             onBlur={handleBlur("date2")}
-            error={errors.date2}
-            touched={touched.date2}
-            value={values.date2}
+        
             label="Date"
             marginBottom={"20px"}
             onChangeText={handleChange("date2")}
@@ -203,9 +189,7 @@ export default function RaceEthnicityInfo({
             name="dateLastIncident"
             onBlur={handleBlur("agency2")}
             onChangeText={handleChange("agency2")}
-            error={errors.agency2}
-            touched={touched.agency2}
-            value={values.agency2}
+    
             label="Agency"
             marginBottom={"20px"}
           />
