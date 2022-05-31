@@ -25,7 +25,7 @@
       "dev": "ts-node ./src/index.ts",
       "watch-node": "nodemon dist/index.js",
       "watch-ts": "tsc -w",
-      "deploy": "git add . && git commit -m Heroku && git push heroku master"
+      "deploy": "git add . && git commit -m Heroku && git push heroku main"
    },
 
    "engines": { "node": "16.4.0" }
