@@ -1,14 +1,10 @@
 import admin from "firebase-admin";
 
-import * as config from "./config.json";
-
-console.log(config);
-
 const firebase = admin.initializeApp({
   credential: admin.credential.cert({
-    projectId: config.project_id, // I get no error here
-    clientEmail: config.client_email, // I get no error here
-    privateKey: config.private_key.replace(/\\n/g, "\n"), // NOW THIS WORKS!!!
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
   }),
   databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
