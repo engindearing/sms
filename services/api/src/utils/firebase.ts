@@ -1,9 +1,7 @@
 import admin from "firebase-admin";
 
-const serviceAccount = require("../config/firebaseConfig");
-
 const firebase = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount.default),
+  credential: admin.credential.cert(require("./config.json")),
   databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
 
