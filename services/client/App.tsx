@@ -113,7 +113,7 @@ function SMS() {
 
         headerRight: () => {
           return (
-            isLoggedIn && <Button onPress={() => auth.signOut()}>Logout</Button>
+            isLoggedIn && <Button style={{marginRight: 20}} variant={'outline'} onPress={() => auth.signOut()}>Logout</Button>
           );
         },
       }}

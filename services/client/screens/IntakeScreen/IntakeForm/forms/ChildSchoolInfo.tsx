@@ -61,10 +61,6 @@ export default function RaceEthnicityInfo({
 
   let children = members.filter((mem) => getAge(mem.demographics.dob) <= 18);
 
-  if (children.length == 0) {
-    nextStep();
-  }
-
   const initialValues = {
     members: [...children],
   };
@@ -98,10 +94,7 @@ export default function RaceEthnicityInfo({
   }
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-    >
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({
         errors,
         values,
@@ -117,10 +110,12 @@ export default function RaceEthnicityInfo({
         >
           <Text fontSize="3xl">School info</Text>
 
-          <Text fontSize={"xl"} marginBottom="1%">
-            Please answer the following questions about barriers. Check all that
-            apply for each family member.
-          </Text>
+          {!values.members.length && (
+            <Text fontSize="xl">
+              You can move on from this section if you don't have any children
+              in your household
+            </Text>
+          )}
 
           <FieldArray name="members">
             {() =>

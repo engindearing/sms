@@ -19,7 +19,7 @@ import "yup-phone";
 import { updateHousehold } from "../../../../api/household";
 import Navigation from "../Navigation";
 
-export default function ContactInfo({
+export default function DomesticViolence({
   formValues,
   onChange,
   nextStep,
