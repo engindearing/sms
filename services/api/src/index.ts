@@ -16,7 +16,8 @@ const main = async () => {
       .then(() => {
         console.log("\n MongoDB Connected");
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e)
         console.log('Unable to start mongoDB')
       });
 
