@@ -14,7 +14,7 @@ const dotenv = require("dotenv");
 
 const morgan = require("morgan");
 
-const config_result = dotenv.config();
+dotenv.config();
 
 app.use(helmet());
 
@@ -40,8 +40,8 @@ import usersRouter from "./routes/users";
 import orgsRouter from "./routes/orgs";
 import sheltersRouter from "./routes/shelters";
 import reservationsRouter from "./routes/reservations";
-import householdRouter from './routes/household'
-import memberRouter from './routes/members'
+import householdRouter from "./routes/household";
+import memberRouter from "./routes/members";
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
