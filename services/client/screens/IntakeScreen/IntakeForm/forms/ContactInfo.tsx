@@ -123,7 +123,7 @@ export default function ContactInfo({
         value={values?.contact?.phoneTwo?.name}
       />
       <TextInput
-        placeholder="Phone number"
+        placeholder="Number"
         onChangeText={handleChange("contact.phoneTwo.number")}
         onBlur={handleBlur("contact.phoneTwo.number")}
         error={errors?.contact?.phoneTwo?.number}
