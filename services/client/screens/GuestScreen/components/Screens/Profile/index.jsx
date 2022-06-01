@@ -1,17 +1,34 @@
-import { View } from "react-native";
-
 import styled from "styled-components/native";
 
 import React, { useState } from "react";
 
 import { Text, Card } from "native-base";
 
-import HouseholdProfile from "../../../../../components/HouseholdProfile";
-
 import Navigation, { DrawerItem } from "./Navigation";
 
+import Forms from "./Forms";
+
+import useStep from "../../../../../hooks/useStep";
+
 const index = ({ shelterId }) => {
-  let [step, setStep] = useState("contact");
+  const { step, navigation } = useStep({
+    initialStep: "Contact",
+    steps: [
+      { id: "Contact" },
+      { id: "Household" },
+      { id: "Demographics" },
+      { id: "RaceEthnicity" },
+      { id: "Barriers" },
+      { id: "School" },
+      { id: "DomesticViolence" },
+      { id: "History" },
+      { id: "Insurance" },
+      { id: "Pets" },
+      { id: "AdditionalInfo" },
+    ],
+  });
+
+  const setStep = (step) => navigation.go(step);
 
   return (
     <Wrapper>
@@ -25,8 +42,8 @@ const index = ({ shelterId }) => {
             padding: 0,
           }}
         >
-          <Navigation step={step} setStep={setStep} />
-          <Text>Uhh hello lol</Text>
+          <Navigation step={step.id} setStep={setStep} />
+          <Forms step={step} />
         </Card>
       </FormContainer>
     </Wrapper>

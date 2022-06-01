@@ -1,15 +1,10 @@
-import { View, Text } from "react-native";
 import React, { useState } from "react";
 
 import { List } from "react-native-paper";
 
 import styled from "styled-components/native";
 
-import {
-  MaterialCommunityIcons,
-  FontAwesome,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 const index = ({ step, setStep }) => {
   const selectedStyles = {
@@ -28,97 +23,97 @@ const index = ({ step, setStep }) => {
   return (
     <StyledContainer>
       <List.Item
-        style={step == "contact" && selectedStyles.container}
-        titleStyle={step == "contact" && selectedStyles.title}
-        onPress={() => setStep("contact")}
+        style={step == "Contact" && selectedStyles.container}
+        titleStyle={step == "Contact" && selectedStyles.title}
+        onPress={() => setStep("Contact")}
         left={() => (
           <MaterialCommunityIcons
             name="card-account-phone"
-            size={24}
+            size={28}
             color="black"
           />
         )}
         title={renderText("Contact")}
       ></List.Item>
       <List.Item
-        style={step == "household" && selectedStyles.container}
-        titleStyle={step == "household" && selectedStyles.title}
-        onPress={() => setStep("household")}
-        left={() => <MaterialIcons name="house" size={24} color="black" />}
+        style={step == "Household" && selectedStyles.container}
+        titleStyle={step == "housHouseholdehold" && selectedStyles.title}
+        onPress={() => setStep("Household")}
+        left={() => <MaterialIcons name="house" size={28} color="black" />}
         title={renderText("Household")}
       ></List.Item>
       <List.Item
-        style={step == "demographics" && selectedStyles.container}
-        titleStyle={step == "demographics" && selectedStyles.title}
-        onPress={() => setStep("demographics")}
-        left={() => <MaterialIcons name="person" size={24} color="black" />}
+        style={step == "Demographics" && selectedStyles.container}
+        titleStyle={step == "Demographics" && selectedStyles.title}
+        onPress={() => setStep("Demographics")}
+        left={() => <MaterialIcons name="person" size={28} color="black" />}
         title={renderText("Demographics")}
       ></List.Item>
       <List.Item
-        style={step == "race" && selectedStyles.container}
-        titleStyle={step == "race" && selectedStyles.title}
-        onPress={() => setStep("race")}
-        left={() => <MaterialIcons name="people" size={24} color="black" />}
+        style={step == "RaceEthnicity" && selectedStyles.container}
+        titleStyle={step == "RaceEthnicity" && selectedStyles.title}
+        onPress={() => setStep("RaceEthnicity")}
+        left={() => <MaterialIcons name="people" size={28} color="black" />}
         title={renderText("Race / Ethnicity")}
       ></List.Item>
       <List.Item
-        style={step == "barriers" && selectedStyles.container}
-        titleStyle={step == "barriers" && selectedStyles.title}
-        left={() => <MaterialIcons name="warning" size={24} color="black" />}
-        onPress={() => setStep("barriers")}
+        style={step == "Barriers" && selectedStyles.container}
+        titleStyle={step == "Barriers" && selectedStyles.title}
+        left={() => <MaterialIcons name="warning" size={28} color="black" />}
+        onPress={() => setStep("Barriers")}
         title={renderText("Barriers")}
       ></List.Item>
       <List.Item
-        style={step == "school" && selectedStyles.container}
-        titleStyle={step == "school" && selectedStyles.title}
-        onPress={() => setStep("school")}
-        left={() => <MaterialIcons name="school" size={24} color="black" />}
+        style={step == "School" && selectedStyles.container}
+        titleStyle={step == "School" && selectedStyles.title}
+        onPress={() => setStep("School")}
+        left={() => <MaterialIcons name="school" size={28} color="black" />}
         title={renderText("School")}
       ></List.Item>
       <List.Item
-        style={step == "domesticViolence" && selectedStyles.container}
-        titleStyle={step == "domesticViolence" && selectedStyles.title}
-        onPress={() => setStep("domesticViolence")}
+        style={step == "DomesticViolence" && selectedStyles.container}
+        titleStyle={step == "DomesticViolence" && selectedStyles.title}
+        onPress={() => setStep("DomesticViolence")}
         left={() => (
-          <MaterialCommunityIcons name="emoticon-sad" size={24} color="black" />
+          <MaterialCommunityIcons name="emoticon-sad" size={28} color="black" />
         )}
         title={renderText("Domestic Violence")}
       ></List.Item>
 
       <List.Item
-        style={step == "history" && selectedStyles.container}
-        titleStyle={step == "history" && selectedStyles.title}
-        onPress={() => setStep("history")}
+        style={step == "History" && selectedStyles.container}
+        titleStyle={step == "History" && selectedStyles.title}
+        onPress={() => setStep("History")}
         left={() => (
-          <MaterialCommunityIcons name="home-group" size={24} color="black" />
+          <MaterialCommunityIcons name="home-group" size={28} color="black" />
         )}
         title={renderText("History")}
       ></List.Item>
 
       <List.Item
-        style={step == "insurance" && selectedStyles.container}
-        titleStyle={step == "insurance" && selectedStyles.title}
-        onPress={() => setStep("insurance")}
-        left={() => <MaterialIcons name="group-add" size={24} color="black" />}
+        style={step == "Insurance" && selectedStyles.container}
+        titleStyle={step == "Insurance" && selectedStyles.title}
+        onPress={() => setStep("Insurance")}
+        left={() => <MaterialIcons name="group-add" size={28} color="black" />}
         title={renderText("Insurance")}
       ></List.Item>
       <List.Item
-        style={step == "pets" && selectedStyles.container}
-        titleStyle={step == "pets" && selectedStyles.title}
-        onPress={() => setStep("pets")}
+        style={step == "Pets" && selectedStyles.container}
+        titleStyle={step == "Pets" && selectedStyles.title}
+        onPress={() => setStep("Pets")}
         left={() => (
-          <MaterialCommunityIcons name="dog-side" size={24} color="black" />
+          <MaterialCommunityIcons name="dog-side" size={28} color="black" />
         )}
         title={renderText("Pets")}
       ></List.Item>
       <List.Item
-        style={step == "additionalInfo" && selectedStyles.container}
-        titleStyle={step == "additionalInfo" && selectedStyles.title}
-        onPress={() => setStep("additionalInfo")}
+        style={step == "AdditionalInfo" && selectedStyles.container}
+        titleStyle={step == "AdditionalInfo" && selectedStyles.title}
+        onPress={() => setStep("AdditionalInfo")}
         left={() => (
           <MaterialCommunityIcons
             name="clipboard-list"
-            size={24}
+            size={28}
             color="black"
           />
         )}
@@ -129,7 +124,7 @@ const index = ({ step, setStep }) => {
         style={{ backgroundColor: "#472d5b" }}
         onPress={toggle}
         left={() => (
-          <MaterialCommunityIcons name="menu" size={24} color="white" />
+          <MaterialCommunityIcons name="menu" size={28} color="white" />
         )}
       ></List.Item>
     </StyledContainer>
