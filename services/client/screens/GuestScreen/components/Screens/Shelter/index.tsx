@@ -15,9 +15,7 @@ import { axiosWithAuth } from "../../../../../auth/axiosWithAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const index = ({ shelterId }) => {
-  const user = useSelector((state) => state.user.currentUser);
-
-  const windowHeight = Dimensions.get("window").windowHeight;
+  const user = useSelector((state: any) => state.user.currentUser);
 
   let [service, setService] = React.useState(null);
 
@@ -45,7 +43,7 @@ const index = ({ shelterId }) => {
   return (
     <View>
       <Container>
-        <Text>Profile</Text>
+        <Text>Shelter</Text>
       </Container>
     </View>
   );
