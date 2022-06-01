@@ -1,73 +1,53 @@
-import { View, Dimensions } from "react-native";
+import { View } from "react-native";
 
 import styled from "styled-components/native";
 
 import React, { useState } from "react";
 
-import { Button } from "react-native-elements";
+import { Text, Card } from "native-base";
 
-import { Select } from "native-base";
+import HouseholdProfile from "../../../../../components/HouseholdProfile";
 
-import { Text } from "native-base";
-
-import { useSelector } from "react-redux";
-import { axiosWithAuth } from "../../../../../auth/axiosWithAuth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Navigation, { DrawerItem } from "./Navigation";
 
 const index = ({ shelterId }) => {
-  const user = useSelector((state) => state.user.currentUser);
-
-  const windowHeight = Dimensions.get("window").windowHeight;
-
-  let [service, setService] = React.useState(null);
-
-  const makeReservation = async () => {
-    const payload = {
-      userId: user._id,
-      shelterId,
-      beds: service,
-    };
-
-    try {
-      const token = await AsyncStorage.getItem("accessToken");
-
-      let res = await axiosWithAuth(token).post(
-        `/shelters/${shelterId}/reservations`,
-        payload
-      );
-
-      alert("You have successfully checked in");
-    } catch (error) {
-      alert("error!");
-    }
-  };
+  let [step, setStep] = useState("contact");
 
   return (
-    <View>
-      <Container>
-        <Text>Profile</Text>
-      </Container>
-    </View>
+    <Wrapper>
+      <FormContainer>
+        <Card
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: "5%",
+            padding: 0,
+          }}
+        >
+          <Navigation step={step} setStep={setStep} />
+          <Text>Uhh hello lol</Text>
+        </Card>
+      </FormContainer>
+    </Wrapper>
   );
 };
 
 export default index;
 
 const FormContainer = styled.View`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 30%;
+  width: 50%;
+
+  ${(props) => props.theme.isLaptop && "width: 50%;"}
+
+  ${(props) => props.theme.isTablet && "width: 95%;"}
+
+  ${(props) => props.theme.isMobileL && "width: 100%;"}
 `;
 
-const Container = styled.View`
-  width: 100%;
-
+const Wrapper = styled.View`
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  height: ${(props) => props.windowHeight};
+  width: 100%;
 `;

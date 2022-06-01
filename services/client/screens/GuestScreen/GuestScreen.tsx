@@ -8,14 +8,11 @@ import Navigation from "./components/Navigation";
 import RenderScreens from "./components/Screens/RenderScreens";
 
 export default function GuestScreen() {
-  const [currentScreen, setCurrentScreen] = useState("checkIn");
-
-  const shelterId = "6266df4c2b13e767bcba9cb7";
+  const [currentScreen, setCurrentScreen] = useState("profile");
 
   const props = {
     currentScreen,
     setCurrentScreen,
-    shelterId,
   };
 
   return (

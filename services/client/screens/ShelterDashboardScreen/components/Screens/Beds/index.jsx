@@ -14,8 +14,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { axiosWithAuth } from "../../../../../auth/axiosWithAuth";
 
-const list = [];
-
 const Index = ({ shelterId }) => {
   const navigation = useNavigation();
 
