@@ -18,6 +18,8 @@ import { updateHousehold } from "../../../../api/household";
 
 import Navigation from "../Navigation";
 
+import isValidPhoneNumber from "../../../../utils/isValidPhoneNumber";
+
 export default function ContactInfo({
   formValues,
   onChange,
@@ -94,7 +96,7 @@ export default function ContactInfo({
         value={values?.contact?.phoneOne?.name}
       />
       <TextInput
-        placeholder="Number"
+        placeholder="(123) 456 7890"
         onChangeText={handleChange("contact.phoneOne.number")}
         onBlur={handleBlur("contact.phoneOne.number")}
         error={errors?.contact?.phoneOne?.number}
@@ -123,7 +125,7 @@ export default function ContactInfo({
         value={values?.contact?.phoneTwo?.name}
       />
       <TextInput
-        placeholder="Number"
+        placeholder="(123) 456 7890"
         onChangeText={handleChange("contact.phoneTwo.number")}
         onBlur={handleBlur("contact.phoneTwo.number")}
         error={errors?.contact?.phoneTwo?.number}
@@ -150,7 +152,7 @@ export default function ContactInfo({
         value={values?.contact?.emergencyContact?.name}
       />
       <TextInput
-        placeholder="Number"
+        placeholder="(123) 456 7890"
         onChangeText={handleChange("contact.emergencyContact.number")}
         onBlur={handleBlur("contact.emergencyContact.number")}
         error={errors?.contact?.emergencyContact?.number}
@@ -168,27 +170,27 @@ const ContactSchema = Yup.object().shape({
     phoneOne: Yup.object().shape({
       name: Yup.string().nullable().required("Required"),
       number: Yup.string()
-        .phone("IN", true, "Invalid phone number")
         .nullable()
-        .required("Required"),
+        .required("Required")
+        .test("is-valid-phone", "Invalid phone number", isValidPhoneNumber),
       safeToLeaveMsg: Yup.boolean().nullable(),
     }),
 
     phoneTwo: Yup.object().shape({
       name: Yup.string().nullable().required("Required"),
       number: Yup.string()
-        .phone("IN", true, "Invalid phone number")
         .nullable()
-        .required("Required"),
+        .required("Required")
+        .test("is-valid-phone", "Invalid phone number", isValidPhoneNumber),
       safeToLeaveMsg: Yup.string().nullable(),
     }),
 
     emergencyContact: Yup.object().shape({
       name: Yup.string().nullable().required("Required"),
       number: Yup.string()
-        .phone("IN", true, "Invalid phone number")
         .nullable()
-        .required("Required"),
+        .required("Required")
+        .test("is-valid-phone", "Invalid phone number", isValidPhoneNumber),
     }),
   }),
 });
@@ -198,4 +200,3 @@ const Spacer = styled.View`
 
   margin-bottom: 2%;
 `;
-
