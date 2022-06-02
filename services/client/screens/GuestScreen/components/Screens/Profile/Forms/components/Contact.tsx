@@ -1,12 +1,15 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { FormContext } from "../../context";
 
 const Contact = () => {
+  let con = useContext(FormContext);
+
   return (
     <View>
-      <Text>Contact</Text>
+      <Text>{con.hello}</Text>
     </View>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

@@ -20,11 +20,12 @@ import {
 } from "./screens";
 
 import EStyleSheet from "react-native-extended-stylesheet";
+
 import Theme from "./Theme";
 import { Button, NativeBaseProvider } from "native-base";
 import { auth } from "./firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { signOut } from "./state/users/userActions";
+import { signOut } from "./state/user/userActions";
 
 import { Text } from "react-native";
 
@@ -113,7 +114,13 @@ function SMS() {
 
         headerRight: () => {
           return (
-            isLoggedIn && <Button style={{marginRight: 20}} variant={'outline'} onPress={() => auth.signOut()}>Logout</Button>
+            <Button
+              style={{ marginRight: 20 }}
+              variant={"outline"}
+              onPress={() => auth.signOut()}
+            >
+              Logout
+            </Button>
           );
         },
       }}
@@ -139,7 +146,7 @@ function SMS() {
       <Stack.Screen
         name="Intake"
         component={IntakeScreen}
-        options={{ headerLeft: (props) => <Text></Text> }}
+        options={{ headerLeft: (props) => <Text>Hello</Text> }}
       />
     </Stack.Navigator>
   );
