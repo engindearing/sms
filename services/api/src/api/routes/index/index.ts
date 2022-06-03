@@ -7,5 +7,4 @@ router.get("/", ({}, res: any) => {
 });
 
 
-
 export default router

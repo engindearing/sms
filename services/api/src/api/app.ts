@@ -50,11 +50,11 @@ import householdRouter from "./routes/household";
 import memberRouter from "./routes/members";
 
 app.use("/api", indexRouter);
-app.use("/users", usersRouter);
-app.use("/orgs", orgsRouter);
-app.use("/shelters", sheltersRouter);
-app.use("/reservations", reservationsRouter);
-app.use("/households", householdRouter);
-app.use("/members", memberRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/orgs", orgsRouter);
+app.use("/api/shelters", sheltersRouter);
+app.use("/api/reservations", reservationsRouter);
+app.use("/api/households", householdRouter);
+app.use("/api/members", memberRouter);
 
 export default app;
