@@ -1,6 +1,7 @@
 import { User } from "../../../models/User";
 
 import { Household } from "../../../models/Household";
+
 import { Member } from "../../../models/Member";
 
 export const getCurrentUser = async (req: any, res: any) => {
@@ -33,6 +34,27 @@ export const getOrCreateIntakeData = async (req: any, res: any) => {
       ...householdData.toObject(),
       members: householdHoldMembers,
     });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const getHouseholdByUserId = async (req: any, res: any) => {
+  let { id } = req.params;
+
+  try {
+    let household = await Household.findOne({ user: id });
+
+    if (!household) {
+      return res
+        .status(404)
+        .json({ message: `User with id of ${id} does not have a household` });
+    }
+
+    // Find all members that belong to their household
+    let members = await Member.find({ household: household._id });
+
+    res.status(200).json({ household, members });
   } catch (error) {
     res.status(400).json(error);
   }

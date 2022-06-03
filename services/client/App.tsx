@@ -19,8 +19,6 @@ import {
   IntakeScreen,
 } from "./screens";
 
-import EStyleSheet from "react-native-extended-stylesheet";
-
 import Theme from "./Theme";
 import { Button, NativeBaseProvider } from "native-base";
 import { auth } from "./firebase";
@@ -114,13 +112,15 @@ function SMS() {
 
         headerRight: () => {
           return (
-            <Button
-              style={{ marginRight: 20 }}
-              variant={"outline"}
-              onPress={() => auth.signOut()}
-            >
-              Logout
-            </Button>
+            isLoggedIn && (
+              <Button
+                style={{ marginRight: 20 }}
+                variant={"outline"}
+                onPress={() => auth.signOut()}
+              >
+                Logout
+              </Button>
+            )
           );
         },
       }}

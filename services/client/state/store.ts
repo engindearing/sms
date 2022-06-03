@@ -6,7 +6,7 @@ import logger from "redux-logger";
 
 export const store = configureStore({
   reducer: {
-    users: userReducer,
+    user: userReducer,
   },
 
   middleware: [logger],

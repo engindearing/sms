@@ -1,14 +1,19 @@
-
 const express = require("express");
 
 const router = express.Router();
 
-const { getCurrentUser, getOrCreateIntakeData } = require("./controllers");
+const {
+  getCurrentUser,
+  getOrCreateIntakeData,
+  getHouseholdByUserId,
+} = require("./controllers");
 
 const { authRequired } = require("../../middleware/authRequired");
 
 router.route("/me").all(authRequired).get(getCurrentUser);
 
-router.route("/intake").all(authRequired).get(getOrCreateIntakeData)
+router.route("/intake").all(authRequired).get(getOrCreateIntakeData);
+
+router.route("/:id/household").all(authRequired).get(getHouseholdByUserId);
 
 export default router;
