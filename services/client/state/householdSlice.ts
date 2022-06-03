@@ -6,10 +6,10 @@ let initialState = { household: {}, members: [], loading: false, error: null };
 
 export const fetchHouseholdByUserId = createAsyncThunk(
   "household/fetchHouseholdByUserId",
-  async (userId) => {
+  async (userId:string) => {
     const response = await HouseholdAPI.fetchHouseholdByUserId(userId);
 
-    return response.data;
+    return response;
   }
 );
 
@@ -21,10 +21,6 @@ const householdSlice = createSlice({
       state.household = action.payload.household;
       state.members = action.payload.members;
     },
-
-    signOut(state) {
-      state = initialState;
-    },
   },
 
   extraReducers(builder) {
@@ -33,7 +29,6 @@ const householdSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchHouseholdByUserId.fulfilled, (state, action) => {
-        // Add any fetched posts to the array
         state.household = action.payload.household;
 
         state.members = action.payload.members;
