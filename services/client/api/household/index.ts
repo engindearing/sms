@@ -29,3 +29,9 @@ export const fetchHouseholdByUserId = async (userId) => {
     throw error;
   }
 };
+
+
+export default {
+  updateHousehold,
+  fetchHouseholdByUserId
+}
