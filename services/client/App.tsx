@@ -146,7 +146,7 @@ function SMS() {
       <Stack.Screen
         name="Intake"
         component={IntakeScreen}
-        options={{ headerLeft: (props) => <Text>Hello</Text> }}
+        options={{ headerLeft: (props) => <Text></Text> }}
       />
     </Stack.Navigator>
   );

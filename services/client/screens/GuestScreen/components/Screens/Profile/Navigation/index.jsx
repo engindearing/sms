@@ -20,8 +20,6 @@ const Index = ({ step = "Contact" }) => {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const toggle = () => setIsOpen(!isOpen);
-
   const renderText = (text) => {
     return isOpen ? text : "";
   };

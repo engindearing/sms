@@ -5,7 +5,7 @@ import { getCurrentUser } from "../../auth/users/useGetCurrentUserQuery";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import { setUser } from "../../state/userSlice";
+import { setUser } from "../../state/slices/userSlice";
 
 export default function Index() {
   const navigation = useNavigation();

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import userReducer from "./userSlice";
+import userReducer from "./slices/userSlice";
 
-import householdReducer from "./householdSlice";
+import householdReducer from "./slices/householdSlice";
 
 import logger from "redux-logger";
 

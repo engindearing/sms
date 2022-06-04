@@ -10,28 +10,32 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loader from "../../components/Loader";
 
-import { fetchHouseholdByUserId } from "../../state/householdSlice";
+import { fetchHouseholdByUserId } from "../../state/slices/householdSlice";
 
 export default function GuestScreen() {
   let dispatch = useDispatch();
 
-  let { loading, error } = useSelector((state: any) => state.household);
-
   let { currentUser } = useSelector((state: any) => state.user);
+
+  let { fetchInProgress, household, members } = useSelector(
+    (state: any) => state.household
+  );
 
   let [currentScreen, setCurrentScreen] = useState("profile");
 
-  const props = {
+  let props = {
     currentScreen,
     setCurrentScreen,
+    household,
+    members,
   };
 
   useEffect(() => {
     dispatch(fetchHouseholdByUserId(currentUser._id));
   }, []);
 
-  if (loading) {
-    return <Loader />;
+  if(fetchInProgress) {
+    return <Loader />
   }
 
   return (

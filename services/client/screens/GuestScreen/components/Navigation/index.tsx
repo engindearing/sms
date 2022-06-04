@@ -112,7 +112,10 @@ export default function Footer({ currentScreen, setCurrentScreen }) {
 const StyledContainer = styled.View`
   position: absolute;
 
+  z-index: 0;
+
   width: 100%;
 
   bottom: 0;
+
 `;
