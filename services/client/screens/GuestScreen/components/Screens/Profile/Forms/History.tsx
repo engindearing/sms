@@ -38,7 +38,7 @@ export default function HomelessHistory({ navigation }) {
       },
       validationSchema: ContactSchema,
 
-      onSubmit: async (homeless) => {
+      onSubmit: (homeless) => {
         dispatch(
           updateHouseholdById({ householdId: household._id, payload: homeless })
         );
