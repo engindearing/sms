@@ -15,6 +15,7 @@ import * as Yup from "yup";
 import "yup-phone";
 
 import Navigation from "../Navigation";
+
 import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 import { ScrollView } from "react-native-gesture-handler";
@@ -48,7 +49,7 @@ export default function AdditionalInfo({ navigation }) {
 
     validationSchema: ContactSchema,
 
-    onSubmit: async (pets) => {
+    onSubmit: (pets) => {
       dispatch(
         updateHouseholdById({ householdId: household._id, payload: pets })
       );
