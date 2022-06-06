@@ -86,15 +86,6 @@ export default function AdditionalInfo({ navigation }) {
 
   return (
     <ScrollView style={{ padding: 10 }}>
-      <Text
-        style={{
-          marginBottom: "2%",
-        }}
-        fontSize={"2xl"}
-      >
-        Additional Information
-      </Text>
-
       <Text fontSize={"xl"}>Vehicle Information:</Text>
 
       <Spacer />

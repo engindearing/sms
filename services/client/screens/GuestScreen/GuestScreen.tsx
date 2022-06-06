@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
 
 import React, { useEffect, useState } from "react";
 
@@ -17,13 +17,15 @@ import Intake from "./components/Intake/IntakeScreen";
 export default function GuestScreen() {
   let dispatch = useDispatch();
 
+  const { height } = useWindowDimensions();
+
   let { currentUser } = useSelector((state: any) => state.user);
 
   let { fetchInProgress, household, members } = useSelector(
     (state: any) => state.household
   );
 
-  let [currentScreen, setCurrentScreen] = useState("profile");
+  let [currentScreen, setCurrentScreen] = useState("shelter");
 
   useEffect(() => {
     dispatch(fetchHouseholdByUserId(currentUser._id));

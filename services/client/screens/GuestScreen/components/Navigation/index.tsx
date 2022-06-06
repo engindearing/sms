@@ -117,5 +117,4 @@ const StyledContainer = styled.View`
   width: 100%;
 
   bottom: 0;
-
 `;

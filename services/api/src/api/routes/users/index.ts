@@ -1,17 +1,31 @@
+import { app } from "firebase-admin";
+
 const express = require("express");
 
 const router = express.Router();
 
 const {
   getCurrentUser,
-  getOrCreateIntakeData,
   getHouseholdByUserId,
+  getReservations,
+  createReservation,
+  updateReservation,
+  deleteReservation,
 } = require("./controllers");
 
 const { authRequired } = require("../../middleware/authRequired");
 
-router.route("/me").all(authRequired).get(getCurrentUser);
+router.use(authRequired);
 
-router.route("/:id/household").all(authRequired).get(getHouseholdByUserId);
+router.route("/me").get(getCurrentUser);
+
+router.route("/me/reservations").get(getReservations).post(createReservation);
+
+router
+  .route("/me/reservations/:reservationId")
+  .patch(updateReservation)
+  .delete(deleteReservation);
+
+router.route("/:id/household").get(getHouseholdByUserId);
 
 export default router;

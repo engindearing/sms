@@ -1,8 +1,8 @@
-import { User } from "../../../models/User";
-
 import { Household } from "../../../models/Household";
 
 import { Member } from "../../../models/Member";
+
+import { Request, Response } from "express";
 
 export const getCurrentUser = async (req: any, res: any) => {
   let user = { ...req.user.toObject() };
@@ -18,34 +18,13 @@ export const getCurrentUser = async (req: any, res: any) => {
   }
 };
 
-export const getOrCreateIntakeData = async (req: any, res: any) => {
-  try {
-    let householdData = await Household.findOne({ user: req.user._id });
-
-    if (!householdData) {
-      householdData = await Household.create({ user: req.user._id });
-    }
-
-    let householdHoldMembers = await Member.find({
-      household: householdData._id,
-    });
-
-    res.status(200).json({
-      ...householdData.toObject(),
-      members: householdHoldMembers,
-    });
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-
 export const getHouseholdByUserId = async (req: any, res: any) => {
   let { id } = req.params;
 
   let household;
 
   try {
-     household = await Household.findOne({ user: id });
+    household = await Household.findOne({ user: id });
 
     if (!household) {
       household = await Household.create({ user: id });
@@ -58,4 +37,20 @@ export const getHouseholdByUserId = async (req: any, res: any) => {
   } catch (error) {
     res.status(400).json(error);
   }
+};
+
+export const getReservations = (req: Request, res: Response) => {
+  res.status(200).json("Hello");
+};
+
+export const createReservation = (req: Request, res: Response) => {
+  res.status(200).json("Hello");
+};
+
+export const deleteReservation = (req: Request, res: Response) => {
+  res.status(200).json("Hello");
+};
+
+export const updateReservation = (req: Request, res: Response) => {
+  res.status(200).json("Hello");
 };

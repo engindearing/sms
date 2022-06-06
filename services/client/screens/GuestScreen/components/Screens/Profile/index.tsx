@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 
 import React from "react";
 
-import { Card } from "native-base";
+import { Button, Card } from "native-base";
 
 import Navigation from "./Navigation";
 
@@ -24,8 +24,13 @@ import {
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { Platform, useWindowDimensions } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+
 const index = () => {
   let Stack = createNativeStackNavigator();
+
+  const { width, height } = useWindowDimensions();
 
   return (
     <Wrapper>
@@ -33,31 +38,31 @@ const index = () => {
         <Card
           style={{
             padding: 0,
-            minHeight: 590,
+            minHeight: width > 1000 ? 628 : height - 69,
           }}
         >
-          <Stack.Navigator initialRouteName="Navigation">
-            <Stack.Screen name="Profile" component={Navigation} />
+            <Stack.Navigator initialRouteName="Navigation">
+              <Stack.Screen name="Profile" component={Navigation} />
 
-            <Stack.Screen name="Contact" component={Contact} />
-            <Stack.Screen name="Household" component={Household} />
-            <Stack.Screen name="Demographics" component={Demographics} />
-            <Stack.Screen name="Pets" component={Pets} />
-            <Stack.Screen name="Barriers" component={Barriers} />
+              <Stack.Screen name="Contact" component={Contact} />
+              <Stack.Screen name="Household" component={Household} />
+              <Stack.Screen name="Demographics" component={Demographics} />
+              <Stack.Screen name="Pets" component={Pets} />
+              <Stack.Screen name="Barriers" component={Barriers} />
 
-            <Stack.Screen
-              name="DomesticViolence"
-              component={DomesticViolence}
-            />
+              <Stack.Screen
+                name="DomesticViolence"
+                component={DomesticViolence}
+              />
 
-            <Stack.Screen name="History" component={History} />
-            <Stack.Screen name="Insurance" component={Insurance} />
-            <Stack.Screen name="AdditionalInfo" component={AdditionalInfo} />
+              <Stack.Screen name="History" component={History} />
+              <Stack.Screen name="Insurance" component={Insurance} />
+              <Stack.Screen name="AdditionalInfo" component={AdditionalInfo} />
 
-            <Stack.Screen name="School" component={School} />
+              <Stack.Screen name="School" component={School} />
 
-            <Stack.Screen name="RaceEthnicity" component={RaceEthnicity} />
-          </Stack.Navigator>
+              <Stack.Screen name="RaceEthnicity" component={RaceEthnicity} />
+            </Stack.Navigator>
         </Card>
       </FormContainer>
     </Wrapper>
@@ -67,13 +72,13 @@ const index = () => {
 export default index;
 
 const FormContainer = styled.View`
-  width: 30%;
+  width: 40%;
 
   ${(props) => props.theme.isLaptop && "width: 50%;"}
 
-  ${(props) => props.theme.isTablet && "width: 95%;"}
+  ${(props) => props.theme.isTablet && "width: 100%;"}
 
-  ${(props) => props.theme.isMobileL && "width: 100%;"}
+  ${(props) => !props.theme.isTablet && "margin-top: 50;"}
 `;
 
 const Wrapper = styled.View`
@@ -81,6 +86,4 @@ const Wrapper = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-
-  ${(props) => !props.theme.isMobileL && "margin-top: 30;"}
 `;

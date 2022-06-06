@@ -123,8 +123,6 @@ export default function FamilyMembers({ navigation }) {
             padding: 10,
           }}
         >
-          <Text fontSize="3xl">Demographics</Text>
-
           <FieldArray name="members">
             {() =>
               values.members.map((ticket, i) => {
