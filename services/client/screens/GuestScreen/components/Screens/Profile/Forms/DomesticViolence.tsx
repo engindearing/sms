@@ -17,6 +17,7 @@ import "yup-phone";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function DomesticViolence({ navigation }) {
   const { household } = useSelector((state: any) => state.household);
@@ -56,7 +57,7 @@ export default function DomesticViolence({ navigation }) {
   });
 
   return (
-    <View style={{ padding: 10, height: "100%" }}>
+    <ScrollView style={{ padding: 10, height: "100%" }}>
       <Text
         style={{
           marginBottom: "2%",
@@ -130,13 +131,8 @@ export default function DomesticViolence({ navigation }) {
 
       <Spacer />
 
-      <Button
-        style={{ position: "absolute", bottom: 5, width: "96%" }}
-        onPress={() => handleSubmit()}
-      >
-        Update
-      </Button>
-    </View>
+      <Button onPress={() => handleSubmit()}>Update</Button>
+    </ScrollView>
   );
 }
 

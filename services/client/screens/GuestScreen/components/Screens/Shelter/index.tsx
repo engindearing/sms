@@ -1,71 +1,136 @@
-import { View, Dimensions } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
+import React, { useState } from "react";
+import useStep from "../../../../../hooks/useStep";
+
+import {
+  VStack,
+  Box,
+  Divider,
+  FlatList,
+  Center,
+  Button,
+  Modal,
+} from "native-base";
 
 import styled from "styled-components/native";
 
-import React, { useState } from "react";
+import Card from "./components/Card";
+import { ScrollView } from "react-native-gesture-handler";
+import RenderPage from "./components/pages/RenderPage";
 
-import { Button } from "react-native-elements";
+const index = () => {
+  let pages = [
+    {
+      id: "welcome",
+      name: "Welcome to Open Doors",
+      color: "",
+    },
 
-import { Select } from "native-base";
+    {
+      id: "shelterSchedule",
+      name: "Shelter Schedule",
+      color: "",
+    },
 
-import { Text } from "native-base";
+    {
+      id: "nightExpectations",
+      name: "Night Shelter Expectations & Safety",
+      color: "",
+    },
 
-import { useSelector } from "react-redux";
-import { axiosWithAuth } from "../../../../../auth/axiosWithAuth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+    {
+      id: "inside",
+      name: "Inside the Shelter",
+      color: "",
+    },
 
-const index = ({ shelterId }) => {
-  const user = useSelector((state: any) => state.user.currentUser);
+    {
+      id: "outside",
+      name: "Outside the Shelter",
+      color: "",
+    },
 
-  let [service, setService] = React.useState(null);
+    {
+      id: "reminders",
+      name: "Important Reminders",
+      color: "",
+    },
 
-  const makeReservation = async () => {
-    const payload = {
-      userId: user._id,
-      shelterId,
-      beds: service,
-    };
+    {
+      id: "resources",
+      name: "Important Resources & Phone Numbers",
+      color: "",
+    },
+  ];
 
-    try {
-      const token = await AsyncStorage.getItem("accessToken");
+  let [page, setPage] = useState("");
 
-      let res = await axiosWithAuth(token).post(
-        `/shelters/${shelterId}/reservations`,
-        payload
-      );
-
-      alert("You have successfully checked in");
-    } catch (error) {
-      alert("error!");
-    }
-  };
+  let [show, setShow] = useState(false);
 
   return (
-    <View>
-      <Container>
-        <Text>Shelter</Text>
-      </Container>
-    </View>
+    <>
+      <ScrollView style={{ height: "120%", width: "100%" }}>
+        <Center>
+          <Container>
+            {pages.map((page) => (
+              <Card
+                color={page.color}
+                text={page.name}
+                onPress={() => setPage(page.id)}
+              />
+            ))}
+          </Container>
+        </Center>
+      </ScrollView>
+
+      <PageModal page={page} setPage={setPage} />
+    </>
   );
 };
 
+const Container = styled.View`
+  width: 50%;
+
+  ${(props) => props.theme.isTablet && "width: 98%;"}
+
+  margin-top: 20;
+`;
+
 export default index;
 
-const FormContainer = styled.View`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 30%;
-`;
+const PageModal = ({ page, setPage }) => {
+  const { width } = useWindowDimensions();
 
-const Container = styled.View`
-  width: 100%;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  height: ${(props) => props.windowHeight};
-`;
+  return (
+    <Center>
+      <Button onPress={() => setPage(false)}>Button</Button>
+      <Modal isOpen={page} onClose={() => setPage(false)}>
+        <Modal.Content
+          minWidth={width > 900 ? "50%" : "100%"}
+          minHeight={width > 900 ? "98%" : "100%"}
+        >
+          <Modal.CloseButton />
+          <Modal.Body>
+            <RenderPage page={page} />
+          </Modal.Body>
+          <Modal.Footer
+            style={{ display: "flex", justifyContent: "flex-start" }}
+            alignItems={"flex-end"}
+            justifyContent={"flex-end"}
+          >
+            <Button
+              variant="solid"
+              colorScheme="indigo"
+              minWidth={150}
+              onPress={() => {
+                setPage(false);
+              }}
+            >
+              Exit
+            </Button>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    </Center>
+  );
+};

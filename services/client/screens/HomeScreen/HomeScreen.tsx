@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 
 import { getCurrentUser } from "../../auth/users/useGetCurrentUserQuery";
 import { useDispatch } from "react-redux";

@@ -5,8 +5,9 @@ import { List } from "react-native-paper";
 import styled from "styled-components/native";
 
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { ScrollView } from "native-base";
+import { Button, ScrollView } from "native-base";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { auth } from "../../../../../../firebase";
 
 const Index = ({ step = "Contact" }) => {
   const navigation = useNavigation();
@@ -124,6 +125,14 @@ const Index = ({ step = "Contact" }) => {
         )}
         title={renderText("Additional Info")}
       ></List.Item>
+
+      <Button
+        onPress={() => auth.signOut()}
+        variant={"subtle"}
+        colorScheme="danger"
+      >
+        Sign out
+      </Button>
     </ScrollView>
   );
 };

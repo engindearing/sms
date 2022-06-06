@@ -23,6 +23,7 @@ import Theme from "./Theme";
 import { Button, NativeBaseProvider } from "native-base";
 import { auth } from "./firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { signOut } from "./state/slices/userSlice";
 
 import { Text } from "react-native";
@@ -128,7 +129,7 @@ function SMS() {
       <Stack.Screen
         name="Guest"
         component={GuestScreen}
-        options={{ headerLeft: (props) => <Text></Text> }}
+        options={{ header: (props) => <Text></Text> }}
       />
 
       <Stack.Screen name="Register" component={RegisterScreen} />
