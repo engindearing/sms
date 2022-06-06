@@ -23,8 +23,6 @@ export default function Index() {
 
             return;
           case "guest":
-            if (!user.household || user.household.status !== "complete")
-              return navigation.navigate("Intake");
 
             navigation.navigate("Guest");
         }

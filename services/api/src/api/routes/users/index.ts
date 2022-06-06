@@ -12,8 +12,6 @@ const { authRequired } = require("../../middleware/authRequired");
 
 router.route("/me").all(authRequired).get(getCurrentUser);
 
-router.route("/intake").all(authRequired).get(getOrCreateIntakeData);
-
 router.route("/:id/household").all(authRequired).get(getHouseholdByUserId);
 
 export default router;

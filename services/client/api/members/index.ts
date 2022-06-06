@@ -43,3 +43,9 @@ export const updateMembers = async (householdId, members: any[]) => {
     throw error;
   }
 };
+
+export default {
+  updateMembers,
+  deleteMembers,
+  addMembers,
+};

@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import HouseholdAPI from "../../api/household";
 
+import MembersAPI from "../../api/members";
+
 let initialState = {
   household: {},
   members: [],
@@ -32,6 +34,17 @@ export const updateHouseholdById = createAsyncThunk(
   }
 );
 
+// export const removeMemberFromHousehold = createAsyncThunk(
+//   "household/removeMemberFromHousehold",
+//   async (data: { householdId: string; memberId: string }) => {
+//     const { householdId, memberId } = data;
+
+//     await HouseholdAPI.removeMember(householdId, memberId);
+
+//     return { memberId };
+//   }
+// );
+
 const householdSlice = createSlice({
   name: "household",
   initialState,
@@ -40,11 +53,36 @@ const householdSlice = createSlice({
       state.household = action.payload.household;
       state.members = action.payload.members;
     },
+
+    setMembers(state, action) {
+      state.members = action.payload;
+    },
+
+    updateMembers(state, action) {
+      action.payload.forEach((newMem) => {
+        state.members = state.members.map((oldMem) => {
+          if (newMem._id == oldMem._id) {
+            return newMem;
+          }
+
+          return oldMem;
+        });
+      });
+    },
+
+    addMember(state, action) {
+      state.members.push(action.payload);
+    },
+
+    deleteMember(state, action) {
+      state.members = state.members.filter(
+        (mem) => mem._id !== action.payload.memberId
+      );
+    },
   },
 
   extraReducers(builder) {
     builder
-
       // ** fetchHouseholdbyUserId **
       .addCase(fetchHouseholdByUserId.pending, (state, action) => {
         state.fetchInProgress = true;
@@ -78,9 +116,12 @@ const householdSlice = createSlice({
 
         state.updateInProgress = false;
       });
+
+    // ** Remove member from household
   },
 });
 
-export const { setHousehold } = householdSlice.actions;
+export const { setHousehold, addMember, deleteMember, setMembers, updateMembers } =
+  householdSlice.actions;
 
 export default householdSlice.reducer;

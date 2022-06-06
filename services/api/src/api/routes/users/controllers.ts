@@ -42,13 +42,13 @@ export const getOrCreateIntakeData = async (req: any, res: any) => {
 export const getHouseholdByUserId = async (req: any, res: any) => {
   let { id } = req.params;
 
+  let household;
+
   try {
-    let household = await Household.findOne({ user: id });
+     household = await Household.findOne({ user: id });
 
     if (!household) {
-      return res
-        .status(404)
-        .json({ message: `User with id of ${id} does not have a household` });
+      household = await Household.create({ user: id });
     }
 
     // Find all members that belong to their household

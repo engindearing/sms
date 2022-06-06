@@ -5,7 +5,7 @@ import { Formik, FieldArray } from "formik";
 
 import * as Yup from "yup";
 
-import { Button, Text } from "native-base";
+import { Text } from "native-base";
 
 import CheckboxInput, {
   CheckboxGroup,
@@ -14,7 +14,6 @@ import { updateMembers } from "../../../../../../api/members";
 import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setMembers } from "../../../../../../state/slices/householdSlice";
-import { ScrollView } from "react-native-gesture-handler";
 
 //Options for race
 const options = [
@@ -28,7 +27,7 @@ const options = [
   "Decline to Answer",
 ];
 
-export default function RaceEthnicityInfo({ navigation }) {
+export default function RaceEthnicityInfo({ nextStep, prevStep }) {
   //Options for relationship drop down
 
   const { members, household } = useSelector((state: any) => state.household);
@@ -45,7 +44,7 @@ export default function RaceEthnicityInfo({ navigation }) {
 
     await updateMembers(household._id, fields.members);
 
-    navigation.navigate("Profile");
+    nextStep();
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];
@@ -53,10 +52,9 @@ export default function RaceEthnicityInfo({ navigation }) {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ errors, values, touched, setFieldValue, handleSubmit }) => (
-        <ScrollView
+        <View
           style={{
             width: "100%",
-            padding: 10,
           }}
         >
           <Text fontSize="3xl">Ethnicity info</Text>
@@ -137,8 +135,8 @@ export default function RaceEthnicityInfo({ navigation }) {
               })
             }
           </FieldArray>
-          <Button onPress={() => handleSubmit()}>UPDATE</Button>
-        </ScrollView>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
+        </View>
       )}
     </Formik>
   );

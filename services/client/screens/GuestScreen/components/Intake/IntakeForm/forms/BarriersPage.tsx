@@ -7,7 +7,7 @@ import * as Yup from "yup";
 
 import TextAreaInput from "../../../../../../components/TextAreaInput";
 
-import { Button, Text } from "native-base";
+import { Text } from "native-base";
 
 import CheckboxInput, {
   CheckboxGroup,
@@ -16,7 +16,6 @@ import { updateMembers } from "../../../../../../api/members";
 import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setMembers } from "../../../../../../state/slices/householdSlice";
-import { ScrollView } from "react-native-gesture-handler";
 
 const options = [
   "Alcohol Abuse",
@@ -38,7 +37,11 @@ const optionDataName = {
   "Physical Disability": "physicalDisabilities",
 };
 
-export default function RaceEthnicityInfo({ navigation }) {
+export default function RaceEthnicityInfo({
+  nextStep,
+
+  prevStep,
+}) {
   const { members, household } = useSelector((state: any) => state.household);
 
   const dispatch = useDispatch();
@@ -71,7 +74,7 @@ export default function RaceEthnicityInfo({ navigation }) {
 
     await updateMembers(household._id, fields.members);
 
-    navigation.navigate("Profile");
+    nextStep();
   }
 
   return (
@@ -88,10 +91,9 @@ export default function RaceEthnicityInfo({ navigation }) {
         setFieldValue,
         handleSubmit,
       }) => (
-        <ScrollView
+        <View
           style={{
             width: "100%",
-            padding: 10,
           }}
         >
           <Text fontSize="3xl">Barriers</Text>
@@ -208,8 +210,9 @@ export default function RaceEthnicityInfo({ navigation }) {
               })
             }
           </FieldArray>
-          <Button onPress={() => handleSubmit()}>UPDATE</Button>
-        </ScrollView>
+
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
+        </View>
       )}
     </Formik>
   );

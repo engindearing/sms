@@ -26,9 +26,8 @@ import {
   setMembers,
 } from "../../../../../../state/slices/householdSlice";
 import { updateMembers } from "../../../../../../api/members";
-import { ScrollView } from "react-native-gesture-handler";
 
-export default function FamilyMembers({ navigation }) {
+export default function FamilyMembers({ nextStep, onChange, prevStep }) {
   //Options for relationship drop down
 
   const { members, household } = useSelector((state: any) => state.household);
@@ -63,15 +62,44 @@ export default function FamilyMembers({ navigation }) {
     ),
   });
 
+  async function createMember(values, setFieldValue) {
+    // update dynamic form
+
+    try {
+      let member = await HouseholdAPI.addMember(household._id, {});
+
+      setFieldValue("members", [...values.members, structuredClone(member)]);
+
+      dispatch(addMember(member));
+    } catch (error) {
+      alert("Unable to add member to household");
+    }
+  }
+
+  async function removeMember(memberId, values, setFieldValue) {
+    // update dynamic form
+
+    try {
+      await HouseholdAPI.removeMember(household._id, memberId);
+
+      setFieldValue("members", [
+        ...values.members.filter((mem) => mem._id !== memberId),
+      ]);
+
+      dispatch(deleteMember({ memberId }));
+    } catch (error) {
+      alert("Unable to add member to household");
+    }
+  }
+
   async function onSubmit(fields) {
     dispatch(setMembers(fields.members));
 
     try {
       await updateMembers(household._id, fields.members);
 
-      navigation.navigate("Profile");
+      nextStep();
     } catch (error) {
-      console.log(error);
       alert("error");
     }
   }
@@ -90,13 +118,12 @@ export default function FamilyMembers({ navigation }) {
         setFieldValue,
         handleSubmit,
       }) => (
-        <ScrollView
+        <View
           style={{
             width: "100%",
-            padding: 10,
           }}
         >
-          <Text fontSize="2xl">Household members</Text>
+          <Text fontSize="2xl">How many people belong to your household?</Text>
 
           <FieldArray name="members">
             {() =>
@@ -190,16 +217,29 @@ export default function FamilyMembers({ navigation }) {
                         <Select.Item key={key} label={opt} value={opt} />
                       ))}
                     </SelectInput>
+
+                    <Button
+                      colorScheme={"danger"}
+                      onPress={() =>
+                        removeMember(ticket._id, values, setFieldValue)
+                      }
+                    >
+                      DELETE
+                    </Button>
                   </View>
                 );
               })
             }
           </FieldArray>
 
-          <Spacer />
-
-          <Button onPress={() => handleSubmit()}>Update</Button>
-        </ScrollView>
+          <Button
+            variant={"outline"}
+            onPress={() => createMember(values, setFieldValue)}
+          >
+            ADD MEMBER TO HOUSEHOLD
+          </Button>
+          <Navigation prevStep={prevStep} handleSubmit={handleSubmit} />
+        </View>
       )}
     </Formik>
   );

@@ -12,6 +12,8 @@ import Loader from "../../components/Loader";
 
 import { fetchHouseholdByUserId } from "../../state/slices/householdSlice";
 
+import Intake from "./components/Intake/IntakeScreen";
+
 export default function GuestScreen() {
   let dispatch = useDispatch();
 
@@ -23,6 +25,10 @@ export default function GuestScreen() {
 
   let [currentScreen, setCurrentScreen] = useState("profile");
 
+  useEffect(() => {
+    dispatch(fetchHouseholdByUserId(currentUser._id));
+  }, []);
+
   let props = {
     currentScreen,
     setCurrentScreen,
@@ -30,12 +36,12 @@ export default function GuestScreen() {
     members,
   };
 
-  useEffect(() => {
-    dispatch(fetchHouseholdByUserId(currentUser._id));
-  }, []);
+  if (fetchInProgress) {
+    return <Loader />;
+  }
 
-  if(fetchInProgress) {
-    return <Loader />
+  if (household.status === "start") {
+    return <Intake {...props} />;
   }
 
   return (
