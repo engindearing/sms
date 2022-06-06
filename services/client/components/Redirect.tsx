@@ -9,6 +9,6 @@ export default function Redirect({to, params={}}) {
   }, [])
 
   return (
-    <Text>hello</Text>
+    <></>
   )
 }

@@ -19,18 +19,14 @@ import {
   IntakeScreen,
 } from "./screens";
 
-import EStyleSheet from "react-native-extended-stylesheet";
 import Theme from "./Theme";
 import { Button, NativeBaseProvider } from "native-base";
 import { auth } from "./firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { signOut } from "./state/users/userActions";
+import { signOut } from "./state/slices/userSlice";
 
 import { Text } from "react-native";
 
-import SheltersScreen from "./screens/SheltersScreen/SheltersScreen";
-import ShelterDashboardScreen from "./screens/ShelterDashboardScreen/ShelterDashboardScreen";
-import ReservationScreen from "./screens/ReservationScreen/ReservationScreen";
 import GuestScreen from "./screens/GuestScreen/GuestScreen";
 
 export type RootStackParamList = {
@@ -113,15 +109,21 @@ function SMS() {
 
         headerRight: () => {
           return (
-            isLoggedIn && <Button style={{marginRight: 20}} variant={'outline'} onPress={() => auth.signOut()}>Logout</Button>
+            isLoggedIn && (
+              <Button
+                style={{ marginRight: 20 }}
+                variant={"outline"}
+                onPress={() => auth.signOut()}
+              >
+                Logout
+              </Button>
+            )
           );
         },
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="shelters" component={SheltersScreen} />
-      <Stack.Screen name="Reservation" component={ReservationScreen} />
 
       <Stack.Screen
         name="Guest"
@@ -129,18 +131,7 @@ function SMS() {
         options={{ headerLeft: (props) => <Text></Text> }}
       />
 
-      <Stack.Screen
-        name="shelterdashboard"
-        component={ShelterDashboardScreen}
-      />
-
       <Stack.Screen name="Register" component={RegisterScreen} />
-
-      <Stack.Screen
-        name="Intake"
-        component={IntakeScreen}
-        options={{ headerLeft: (props) => <Text></Text> }}
-      />
     </Stack.Navigator>
   );
 }

@@ -15,8 +15,6 @@ import { Pressable } from "native-base";
 import styled from "styled-components/native";
 
 export default function Footer({ currentScreen, setCurrentScreen }) {
-  const [selected, setSelected] = React.useState(1);
-
   return (
     <StyledContainer>
       <Box flex={1} bg="white" safeAreaTop width="100%" alignSelf="center">
@@ -114,7 +112,10 @@ export default function Footer({ currentScreen, setCurrentScreen }) {
 const StyledContainer = styled.View`
   position: absolute;
 
+  z-index: 0;
+
   width: 100%;
 
   bottom: 0;
+
 `;

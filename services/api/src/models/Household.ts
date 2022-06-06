@@ -4,10 +4,13 @@ import { IFamilyDocument } from "./interfaces/IFamilyDocument";
 
 interface IFamily extends IFamilyDocument {
   // Define any methods inside here
+  _id: string
 }
 
 interface IFamilyModel extends Model<IFamily> {
   // Define any static methods here
+
+  _id: string
 }
 
 const householdSchema: Schema = new mongoose.Schema(
@@ -254,7 +257,7 @@ const householdSchema: Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Household: IFamilyModel = model<IFamily, IFamilyModel>(
+export const Household = model<IFamilyDocument>(
   "household",
   householdSchema
 );

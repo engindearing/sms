@@ -7,6 +7,6 @@ export const axiosWithAuth = (accessToken) => {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
-    baseURL: NATIVE_API_URI,
+    baseURL: `${NATIVE_API_URI}/api`,
   });
 };
