@@ -30,6 +30,7 @@
       "start": "node dist/index.js",
       "build": "tsc",
       "test": "jest --watchAll",
+      "postinstall": "tsc",
       "watch:jest": "jest --watchAll",
       "dev": "nodemon src/index.ts",
       "watch-node": "nodemon dist/index.js",
