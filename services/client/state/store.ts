@@ -1,12 +1,18 @@
-import { createStore, applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+
+import userReducer from "./slices/userSlice";
+
+import householdReducer from "./slices/householdSlice";
 
 import logger from "redux-logger";
+
 import thunk from "redux-thunk";
 
-import rootReducer from "./rootReducer";
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+    household: householdReducer,
+  },
 
-const middlewares = [logger, thunk];
-
-let store = createStore(rootReducer, applyMiddleware(...middlewares));
-//eslint-disable-next-line
-export { store };
+  middleware: [logger, thunk],
+});

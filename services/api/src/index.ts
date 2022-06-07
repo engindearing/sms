@@ -7,6 +7,7 @@ import http from "http";
 import mongoose from "mongoose";
 
 const server = http.createServer(app);
+
 const PORT = process.env.PORT || 8000;
 
 const main = async () => {

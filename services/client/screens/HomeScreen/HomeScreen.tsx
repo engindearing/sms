@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 
 import { getCurrentUser } from "../../auth/users/useGetCurrentUserQuery";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../state/users/userActions";
 import { useNavigation } from "@react-navigation/native";
+
+import { setUser } from "../../state/slices/userSlice";
 
 export default function Index() {
   const navigation = useNavigation();
@@ -14,7 +15,7 @@ export default function Index() {
   useEffect(() => {
     getCurrentUser()
       .then((user) => {
-        dispatch(setCurrentUser(user));
+        dispatch(setUser(user));
 
         switch (user.role) {
           case "programManager":
@@ -22,8 +23,6 @@ export default function Index() {
 
             return;
           case "guest":
-            if (!user.household || user.household.status !== "complete")
-              return navigation.navigate("Intake");
 
             navigation.navigate("Guest");
         }

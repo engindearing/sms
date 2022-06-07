@@ -16,25 +16,27 @@ export const updateHousehold = async (req: any, res: any) => {
   }
 };
 
-export const addMembers = async (req: any, res: any) => {
+export const addMember = async (req: any, res: any) => {
   const { id } = req.params;
 
-  let membersData = req.body.map((mem: any) => ({ ...mem, household: id }));
+  let memberData = req.body;
+
+  memberData["household"] = id;
 
   try {
-    let members = await Member.create(membersData);
+    let newMember = await Member.create(memberData);
 
-    res.json(members);
+    res.json(newMember);
   } catch (error) {
     res.json(error);
   }
 };
 
-export const deleteMembers = async (req: any, res: any) => {
-  let memberIds = req.body.map((mem: any) => mem._id);
+export const deleteMember = async (req: any, res: any) => {
+  let { memberId } = req.params;
 
   try {
-    memberIds.forEach(async (id: any) => await Member.findByIdAndDelete(id));
+    await Member.findByIdAndDelete(memberId);
 
     res.status(200).json({ message: "Deleted members" });
   } catch (error) {

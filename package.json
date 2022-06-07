@@ -3,8 +3,12 @@
     "build": "npm i ./services/api && npm i ./services/client && expo build:web ./services/client && mv ./services/client/web-build ./services/api"
   },
   "devDependencies": {
-    "@types/react": "~16.9.35",
+    "@types/jest": "^28.1.0",
+    "@types/react": "^18.0.10",
     "@types/react-native": "^0.63.60",
+    "@types/supertest": "^2.0.12",
+    "jest": "^28.1.0",
+    "supertest": "^6.2.3",
     "typescript": "~4.0.0"
   },
   "dependencies": {

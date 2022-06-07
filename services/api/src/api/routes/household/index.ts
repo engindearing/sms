@@ -4,8 +4,8 @@ const router = express.Router();
 
 const {
   updateHousehold,
-  addMembers,
-  deleteMembers,
+  addMember,
+  deleteMember,
   updateMembers,
 } = require("./controllers");
 
@@ -16,9 +16,12 @@ router.route("/:id").all(authRequired).patch(updateHousehold);
 router
   .route("/:id/members")
   .all(authRequired)
-  .post(addMembers)
+  .post(addMember)
   .patch(updateMembers);
 
-router.route("/:id/members/delete").all(authRequired).post(deleteMembers);
+router
+  .route("/:id/members/:memberId")
+  .all(authRequired)
+  .delete(deleteMember);
 
 export default router;
