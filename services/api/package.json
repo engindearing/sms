@@ -31,6 +31,7 @@
       "build": "tsc",
       "test": "jest --watchAll",
       "watch:jest": "jest --watchAll",
+      "postinstall": "tsc",
       "dev": "nodemon src/index.ts",
       "watch-node": "nodemon dist/index.js",
       "watch-ts": "tsc -w",
