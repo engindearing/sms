@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import HouseholdAPI from "../../api/household";
 
-import MembersAPI from "../../api/members";
-
 let initialState = {
   household: {},
   members: [],
@@ -33,17 +31,6 @@ export const updateHouseholdById = createAsyncThunk(
     return response;
   }
 );
-
-// export const removeMemberFromHousehold = createAsyncThunk(
-//   "household/removeMemberFromHousehold",
-//   async (data: { householdId: string; memberId: string }) => {
-//     const { householdId, memberId } = data;
-
-//     await HouseholdAPI.removeMember(householdId, memberId);
-
-//     return { memberId };
-//   }
-// );
 
 const householdSlice = createSlice({
   name: "household",
