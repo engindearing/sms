@@ -37,12 +37,15 @@ export default function GuestScreen() {
 
   const fetchData = async () => {
     try {
-      let household = await HouseholdAPI.fetchHouseholdByUserId(
+      let { household, members } = await HouseholdAPI.fetchHouseholdByUserId(
         currentUser._id
       );
-      let shelter = await ShelterAPI.fetchShelterById(
-        household.household.shelter
-      );
+
+      let { shelter } = await ShelterAPI.fetchShelterById(household.shelter);
+
+      dispatch(setHousehold({ household, members }));
+      dispatch(setShelter(shelter));
+
       // let shelter = await ShelterAPI.fetchShelterById()
     } catch (error) {
       alert("error");

@@ -10,10 +10,13 @@ import thunk from "redux-thunk";
 
 import { useDispatch } from "react-redux";
 
+import shelterReducer from "./slices/shelterSlice";
+
 export const store = configureStore({
   reducer: {
     user: userReducer,
     household: householdReducer,
+    shelter: shelterReducer,
   },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

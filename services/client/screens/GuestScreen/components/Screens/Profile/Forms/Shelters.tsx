@@ -7,6 +7,7 @@ import { List } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 import Loader from "../../../../../../components/Loader";
+import { setShelter } from "../../../../../../state/slices/shelterSlice";
 
 const Shelters = ({ prevStep, nextStep, navigation }) => {
   const dispatch = useDispatch();
@@ -34,17 +35,25 @@ const Shelters = ({ prevStep, nextStep, navigation }) => {
     fetchShelters();
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!selectedShelter) {
       return alert("Please select a shelter");
     }
 
-    dispatch(
-      updateHouseholdById({
-        householdId: household._id,
-        payload: { shelter: selectedShelter },
-      })
-    );
+    let { shelter } = await ShelterAPI.fetchShelterById(selectedShelter);
+
+    try {
+      dispatch(
+        updateHouseholdById({
+          householdId: household._id,
+          payload: { shelter: selectedShelter },
+        })
+      );
+
+      dispatch(setShelter(shelter));
+    } catch (error) {
+      alert("Unable to update profile");
+    }
 
     navigation.navigate("Profile");
   };

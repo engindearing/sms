@@ -19,7 +19,7 @@ const shelterSlice = createSlice({
   initialState,
   reducers: {
     setShelter(state, action) {
-      state.shelter = {};
+      state.shelter = action.payload;
     },
   },
 });

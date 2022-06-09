@@ -1,16 +1,7 @@
-import { View, Text, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import React, { useState } from "react";
-import useStep from "../../../../../hooks/useStep";
 
-import {
-  VStack,
-  Box,
-  Divider,
-  FlatList,
-  Center,
-  Button,
-  Modal,
-} from "native-base";
+import { Center, Button, Modal } from "native-base";
 
 import styled from "styled-components/native";
 
@@ -64,8 +55,6 @@ const index = () => {
   ];
 
   let [page, setPage] = useState("");
-
-  let [show, setShow] = useState(false);
 
   return (
     <>
