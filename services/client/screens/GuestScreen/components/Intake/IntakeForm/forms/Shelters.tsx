@@ -9,6 +9,7 @@ import Navigation from "../Navigation";
 import { updateHousehold } from "../../../../../../api/household";
 import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
+import Loader from "../../../../../../components/Loader";
 
 const Shelters = ({ prevStep, nextStep }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Shelters = ({ prevStep, nextStep }) => {
   const [loading, setLoading] = useState(false);
 
   const fetchShelters = async () => {
+    setLoading(true);
     try {
       let response = await ShelterAPI.getAllShelters();
 
@@ -53,6 +55,8 @@ const Shelters = ({ prevStep, nextStep }) => {
   return (
     <View style={{ width: "100%" }}>
       <Text fontSize={"2xl"}>Select the shelter you're staying at:</Text>
+
+      {loading && <Loader />}
 
       <View>
         {shelters.map((shelter) => (
