@@ -69,8 +69,6 @@ const RenderForm = ({
   nextStep,
   prevStep,
   onChange,
-  formValues,
-  setFormValues,
 }) => {
   const formProps = {
     step,
@@ -82,10 +80,8 @@ const RenderForm = ({
   switch (step.id) {
     case "IntakeStart":
       return <IntakeStart {...formProps} />;
-
     case "Shelters":
       return <Shelters {...formProps} />;
-
     case "ContactInfo":
       return <ContactInfo {...formProps} />;
     case "FamilyMembers":
