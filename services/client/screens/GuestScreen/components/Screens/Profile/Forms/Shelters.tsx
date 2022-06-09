@@ -2,16 +2,16 @@ import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import ShelterAPI from "../../../../../../api/shelter";
-import { Text } from "native-base";
+import { Button, Text } from "native-base";
 import { List } from "react-native-paper";
 import Navigation from "../Navigation";
 
+import { updateHousehold } from "../../../../../../api/household";
 import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
-
 import Loader from "../../../../../../components/Loader";
 
-const Shelters = ({ prevStep, nextStep }) => {
+const Shelters = ({ prevStep, nextStep, navigation }) => {
   const dispatch = useDispatch();
   const { household } = useSelector((state: any) => state.household);
 
@@ -49,12 +49,14 @@ const Shelters = ({ prevStep, nextStep }) => {
       })
     );
 
-    nextStep();
+    navigation.navigate("Profile");
   };
 
   return (
-    <View style={{ width: "100%" }}>
-      <Text marginBottom={2} fontSize={"2xl"}>Which shelter are you staying at?</Text>
+    <View style={{ width: "100%", height: "100%", padding: 10 }}>
+      <Text marginBottom={2} fontSize={"2xl"}>
+        Which shelter are you staying at?
+      </Text>
 
       {loading && <Loader />}
 
@@ -73,7 +75,12 @@ const Shelters = ({ prevStep, nextStep }) => {
         ))}
       </View>
 
-      <Navigation prevStep={prevStep} handleSubmit={onSubmit} />
+      <Button
+        onPress={onSubmit}
+        style={{ position: "absolute", bottom: 5, width: "97%" }}
+      >
+        Update
+      </Button>
     </View>
   );
 };

@@ -25,7 +25,7 @@ export default function GuestScreen() {
     (state: any) => state.household
   );
 
-  let [currentScreen, setCurrentScreen] = useState("shelter");
+  let [currentScreen, setCurrentScreen] = useState("profile");
 
   useEffect(() => {
     dispatch(fetchHouseholdByUserId(currentUser._id));

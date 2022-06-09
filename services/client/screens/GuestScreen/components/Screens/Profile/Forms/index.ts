@@ -20,6 +20,8 @@ import DomesticViolence from "./DomesticViolence";
 
 import AdditionalInfo from "./AdditionalInfo";
 
+import Shelters from "./Shelters";
+
 export  {
   DomesticViolence,
   Insurance,
@@ -31,5 +33,6 @@ export  {
   Demographics,
   Household,
   Contact,
-  AdditionalInfo
+  AdditionalInfo,
+  Shelters
 };

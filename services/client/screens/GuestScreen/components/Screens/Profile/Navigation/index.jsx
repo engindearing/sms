@@ -28,6 +28,15 @@ const Index = ({ step = "Contact" }) => {
   return (
     <ScrollView>
       <List.Item
+        style={route.name == "Shelter" && selectedStyles.container}
+        titleStyle={route.name == "Shelter" && selectedStyles.title}
+        onPress={() => navigation.navigate("Shelter")}
+        left={() => (
+          <MaterialCommunityIcons name="warehouse" size={24} color="black" />
+        )}
+        title={renderText("Shelter")}
+      ></List.Item>
+      <List.Item
         style={route.name == "Contact" && selectedStyles.container}
         titleStyle={route.name == "Contact" && selectedStyles.title}
         onPress={() => navigation.navigate("Contact")}

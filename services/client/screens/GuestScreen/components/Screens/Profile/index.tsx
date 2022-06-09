@@ -20,6 +20,7 @@ import {
   AdditionalInfo,
   School,
   RaceEthnicity,
+  Shelters,
 } from "./Forms";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -38,31 +39,27 @@ const index = () => {
         <Card
           style={{
             padding: 0,
-            minHeight: width > 1000 ? 628 : height - 69,
+            minHeight: width > 1000 ? 675 : height - 69,
           }}
         >
-            <Stack.Navigator initialRouteName="Navigation">
-              <Stack.Screen name="Profile" component={Navigation} />
-
-              <Stack.Screen name="Contact" component={Contact} />
-              <Stack.Screen name="Household" component={Household} />
-              <Stack.Screen name="Demographics" component={Demographics} />
-              <Stack.Screen name="Pets" component={Pets} />
-              <Stack.Screen name="Barriers" component={Barriers} />
-
-              <Stack.Screen
-                name="DomesticViolence"
-                component={DomesticViolence}
-              />
-
-              <Stack.Screen name="History" component={History} />
-              <Stack.Screen name="Insurance" component={Insurance} />
-              <Stack.Screen name="AdditionalInfo" component={AdditionalInfo} />
-
-              <Stack.Screen name="School" component={School} />
-
-              <Stack.Screen name="RaceEthnicity" component={RaceEthnicity} />
-            </Stack.Navigator>
+          <Stack.Navigator initialRouteName="Navigation">
+            <Stack.Screen name="Profile" component={Navigation} />
+            <Stack.Screen name="Shelter" component={Shelters} />
+            <Stack.Screen name="Contact" component={Contact} />
+            <Stack.Screen name="Household" component={Household} />
+            <Stack.Screen name="Demographics" component={Demographics} />
+            <Stack.Screen name="Pets" component={Pets} />
+            <Stack.Screen name="Barriers" component={Barriers} />
+            <Stack.Screen
+              name="DomesticViolence"
+              component={DomesticViolence}
+            />
+            <Stack.Screen name="History" component={History} />
+            <Stack.Screen name="Insurance" component={Insurance} />
+            <Stack.Screen name="AdditionalInfo" component={AdditionalInfo} />
+            <Stack.Screen name="School" component={School} />
+            <Stack.Screen name="RaceEthnicity" component={RaceEthnicity} />
+          </Stack.Navigator>
         </Card>
       </FormContainer>
     </Wrapper>
