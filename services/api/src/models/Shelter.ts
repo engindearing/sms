@@ -25,10 +25,8 @@ const shelterSchema: Schema = new mongoose.Schema(
     },
 
     address: {
-      street: String,
-      city: String,
-      state: String,
-      zipCode: String,
+      type: String,
+      required: true
     },
 
     image: String

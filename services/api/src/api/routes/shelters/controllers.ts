@@ -11,6 +11,19 @@ export const createShelter = async (req: any, res: any) => {
   }
 };
 
+export const getAllShelters = async (req: any, res: any) => {
+  try {
+    let shelters = await Shelter.find();
+
+    res.status(200).json({
+      shelters,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error });
+  }
+};
+
 export const createReservation = async (req: any, res: any) => {
   try {
     let newReservation = await Reservation.create(req.body);
@@ -28,7 +41,9 @@ export const getReservations = async (req: any, res: any) => {
   const { id } = req.params;
 
   try {
-    let reservations = await Reservation.find({ shelterId: id }).populate('userId')
+    let reservations = await Reservation.find({ shelterId: id }).populate(
+      "userId"
+    );
 
     res.status(200).json({
       reservations,
