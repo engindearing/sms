@@ -10,9 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loader from "../../components/Loader";
 
-import { fetchHouseholdByUserId } from "../../state/slices/householdSlice";
+import {
+  fetchHouseholdByUserId,
+  setHousehold,
+} from "../../state/slices/householdSlice";
 
 import Intake from "./components/Intake/IntakeScreen";
+import { fetchShelterById, setShelter } from "../../state/slices/shelterSlice";
+import { useAppDispatch } from "../../state/store";
+
+import HouseholdAPI from "../../api/household";
+import ShelterAPI from "../../api/shelter";
 
 export default function GuestScreen() {
   let dispatch = useDispatch();
@@ -27,8 +35,22 @@ export default function GuestScreen() {
 
   let [currentScreen, setCurrentScreen] = useState("profile");
 
+  const fetchData = async () => {
+    try {
+      let household = await HouseholdAPI.fetchHouseholdByUserId(
+        currentUser._id
+      );
+      let shelter = await ShelterAPI.fetchShelterById(
+        household.household.shelter
+      );
+      // let shelter = await ShelterAPI.fetchShelterById()
+    } catch (error) {
+      alert("error");
+    }
+  };
+
   useEffect(() => {
-    dispatch(fetchHouseholdByUserId(currentUser._id));
+    fetchData();
   }, []);
 
   let props = {

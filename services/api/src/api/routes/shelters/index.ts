@@ -9,6 +9,7 @@ const {
   createReservation,
   getReservations,
   getAllShelters,
+  getShelterById,
 } = require("./controllers");
 
 const { authRequired } = require("../../middleware/authRequired");
@@ -16,6 +17,8 @@ const { authRequired } = require("../../middleware/authRequired");
 router.use(authRequired);
 
 router.route("/").get(getAllShelters).post(createShelter);
+
+router.route("/:shelterId").get(getShelterById);
 
 router
   .route("/:id/reservations")

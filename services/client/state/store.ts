@@ -8,11 +8,19 @@ import logger from "redux-logger";
 
 import thunk from "redux-thunk";
 
+import { useDispatch } from "react-redux";
+
 export const store = configureStore({
   reducer: {
     user: userReducer,
     household: householdReducer,
   },
 
-  middleware: [logger, thunk],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
+
+export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>(); // Export a hook that can be reused to resolve types
+
+export type RootState = ReturnType<typeof store.getState>;

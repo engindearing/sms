@@ -37,6 +37,20 @@ export const createReservation = async (req: any, res: any) => {
   }
 };
 
+export const getShelterById = async (req: any, res: any) => {
+  const { shelterId } = req.params;
+
+  try {
+    let shelter = await Shelter.findById(shelterId);
+
+    res.status(200).json({
+      shelter,
+    });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
 export const getReservations = async (req: any, res: any) => {
   const { id } = req.params;
 

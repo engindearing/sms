@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import HouseholdAPI from "../../api/household";
 
@@ -12,7 +12,7 @@ let initialState = {
 };
 
 // ** API CALLS **
-export const fetchHouseholdByUserId = createAsyncThunk(
+export const fetchHouseholdByUserId = createAsyncThunk<any, string>(
   "household/fetchHouseholdByUserId",
   async (userId: string) => {
     const response = await HouseholdAPI.fetchHouseholdByUserId(userId);
@@ -108,7 +108,12 @@ const householdSlice = createSlice({
   },
 });
 
-export const { setHousehold, addMember, deleteMember, setMembers, updateMembers } =
-  householdSlice.actions;
+export const {
+  setHousehold,
+  addMember,
+  deleteMember,
+  setMembers,
+  updateMembers,
+} = householdSlice.actions;
 
 export default householdSlice.reducer;

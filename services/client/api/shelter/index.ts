@@ -16,6 +16,21 @@ export const getAllShelters = async () => {
   }
 };
 
+export const fetchShelterById = async (shelterId: string) => {
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+      .get(`/shelters/${shelterId}`)
+      .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getAllShelters,
+  fetchShelterById,
 };

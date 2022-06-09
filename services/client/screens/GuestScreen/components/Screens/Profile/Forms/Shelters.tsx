@@ -4,9 +4,6 @@ import React, { useEffect, useState } from "react";
 import ShelterAPI from "../../../../../../api/shelter";
 import { Button, Text } from "native-base";
 import { List } from "react-native-paper";
-import Navigation from "../Navigation";
-
-import { updateHousehold } from "../../../../../../api/household";
 import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 import Loader from "../../../../../../components/Loader";
