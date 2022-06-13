@@ -51,6 +51,7 @@
     "react-native-svg": "12.1.1",
     "react-native-unordered-list": "^1.0.4",
     "react-native-web": "0.17.1",
+    "react-query": "^3.39.1",
     "react-redux": "^7.2.6",
     "react-responsive": "^9.0.0-beta.6",
     "redux": "^4.1.2",

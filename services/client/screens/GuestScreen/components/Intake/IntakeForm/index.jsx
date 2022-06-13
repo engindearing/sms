@@ -43,7 +43,7 @@ import {
 import styled from "styled-components/native";
 
 import { Card } from "native-base";
-import Shelters from "./forms/shelters";
+import Shelters from "./forms/Shelters";
 
 const IntakeForm = (props) => {
   return (

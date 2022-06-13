@@ -1,36 +1,44 @@
 import React, { useEffect } from "react";
-import { Text } from "react-native";
 
-import { getCurrentUser } from "../../auth/users/useGetCurrentUserQuery";
-import { useDispatch } from "react-redux";
+import Loader from "../../components/Loader";
+
+import { auth } from "../../firebase";
+
 import { useNavigation } from "@react-navigation/native";
 
-import { setUser } from "../../state/slices/userSlice";
+import { useCurrentUser } from "../../api/hooks";
 
 export default function Index() {
+
+  const userQuery = useCurrentUser();
+
+  if (userQuery.isLoading) {
+    return <Loader />;
+  }
+
+  if (userQuery.isError) {
+    return <span>{userQuery.error.message}</span>;
+  }
+
+  return <RedirectUser userRole={userQuery.data.role} />;
+}
+
+const RedirectUser = ({ userRole }) => {
   const navigation = useNavigation();
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    getCurrentUser()
-      .then((user) => {
-        dispatch(setUser(user));
+    switch (userRole) {
+      case "guest":
+        return navigation.navigate("Guest");
 
-        switch (user.role) {
-          case "programManager":
-            navigation.navigate("shelters");
+      default:
+        alert("invalid role");
 
-            return;
-          case "guest":
+        auth.signOut();
 
-            navigation.navigate("Guest");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        navigation.navigate("Login");
+    }
   }, []);
 
-  return <Text></Text>;
-}
+  return <></>;
+};

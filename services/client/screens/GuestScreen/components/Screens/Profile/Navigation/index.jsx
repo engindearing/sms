@@ -138,7 +138,7 @@ const Index = ({ step = "Contact" }) => {
       <Button
         onPress={() => auth.signOut()}
         variant={"subtle"}
-        colorScheme="danger"
+        colorScheme='violet'
       >
         Sign out
       </Button>

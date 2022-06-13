@@ -12,13 +12,13 @@ interface IReservationModel extends Model<IReservation> {
 
 const reservationSchema: Schema = new mongoose.Schema(
   {
-    userId: {
+    user: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
       required: true,
     },
 
-    shelterId: {
+    shelter: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Shelter",
       required: true,
@@ -39,32 +39,7 @@ const reservationSchema: Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-reservationSchema.static(
-  "findUserByEmailOrCreate",
-  async function (email: string) {
-    try {
-      let user = await this.findOne({ email }).populate({
-        path: "organization",
-        populate: [
-          {
-            path: "shelters",
-            select: "name",
-          },
-        ],
-      });
 
-      if (!user) {
-        let newUser = await this.insertMany({ email });
-
-        return newUser[0];
-      }
-
-      return user;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
 
 export const Reservation: IReservationModel = model<
   IReservation,

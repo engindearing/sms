@@ -30,6 +30,18 @@ import { Text } from "react-native";
 
 import GuestScreen from "./screens/GuestScreen/GuestScreen";
 
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
+
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
@@ -50,13 +62,16 @@ declare global {
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <NativeBaseProvider>
-          <Theme>
-            <SMS />
-          </Theme>
-        </NativeBaseProvider>
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <NativeBaseProvider>
+            <Theme>
+              <SMS />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Theme>
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </QueryClientProvider>
     </Provider>
   );
 }

@@ -72,7 +72,7 @@ const Shelters = ({ prevStep, nextStep, navigation }) => {
             onPress={() => setSelectedShelter(shelter._id)}
             style={
               selectedShelter == shelter._id && {
-                backgroundColor: "rgba(0, 102, 255, 0.37)",
+                backgroundColor: "#d2c7ff",
               }
             }
             title={shelter.name}
@@ -83,7 +83,7 @@ const Shelters = ({ prevStep, nextStep, navigation }) => {
 
       <Button
         onPress={onSubmit}
-        style={{ position: "absolute", bottom: 5, width: "97%" }}
+        marginTop={5}
       >
         Update
       </Button>

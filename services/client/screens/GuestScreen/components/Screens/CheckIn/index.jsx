@@ -17,30 +17,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const index = ({ shelterId }) => {
   const user = useSelector((state) => state.user.currentUser);
 
-  const windowHeight = Dimensions.get("window").windowHeight;
-
-  let [service, setService] = React.useState(null);
-
-  const makeReservation = async () => {
-    const payload = {
-      userId: user._id,
-      shelterId,
-      beds: service,
-    };
-
-    try {
-      const token = await AsyncStorage.getItem("accessToken");
-
-      let res = await axiosWithAuth(token).post(
-        `/shelters/${shelterId}/reservations`,
-        payload
-      );
-
-      alert("You have successfully checked in");
-    } catch (error) {
-      alert("error!");
-    }
-  };
 
   return (
     <View>
@@ -69,5 +45,4 @@ const Container = styled.View`
 
   align-items: center;
 
-  height: ${(props) => props.windowHeight};
 `;

@@ -54,7 +54,9 @@ const Shelters = ({ prevStep, nextStep }) => {
 
   return (
     <View style={{ width: "100%" }}>
-      <Text marginBottom={2} fontSize={"2xl"}>Which shelter are you staying at?</Text>
+      <Text marginBottom={2} fontSize={"2xl"}>
+        Which shelter are you staying at?
+      </Text>
 
       {loading && <Loader />}
 
@@ -64,7 +66,7 @@ const Shelters = ({ prevStep, nextStep }) => {
             onPress={() => setSelectedShelter(shelter._id)}
             style={
               selectedShelter == shelter._id && {
-                backgroundColor: "rgba(0, 102, 255, 0.37)",
+                backgroundColor: "#d2c7ff",
               }
             }
             title={shelter.name}

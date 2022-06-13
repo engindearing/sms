@@ -5,6 +5,7 @@ import { Member } from "../../../models/Member";
 import { Request, Response } from "express";
 
 export const getCurrentUser = async (req: any, res: any) => {
+  console.log("called");
   let user = { ...req.user.toObject() };
 
   try {
@@ -12,7 +13,18 @@ export const getCurrentUser = async (req: any, res: any) => {
 
     user["household"] = household;
 
-    res.status(200).json({ user });
+    res.status(200).json({ currentUser: user });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getCurrentHousehold = async (req: any, res: any) => {
+  try {
+    let household = await Household.findOne({ user: req.user._id });
+    let members = await Member.find({ household: household?._id });
+
+    res.status(200).json({ household, members });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

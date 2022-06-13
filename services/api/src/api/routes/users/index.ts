@@ -6,6 +6,7 @@ const router = express.Router();
 
 const {
   getCurrentUser,
+  getCurrentHousehold,
   getHouseholdByUserId,
   getReservations,
   createReservation,
@@ -18,6 +19,8 @@ const { authRequired } = require("../../middleware/authRequired");
 router.use(authRequired);
 
 router.route("/me").get(getCurrentUser);
+
+router.route("/me/household").get(getCurrentHousehold);
 
 router.route("/me/reservations").get(getReservations).post(createReservation);
 

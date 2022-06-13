@@ -25,7 +25,7 @@ import {
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { Platform, useWindowDimensions } from "react-native";
+import { Platform, useWindowDimensions, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 const index = () => {
@@ -36,10 +36,10 @@ const index = () => {
   return (
     <Wrapper>
       <FormContainer>
-        <Card
+        <View
           style={{
-            padding: 0,
-            minHeight: width > 1000 ? 675 : height - 69,
+            backgroundColor: "white",
+            minHeight: width > 1000 ? 675 : height - 110,
           }}
         >
           <Stack.Navigator initialRouteName="Navigation">
@@ -60,7 +60,7 @@ const index = () => {
             <Stack.Screen name="School" component={School} />
             <Stack.Screen name="RaceEthnicity" component={RaceEthnicity} />
           </Stack.Navigator>
-        </Card>
+        </View>
       </FormContainer>
     </Wrapper>
   );
@@ -69,6 +69,8 @@ const index = () => {
 export default index;
 
 const FormContainer = styled.View`
+  height: 100%;
+
   width: 40%;
 
   ${(props) => props.theme.isLaptop && "width: 50%;"}
@@ -79,8 +81,12 @@ const FormContainer = styled.View`
 `;
 
 const Wrapper = styled.View`
+  height: 100%;
   display: flex;
+
   justify-content: center;
+
   align-items: center;
+
   width: 100%;
 `;
