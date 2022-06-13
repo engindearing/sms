@@ -3,7 +3,12 @@ import { useQuery } from "react-query";
 import UserAPI from "../user";
 
 const useCurrentHousehold = () => {
-  return useQuery<DUser, DError>(
+  interface APIResponse {
+    household: DHousehold;
+    members: DMember[];
+  }
+
+  return useQuery<APIResponse, DError>(
     "current-household",
     UserAPI.getCurrentHousehold
   );
