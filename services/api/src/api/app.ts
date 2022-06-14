@@ -32,8 +32,6 @@ app.use(
   })
 );
 
-app.use(express.static("./web-build")); // serve static files (css & js) from the 'public' directory
-
 app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: false }));
@@ -56,5 +54,9 @@ app.use("/api/shelters", sheltersRouter);
 app.use("/api/reservations", reservationsRouter);
 app.use("/api/households", householdRouter);
 app.use("/api/members", memberRouter);
+
+app.get("/docs/database", (req: any, res: any) => {
+  res.sendFile(path.join(__dirname, "../../docs/database", "schema.html"));
+});
 
 export default app;

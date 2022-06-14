@@ -12,27 +12,29 @@ interface IReservationModel extends Model<IReservation> {
 
 const reservationSchema: Schema = new mongoose.Schema(
   {
-    userId: {
+    household: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
+      ref: "Household",
       required: true,
     },
 
-    shelterId: {
+    shelter: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Shelter",
       required: true,
     },
+
+    members: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Member" }],
 
     beds: {
       type: Number,
       required: true,
     },
 
-    verified: {
-      type: Boolean,
-      required: true,
-      default: false,
+    status: {
+      type: String,
+      enum: ["pending", "verified", "denied"],
+      default: "pending",
     },
   },
 

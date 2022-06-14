@@ -31,7 +31,7 @@ const shelterSchema: Schema = new mongoose.Schema(
       zipCode: String,
     },
 
-    image: String
+    image: String,
   },
   { timestamps: true }
 );
