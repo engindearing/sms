@@ -10,7 +10,7 @@ const { authRequired } = require("../../middleware/authRequired");
 
 router
   .route("/")
-  .all(authRequired, restrictTo("admin", "orgAdmin"))
+  .all(authRequired, restrictTo("admin", "orgAdmin", 'guest'))
   .post(createShelter);
 
 router
