@@ -27,13 +27,21 @@ import {
 } from "../../../../../../state/slices/householdSlice";
 import { updateMembers } from "../../../../../../api/members";
 import { ScrollView } from "react-native-gesture-handler";
+import {
+  useCurrentHousehold,
+  useCurrentUser,
+} from "../../../../../../api/hooks";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
 
 export default function FamilyMembers({ navigation }) {
   //Options for relationship drop down
 
-  const { members, household } = useSelector((state: any) => state.household);
+  const {
+    data: { members, household },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const relationshipOptions = [
     "Self",
@@ -48,7 +56,7 @@ export default function FamilyMembers({ navigation }) {
   ];
 
   const initialValues = {
-    members: structuredClone(members),
+    members,
   };
 
   const validationSchema = Yup.object().shape({
@@ -64,16 +72,10 @@ export default function FamilyMembers({ navigation }) {
   });
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    try {
-      await updateMembers(household._id, fields.members);
-
-      navigation.navigate("Profile");
-    } catch (error) {
-      console.log(error);
-      alert("error");
-    }
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: () => navigation.navigate("Profile") }
+    );
   }
 
   return (

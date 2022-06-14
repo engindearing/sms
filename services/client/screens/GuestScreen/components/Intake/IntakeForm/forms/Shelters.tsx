@@ -6,50 +6,34 @@ import { Text } from "native-base";
 import { List } from "react-native-paper";
 import Navigation from "../Navigation";
 
-import { useDispatch, useSelector } from "react-redux";
-import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
-
 import Loader from "../../../../../../components/Loader";
+import { useShelters } from "../../../../../../api/hooks/useShelters";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const Shelters = ({ prevStep, nextStep }) => {
-  const dispatch = useDispatch();
-  const { household } = useSelector((state: any) => state.household);
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
-  const [shelters, setShelters] = useState([]);
+  const { mutate: updateHousehold } = useUpdateHousehold();
+
+  const sheltersQuery = useShelters();
+
   const [selectedShelter, setSelectedShelter] = useState(household.shelter);
-
-  const [loading, setLoading] = useState(false);
-
-  const fetchShelters = async () => {
-    setLoading(true);
-    try {
-      let response = await ShelterAPI.getAllShelters();
-
-      setShelters(response.shelters);
-    } catch (error) {
-      alert("Unable to get shelters");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchShelters();
-  }, []);
 
   const onSubmit = () => {
     if (!selectedShelter) {
       return alert("Please select a shelter");
     }
 
-    dispatch(
-      updateHouseholdById({
+    updateHousehold(
+      {
         householdId: household._id,
-        payload: { shelter: selectedShelter },
-      })
+        info: { shelter: selectedShelter },
+      },
+      { onSuccess: nextStep }
     );
-
-    nextStep();
   };
 
   return (
@@ -58,10 +42,10 @@ const Shelters = ({ prevStep, nextStep }) => {
         Which shelter are you staying at?
       </Text>
 
-      {loading && <Loader />}
+      {sheltersQuery.isLoading && <Loader />}
 
       <View>
-        {shelters.map((shelter) => (
+        {sheltersQuery.data?.map((shelter) => (
           <List.Item
             key={shelter._id}
             onPress={() => setSelectedShelter(shelter._id)}

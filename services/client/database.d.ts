@@ -14,6 +14,7 @@ interface DUser {
 interface DHousehold {
   _id: string;
   user: string;
+  shelter: string
   lastFormVisited: string;
   status: string;
   percentComplete: number;

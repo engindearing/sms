@@ -20,10 +20,15 @@ import { ScrollView } from "react-native-gesture-handler";
 
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 
-export default function ContactInfo({ navigation }) {
-  const { household } = useSelector((state: any) => state.household);
+import { useCurrentHousehold } from "../../../../../../api/hooks";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 
-  const dispatch = useDispatch();
+export default function ContactInfo({ navigation }) {
+  const { mutate: updateHousehold } = useUpdateHousehold();
+
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
   const {
     handleChange,
@@ -58,11 +63,10 @@ export default function ContactInfo({ navigation }) {
     isInitialValid: true,
 
     onSubmit: (contact) => {
-      dispatch(
-        updateHouseholdById({ householdId: household._id, payload: contact })
+      updateHousehold(
+        { householdId: household._id, info: contact },
+        { onSuccess: () => navigation.navigate("Profile") }
       );
-
-      navigation.navigate("Profile");
     },
   });
 

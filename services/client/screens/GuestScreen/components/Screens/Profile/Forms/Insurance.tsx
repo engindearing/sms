@@ -16,11 +16,15 @@ import "yup-phone";
 
 import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 
 export default function Insurance({ navigation }) {
-  const { household } = useSelector((state: any) => state.household);
+  const { mutate: updateHousehold } = useUpdateHousehold();
 
-  const dispatch = useDispatch();
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
   const {
     handleChange,
@@ -41,11 +45,10 @@ export default function Insurance({ navigation }) {
     validationSchema: ContactSchema,
 
     onSubmit: async (insurance) => {
-      dispatch(
-        updateHouseholdById({ householdId: household._id, payload: insurance })
+      updateHousehold(
+        { householdId: household._id, info: insurance },
+        { onSuccess: () => navigation.navigate("Profile") }
       );
-
-      navigation.navigate("Profile");
     },
   });
 

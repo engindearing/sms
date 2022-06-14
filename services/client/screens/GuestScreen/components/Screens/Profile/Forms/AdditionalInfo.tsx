@@ -16,6 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 import { ScrollView } from "react-native-gesture-handler";
 
+import { useCurrentHousehold } from "../../../../../../api/hooks";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+
 const GOVBenifits = [
   "Food Stamps",
   "CPS/FPS (Open case)",
@@ -37,9 +40,11 @@ const GOVBenifitsDataName = {
 export default function AdditionalInfo({ navigation }) {
   //Options for Gov Benifits w/dataBase name counterpart
 
-  const { household } = useSelector((state: any) => state.household);
+  const { mutate: updateHousehold } = useUpdateHousehold();
 
-  const dispatch = useDispatch();
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
   const {
     handleChange,
@@ -76,11 +81,10 @@ export default function AdditionalInfo({ navigation }) {
     },
 
     onSubmit: async (newValues) => {
-      dispatch(
-        updateHouseholdById({ householdId: household._id, payload: newValues })
+      updateHousehold(
+        { householdId: household._id, info: newValues },
+        { onSuccess: () => navigation.navigate("Profile") }
       );
-
-      navigation.navigate("Profile");
     },
   });
 

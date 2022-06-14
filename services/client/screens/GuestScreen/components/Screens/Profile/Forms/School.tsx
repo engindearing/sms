@@ -20,15 +20,9 @@ import getAge from "../../../../../../utils/getAge";
 
 import CheckboxInput from "../../../../../../components/CheckboxInput";
 
-import { updateMembers } from "../../../../../../api/members";
-
-import Navigation from "../Navigation";
-import {
-  setMembers,
-  updateMembers as updateMembersRedux,
-} from "../../../../../../state/slices/householdSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const gradeOptions = [
   "1",
@@ -58,9 +52,11 @@ const schoolTypeOptions = ["Public", "Private"];
 export default function RaceEthnicityInfo({ navigation }) {
   //Options for relationship drop down
 
-  const { members, household } = useSelector((state: any) => state.household);
+  const {
+    data: { members, household },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateMembers } = useUpdateMembers();
 
   let children = members.filter((mem) => getAge(mem.demographics.dob) <= 18);
 
@@ -90,11 +86,10 @@ export default function RaceEthnicityInfo({ navigation }) {
   });
 
   async function onSubmit(fields) {
-    dispatch(updateMembersRedux(fields.members));
-
-    await updateMembers(household._id, fields.members);
-
-    navigation.navigate("Profile");
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: () => navigation.navigate("Profile") }
+    );
   }
 
   return (

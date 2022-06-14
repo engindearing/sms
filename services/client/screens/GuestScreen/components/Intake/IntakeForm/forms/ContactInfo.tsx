@@ -22,11 +22,7 @@ import Navigation from "../Navigation";
 
 import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 
-export default function ContactInfo({
-  prevStep,
-  nextStep,
-  household,
-}) {
+export default function ContactInfo({ prevStep, nextStep, household }) {
   const { mutate: updateHousehold } = useUpdateHousehold();
 
   const {

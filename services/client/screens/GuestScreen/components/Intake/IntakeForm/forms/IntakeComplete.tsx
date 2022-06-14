@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "native-base";
 
 import React from "react";
@@ -6,26 +6,21 @@ import React from "react";
 import styled from "styled-components/native";
 
 import Navigation from "../Navigation";
-import { updateHousehold } from "../../../../../../api/household";
-import { useNavigation } from "@react-navigation/native";
-import {
-  setHousehold,
-  updateHouseholdById,
-} from "../../../../../../state/slices/householdSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 
-export default function IntakeComplete({ nextStep, prevStep, formValues }) {
-  const { household } = useSelector((state: any) => state.household);
+export default function IntakeComplete({ nextStep, prevStep }) {
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateHousehold } = useUpdateHousehold();
 
   const onIntakeComplete = async () => {
-    dispatch(
-      updateHouseholdById({
-        householdId: household._id,
-        payload: { status: "complete" },
-      })
-    );
+    updateHousehold({
+      householdId: household._id,
+      info: { status: "complete" },
+    });
   };
 
   return (

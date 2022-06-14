@@ -17,12 +17,19 @@ import "yup-phone";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
+
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function DomesticViolence({ navigation }) {
-  const { household } = useSelector((state: any) => state.household);
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
-  const dispatch = useDispatch();
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+
+export default function DomesticViolence({ navigation }) {
+  const { mutate: updateHousehold } = useUpdateHousehold();
+
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
   const {
     handleChange,
@@ -45,14 +52,10 @@ export default function DomesticViolence({ navigation }) {
     validationSchema: ContactSchema,
 
     onSubmit: async (domesticViolence) => {
-      dispatch(
-        updateHouseholdById({
-          householdId: household._id,
-          payload: domesticViolence,
-        })
+      updateHousehold(
+        { householdId: household._id, info: domesticViolence },
+        { onSuccess: () => navigation.navigate("Profile") }
       );
-
-      navigation.navigate("Profile");
     },
   });
 

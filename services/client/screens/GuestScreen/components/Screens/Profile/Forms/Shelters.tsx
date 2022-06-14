@@ -4,58 +4,36 @@ import React, { useEffect, useState } from "react";
 import ShelterAPI from "../../../../../../api/shelter";
 import { Button, Text } from "native-base";
 import { List } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
-import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
+import Navigation from "../Navigation";
+
 import Loader from "../../../../../../components/Loader";
-import { setShelter } from "../../../../../../state/slices/shelterSlice";
+import { useShelters } from "../../../../../../api/hooks/useShelters";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const Shelters = ({ prevStep, nextStep, navigation }) => {
-  const dispatch = useDispatch();
-  const { household } = useSelector((state: any) => state.household);
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
-  const [shelters, setShelters] = useState([]);
+  const { mutate: updateHousehold } = useUpdateHousehold();
+
+  const sheltersQuery = useShelters();
+
   const [selectedShelter, setSelectedShelter] = useState(household.shelter);
 
-  const [loading, setLoading] = useState(false);
-
-  const fetchShelters = async () => {
-    setLoading(true);
-    try {
-      let response = await ShelterAPI.getAllShelters();
-
-      setShelters(response.shelters);
-    } catch (error) {
-      alert("Unable to get shelters");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchShelters();
-  }, []);
-
-  const onSubmit = async () => {
+  const onSubmit = () => {
     if (!selectedShelter) {
       return alert("Please select a shelter");
     }
 
-    let { shelter } = await ShelterAPI.fetchShelterById(selectedShelter);
-
-    try {
-      dispatch(
-        updateHouseholdById({
-          householdId: household._id,
-          payload: { shelter: selectedShelter },
-        })
-      );
-
-      dispatch(setShelter(shelter));
-    } catch (error) {
-      alert("Unable to update profile");
-    }
-
-    navigation.navigate("Profile");
+    updateHousehold(
+      {
+        householdId: household._id,
+        info: { shelter: selectedShelter },
+      },
+      { onSuccess: () => navigation.navigate("Profile") }
+    );
   };
 
   return (
@@ -64,11 +42,12 @@ const Shelters = ({ prevStep, nextStep, navigation }) => {
         Which shelter are you staying at?
       </Text>
 
-      {loading && <Loader />}
+      {sheltersQuery.isLoading && <Loader />}
 
       <View>
-        {shelters.map((shelter) => (
+        {sheltersQuery.data?.map((shelter) => (
           <List.Item
+            key={shelter._id}
             onPress={() => setSelectedShelter(shelter._id)}
             style={
               selectedShelter == shelter._id && {
@@ -81,10 +60,7 @@ const Shelters = ({ prevStep, nextStep, navigation }) => {
         ))}
       </View>
 
-      <Button
-        onPress={onSubmit}
-        marginTop={5}
-      >
+      <Button marginTop={10} onPress={onSubmit}>
         Update
       </Button>
     </View>

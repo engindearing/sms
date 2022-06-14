@@ -15,6 +15,9 @@ import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setMembers } from "../../../../../../state/slices/householdSlice";
 import { ScrollView } from "react-native-gesture-handler";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
 
 //Options for race
 const options = [
@@ -29,23 +32,23 @@ const options = [
 ];
 
 export default function RaceEthnicityInfo({ navigation }) {
-  //Options for relationship drop down
+  //Options for relationship drop down;
 
-  const { members, household } = useSelector((state: any) => state.household);
+  const {
+    data: { members, household },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const initialValues = {
-    numberOfHouseholdMembers: "",
-    members: structuredClone(members),
+    members,
   };
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    await updateMembers(household._id, fields.members);
-
-    navigation.navigate("Profile");
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: () => navigation.navigate("Profile") }
+    );
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];

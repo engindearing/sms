@@ -18,12 +18,9 @@ import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../../../components/CheckboxInput";
 
-import Navigation from "../Navigation";
-
-import { useDispatch, useSelector } from "react-redux";
-import { setMembers } from "../../../../../../state/slices/householdSlice";
-import { updateMembers } from "../../../../../../api/members";
 import { ScrollView } from "react-native-gesture-handler";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const options = ["Job", "TANF", "SSI", "SSDI", "Child Support", "Other"];
 
@@ -39,13 +36,14 @@ const optionDataName = {
 export default function FamilyMembers({ navigation }) {
   //Options for relationship drop down
 
-  const dispatch = useDispatch();
+  const {
+    data: { members, household },
+  } = useCurrentHousehold();
 
-  const { members, household } = useSelector((state: any) => state.household);
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const initialValues = {
-    numberOfHouseholdMembers: "",
-    members: structuredClone(members),
+    members,
   };
 
   const validationSchema = Yup.object().shape({
@@ -90,15 +88,10 @@ export default function FamilyMembers({ navigation }) {
   });
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    try {
-      await updateMembers(household._id, fields.members);
-
-      navigation.navigate("Profile");
-    } catch (error) {
-      alert("this error");
-    }
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: () => navigation.navigate("Profile") }
+    );
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];
