@@ -16,23 +16,27 @@ import { Text } from "native-base";
 
 import styled from "styled-components/native";
 
-import HouseholdAPI from "../../../../../../api/household";
-
 import Navigation from "../Navigation";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addMember,
-  deleteMember,
-  setMembers,
-} from "../../../../../../state/slices/householdSlice";
-import { updateMembers } from "../../../../../../api/members";
 
-export default function FamilyMembers({ nextStep, onChange, prevStep }) {
+import {
+  useAddMember,
+  useUpdateMembers,
+  useDeleteMember,
+} from "../../../../../../api/hooks/useMembers";
+
+export default function FamilyMembers({
+  nextStep,
+  prevStep,
+  members,
+  household,
+}) {
   //Options for relationship drop down
 
-  const { members, household } = useSelector((state: any) => state.household);
+  const { mutate: addMember } = useAddMember();
 
-  const dispatch = useDispatch();
+  const { mutate: deleteMember } = useDeleteMember();
+
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const relationshipOptions = [
     "Self",
@@ -47,16 +51,18 @@ export default function FamilyMembers({ nextStep, onChange, prevStep }) {
   ];
 
   const initialValues = {
-    members: structuredClone(members),
+    members,
   };
 
   const validationSchema = Yup.object().shape({
     members: Yup.array().of(
       Yup.object().shape({
         demographics: Yup.object().shape({
-          firstName: Yup.string().required("First name is required"),
-          lastName: Yup.string().required("Last name is required"),
-          relationship: Yup.string().required("Relationship is required"),
+          firstName: Yup.string().required("First name is required").nullable(),
+          lastName: Yup.string().required("Last name is required").nullable(),
+          relationship: Yup.string()
+            .required("Relationship is required")
+            .nullable(),
         }),
       })
     ),
@@ -65,43 +71,34 @@ export default function FamilyMembers({ nextStep, onChange, prevStep }) {
   async function createMember(values, setFieldValue) {
     // update dynamic form
 
-    try {
-      let member = await HouseholdAPI.addMember(household._id, {});
-
-      setFieldValue("members", [...values.members, structuredClone(member)]);
-
-      dispatch(addMember(member));
-    } catch (error) {
-      alert("Unable to add member to household");
-    }
+    addMember(
+      { householdId: household._id, member: {} },
+      {
+        onSuccess: (member) =>
+          setFieldValue("members", [...values.members, member]),
+      }
+    );
   }
 
   async function removeMember(memberId, values, setFieldValue) {
-    // update dynamic form
-
-    try {
-      await HouseholdAPI.removeMember(household._id, memberId);
-
-      setFieldValue("members", [
-        ...values.members.filter((mem) => mem._id !== memberId),
-      ]);
-
-      dispatch(deleteMember({ memberId }));
-    } catch (error) {
-      alert("Unable to add member to household");
-    }
+    deleteMember(
+      { householdId: household._id, memberId },
+      {
+        onSuccess: () =>
+          setFieldValue("members", [
+            ...values.members.filter((mem) => mem._id !== memberId),
+          ]),
+      }
+    );
   }
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    try {
-      await updateMembers(household._id, fields.members);
-
-      nextStep();
-    } catch (error) {
-      alert("error");
-    }
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      {
+        onSuccess: nextStep,
+      }
+    );
   }
 
   return (

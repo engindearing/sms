@@ -11,7 +11,7 @@ const IntakeScreen = () => {
   const { household, members } = householdQuery.data;
 
   const { step, navigation: formNavigator } = useStep({
-    initialStep: "ContactInfo",
+    initialStep: "FamilyMembers",
     steps,
   });
 

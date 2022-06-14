@@ -5,8 +5,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const updateHousehold = async (mutationKey) => {
   const { householdId, info } = mutationKey;
 
-  console.log(mutationKey);
-
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
@@ -34,12 +32,14 @@ export const fetchHouseholdByUserId = async (userId) => {
   }
 };
 
-export const addMember = async (householdId, memberData) => {
+export const addMember = async (mutationKey) => {
+  const { householdId, member } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
     let data = await axiosWithAuth(token)
-      .post(`/households/${householdId}/members`, memberData)
+      .post(`/households/${householdId}/members`, member)
       .then((res) => res.data);
 
     return data;
@@ -48,7 +48,9 @@ export const addMember = async (householdId, memberData) => {
   }
 };
 
-export const removeMember = async (householdId, memberId) => {
+export const removeMember = async (mutationKey) => {
+  const { householdId, memberId } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
@@ -62,9 +64,26 @@ export const removeMember = async (householdId, memberId) => {
   }
 };
 
+export const updateMembers = async (mutationKey) => {
+  const { householdId, members } = mutationKey;
+
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+      .patch(`/households/${householdId}/members`, members)
+      .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   updateHousehold,
   fetchHouseholdByUserId,
   addMember,
   removeMember,
+  updateMembers,
 };
