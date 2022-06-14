@@ -23,6 +23,8 @@ import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setMembers } from "../../../../../../state/slices/householdSlice";
 import { updateMembers } from "../../../../../../api/members";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const options = ["Job", "TANF", "SSI", "SSDI", "Child Support", "Other"];
 
@@ -35,16 +37,18 @@ const optionDataName = {
   Other: "other",
 };
 
-export default function FamilyMembers({ nextStep, prevStep }) {
+export default function FamilyDemographics({ nextStep, prevStep }) {
   //Options for relationship drop down
 
-  const dispatch = useDispatch();
-
-  const { members, household } = useSelector((state: any) => state.household);
+  const {
+    data: { household, members },
+  } = useCurrentHousehold();
+  
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const initialValues = {
     numberOfHouseholdMembers: "",
-    members: structuredClone(members),
+    members: members,
   };
 
   const validationSchema = Yup.object().shape({
@@ -89,15 +93,10 @@ export default function FamilyMembers({ nextStep, prevStep }) {
   });
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    try {
-      await updateMembers(household._id, fields.members);
-
-      nextStep();
-    } catch (error) {
-      alert("this error");
-    }
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: nextStep }
+    );
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];

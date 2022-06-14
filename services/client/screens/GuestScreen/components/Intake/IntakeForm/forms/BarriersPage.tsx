@@ -16,6 +16,8 @@ import { updateMembers } from "../../../../../../api/members";
 import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setMembers } from "../../../../../../state/slices/householdSlice";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const options = [
   "Alcohol Abuse",
@@ -37,18 +39,19 @@ const optionDataName = {
   "Physical Disability": "physicalDisabilities",
 };
 
-export default function RaceEthnicityInfo({
+export default function BarriersPage({
   nextStep,
-
   prevStep,
 }) {
-  const { members, household } = useSelector((state: any) => state.household);
+  const {
+    data: { household, members },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const initialValues = {
     numberOfHouseholdMembers: "",
-    members: structuredClone(members),
+    members: members,
   };
 
   const validationSchema = Yup.object().shape({
@@ -70,11 +73,10 @@ export default function RaceEthnicityInfo({
   });
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    await updateMembers(household._id, fields.members);
-
-    nextStep();
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: nextStep }
+    );
   }
 
   return (

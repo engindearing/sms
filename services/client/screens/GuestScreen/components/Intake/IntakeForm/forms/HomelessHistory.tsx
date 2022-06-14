@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 
 import TextInput from "../../../../../../components/TextInput";
 
-import { Button, Text } from "native-base";
+import { Text } from "native-base";
 
 import * as Yup from "yup";
 
@@ -14,16 +14,16 @@ import "yup-phone";
 
 import { ScrollView } from "react-native-gesture-handler";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
-
 import Navigation from "../Navigation";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 export default function HomelessHistory({ nextStep, prevStep }) {
-  const { household } = useSelector((state: any) => state.household);
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateHousehold } = useUpdateHousehold();
 
   const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
     useFormik({
@@ -42,11 +42,10 @@ export default function HomelessHistory({ nextStep, prevStep }) {
       validationSchema: ContactSchema,
 
       onSubmit: (homeless) => {
-        dispatch(
-          updateHouseholdById({ householdId: household._id, payload: homeless })
+        updateHousehold(
+          { householdId: household._id, info: homeless },
+          { onSuccess: nextStep }
         );
-
-        nextStep();
       },
     });
 

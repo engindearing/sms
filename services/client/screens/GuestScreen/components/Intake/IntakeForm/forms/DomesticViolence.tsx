@@ -14,15 +14,16 @@ import * as Yup from "yup";
 
 import "yup-phone";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 import Navigation from "../Navigation";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 
 export default function DomesticViolence({ nextStep, prevStep }) {
-  const { household } = useSelector((state: any) => state.household);
+  const {
+    data: { household },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateHousehold } = useUpdateHousehold();
 
   const {
     handleChange,
@@ -45,14 +46,10 @@ export default function DomesticViolence({ nextStep, prevStep }) {
     validationSchema: ContactSchema,
 
     onSubmit: async (domesticViolence) => {
-      dispatch(
-        updateHouseholdById({
-          householdId: household._id,
-          payload: domesticViolence,
-        })
+      updateHousehold(
+        { householdId: household._id, info: domesticViolence },
+        { onSuccess: nextStep }
       );
-
-      nextStep();
     },
   });
 

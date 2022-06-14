@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ScrollView } from "react-native";
 import { useCurrentHousehold } from "../../../../api/hooks";
+import useUpdateHousehold from "../../../../api/hooks/useUpdateHousehold";
 import useStep from "../../../../hooks/useStep";
 import IntakeForm from "./IntakeForm";
 import steps from "./steps";
@@ -8,10 +9,13 @@ import steps from "./steps";
 const IntakeScreen = () => {
   const householdQuery = useCurrentHousehold();
 
+  const { mutate: updateHousehold } = useUpdateHousehold();
+
   const { household, members } = householdQuery.data;
 
   const { step, navigation: formNavigator } = useStep({
-    initialStep: "FamilyMembers",
+    initialStep: household.lastFormVisited || "IntakeStart",
+
     steps,
   });
 
@@ -31,6 +35,11 @@ const IntakeScreen = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
+    updateHousehold({
+      householdId: household._id,
+      info: { lastFormVisited: step.id },
+    });
+
     scrollRef.current.scrollTo({ y: 0 });
   }, [step]);
 

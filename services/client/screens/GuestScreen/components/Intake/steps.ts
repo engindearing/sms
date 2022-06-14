@@ -1,7 +1,6 @@
 const steps = [
   { id: "IntakeStart" },
   { id: "Shelters" },
-
   { id: "ContactInfo" },
   { id: "FamilyMembers" },
   { id: "FamilyDemographics" },

@@ -28,6 +28,8 @@ import {
   updateMembers as updateMembersRedux,
 } from "../../../../../../state/slices/householdSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 const gradeOptions = [
   "1",
@@ -54,17 +56,17 @@ const attendStatOptions = [
 
 const schoolTypeOptions = ["Public", "Private"];
 
-export default function RaceEthnicityInfo({ nextStep, prevStep }) {
-  //Options for relationship drop down
+export default function ChildSchoolInfo({ nextStep, prevStep }) {
+  const {
+    data: { household, members },
+  } = useCurrentHousehold();
 
-  const { members, household } = useSelector((state: any) => state.household);
-
-  const dispatch = useDispatch();
+  const { mutate: updateMembers } = useUpdateMembers();
 
   let children = members.filter((mem) => getAge(mem.demographics.dob) <= 18);
 
   const initialValues = {
-    members: structuredClone(children),
+    members: children,
   };
 
   const validationSchema = Yup.object().shape({
@@ -89,11 +91,10 @@ export default function RaceEthnicityInfo({ nextStep, prevStep }) {
   });
 
   async function onSubmit(fields) {
-    dispatch(updateMembersRedux(fields.members));
-
-    await updateMembers(household._id, fields.members);
-
-    nextStep();
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: nextStep }
+    );
   }
 
   return (

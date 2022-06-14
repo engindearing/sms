@@ -26,7 +26,6 @@ export default function ContactInfo({
   prevStep,
   nextStep,
   household,
-  members,
 }) {
   const { mutate: updateHousehold } = useUpdateHousehold();
 

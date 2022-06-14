@@ -10,10 +10,12 @@ import { Text } from "native-base";
 import CheckboxInput, {
   CheckboxGroup,
 } from "../../../../../../components/CheckboxInput";
-import { updateMembers } from "../../../../../../api/members";
+import { addMembers, updateMembers } from "../../../../../../api/members";
 import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setMembers } from "../../../../../../state/slices/householdSlice";
+import { useUpdateMembers } from "../../../../../../api/hooks/useMembers";
+import { useCurrentHousehold } from "../../../../../../api/hooks";
 
 //Options for race
 const options = [
@@ -30,21 +32,22 @@ const options = [
 export default function RaceEthnicityInfo({ nextStep, prevStep }) {
   //Options for relationship drop down
 
-  const { members, household } = useSelector((state: any) => state.household);
+  const {
+    data: { household, members },
+  } = useCurrentHousehold();
 
-  const dispatch = useDispatch();
+  const { mutate: updateMembers } = useUpdateMembers();
 
   const initialValues = {
     numberOfHouseholdMembers: "",
-    members: structuredClone(members),
+    members: members,
   };
 
   async function onSubmit(fields) {
-    dispatch(setMembers(fields.members));
-
-    await updateMembers(household._id, fields.members);
-
-    nextStep();
+    updateMembers(
+      { householdId: household._id, members: fields.members },
+      { onSuccess: nextStep }
+    );
   }
 
   const genderOptions = ["Male", "Female", "Decline to Answer"];
