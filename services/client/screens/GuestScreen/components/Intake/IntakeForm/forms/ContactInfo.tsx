@@ -14,17 +14,21 @@ import "yup-phone";
 
 import isValidPhoneNumber from "../../../../../../utils/isValidPhoneNumber";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { ScrollView } from "react-native-gesture-handler";
 
-import { updateHouseholdById } from "../../../../../../state/slices/householdSlice";
 import Navigation from "../Navigation";
 
-export default function ContactInfo({ prevStep, nextStep }) {
-  const { household } = useSelector((state: any) => state.household);
+import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 
-  const dispatch = useDispatch();
+export default function ContactInfo({
+  prevStep,
+  nextStep,
+  household,
+  members,
+}) {
+  const { mutate: updateHousehold } = useUpdateHousehold();
 
   const {
     handleChange,
@@ -56,14 +60,12 @@ export default function ContactInfo({ prevStep, nextStep }) {
       },
     },
     validationSchema: ContactSchema,
-    isInitialValid: true,
 
     onSubmit: (contact) => {
-      dispatch(
-        updateHouseholdById({ householdId: household._id, payload: contact })
+      updateHousehold(
+        { householdId: household._id, info: contact },
+        { onSuccess: nextStep }
       );
-
-      nextStep();
     },
   });
 

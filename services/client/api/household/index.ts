@@ -2,7 +2,11 @@ import { axiosWithAuth } from "../../auth/axiosWithAuth";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const updateHousehold = async (householdId, info) => {
+export const updateHousehold = async (mutationKey) => {
+  const { householdId, info } = mutationKey;
+
+  console.log(mutationKey);
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {

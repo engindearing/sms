@@ -20,13 +20,22 @@ export const getCurrentUser = async (req: any, res: any) => {
 };
 
 export const getCurrentHousehold = async (req: any, res: any) => {
+  let household;
+
   try {
-    let household = await Household.findOne({ user: req.user._id });
-    let members = await Member.find({ household: household?._id });
+    household = await Household.findOne({ user: req.user._id });
+
+    if (!household) {
+      household = await Household.create({ user: req.user._id });
+    }
+
+    // Find all members that belong to their household
+    let members = await Member.find({ household: household._id });
 
     res.status(200).json({ household, members });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    console.log(error)
+    res.status(400).json(error);
   }
 };
 

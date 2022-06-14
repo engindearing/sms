@@ -69,12 +69,16 @@ const RenderForm = ({
   nextStep,
   prevStep,
   onChange,
+  household,
+  members,
 }) => {
   const formProps = {
     step,
     nextStep,
     prevStep,
     onChange,
+    household,
+    members,
   };
 
   switch (step.id) {

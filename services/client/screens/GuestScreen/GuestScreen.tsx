@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 import React, { useState } from "react";
 
@@ -13,22 +13,26 @@ import Intake from "./components/Intake/IntakeScreen";
 import { useCurrentHousehold } from "../../api/hooks";
 
 export default function GuestScreen() {
-  let householdQuery = useCurrentHousehold();
-
   let [currentScreen, setCurrentScreen] = useState("profile");
 
-  let props = {
-    currentScreen,
-    setCurrentScreen,
-  };
+  let householdQuery = useCurrentHousehold();
 
   if (householdQuery.isLoading) {
     return <Loader />;
   }
 
-  // if (household.status === "start") {
-  //   return <Intake {...props} />;
-  // }
+  if (householdQuery.isError) {
+    return <Text>{householdQuery.error.message}</Text>;
+  }
+
+  if (householdQuery.data.household.status === "start") {
+    return <Intake />;
+  }
+
+  let props = {
+    currentScreen,
+    setCurrentScreen,
+  };
 
   return (
     <View style={{ height: "100%" }}>

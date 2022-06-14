@@ -63,6 +63,7 @@ const Shelters = ({ prevStep, nextStep }) => {
       <View>
         {shelters.map((shelter) => (
           <List.Item
+            key={shelter._id}
             onPress={() => setSelectedShelter(shelter._id)}
             style={
               selectedShelter == shelter._id && {

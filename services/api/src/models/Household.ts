@@ -25,7 +25,6 @@ const householdSchema: Schema = new mongoose.Schema(
     shelter: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Shelter",
-      required: true,
       default: null,
     },
 
