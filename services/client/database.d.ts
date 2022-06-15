@@ -14,7 +14,7 @@ interface DUser {
 interface DHousehold {
   _id: string;
   user: string;
-  shelter: string
+  shelter: string;
   lastFormVisited: string;
   status: string;
   percentComplete: number;
@@ -156,10 +156,10 @@ interface DShelter {
 
 interface DReservation {
   _id: string;
-  user: string;
+  household: string;
   shelter: string;
   beds: number;
-  verified: boolean;
+  status: string;
   createdAt: Date;
   updatedAt: Date;
 }

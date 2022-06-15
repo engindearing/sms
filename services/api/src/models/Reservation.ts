@@ -24,22 +24,18 @@ const reservationSchema: Schema = new mongoose.Schema(
       required: true,
     },
 
+    members: [
+      { type: mongoose.SchemaTypes.ObjectId, ref: "Member", required: true },
+    ],
+
     beds: {
       type: Number,
       required: true,
-    },
-
-    verified: {
-      type: Boolean,
-      required: true,
-      default: false,
     },
   },
 
   { timestamps: true }
 );
-
-
 
 export const Reservation: IReservationModel = model<
   IReservation,
