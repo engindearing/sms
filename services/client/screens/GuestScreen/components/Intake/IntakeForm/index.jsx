@@ -53,6 +53,7 @@ const IntakeForm = (props) => {
           style={{
             display: "flex",
             alignItems: "center",
+            height: "100%",
             justifyContent: "space-around",
             marginTop: "5%",
           }}
@@ -165,10 +166,13 @@ const Wrapper = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100%;
 `;
 
 const FormContainer = styled.View`
   width: 50%;
+
+  height: 100%;
 
   ${(props) => props.theme.isLaptop && "width: 50%;"}
 

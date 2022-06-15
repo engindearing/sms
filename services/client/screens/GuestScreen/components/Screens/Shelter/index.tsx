@@ -93,10 +93,10 @@ const PageModal = ({ page, setPage }) => {
   return (
     <Center>
       <Button onPress={() => setPage(false)}>Button</Button>
-      <Modal isOpen={page} onClose={() => setPage(false)}>
+      <Modal isOpen={page} onClose={() => setPage(false)} height="100%">
         <Modal.Content
-          minWidth={width > 900 ? "50%" : "100%"}
-          minHeight={width > 900 ? "98%" : "100%"}
+          minWidth={width > 900 ? "45%" : "100%"}
+          height={width > 900 ? "100%" : "100%"}
         >
           <Modal.CloseButton />
           <Modal.Body>

@@ -1,8 +1,6 @@
-import { View, Dimensions } from "react-native";
+import React from "react";
 
 import styled from "styled-components/native";
-
-import React, { useState } from "react";
 
 import { Text } from "native-base";
 
@@ -26,25 +24,18 @@ const CheckIn = () => {
   }
 
   return (
-    <View>
-      <Container>
-        {reservationQuery.data ? <ReservationStatus /> : <CreateReservation />}
-      </Container>
-    </View>
+    <Container>
+      {reservationQuery.data ? <ReservationStatus /> : <CreateReservation />}
+    </Container>
   );
 };
 
 export default CheckIn;
 
-const FormContainer = styled.View`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 30%;
-`;
-
 const Container = styled.View`
   width: 100%;
+
+  height: 100%;
 
   display: flex;
 

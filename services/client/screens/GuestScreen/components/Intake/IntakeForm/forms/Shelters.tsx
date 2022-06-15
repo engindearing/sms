@@ -37,7 +37,7 @@ const Shelters = ({ prevStep, nextStep }) => {
   };
 
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ width: "100%", height: "100%" }}>
       <Text marginBottom={2} fontSize={"2xl"}>
         Which shelter are you staying at?
       </Text>

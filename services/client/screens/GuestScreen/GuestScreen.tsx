@@ -13,7 +13,7 @@ import Intake from "./components/Intake/IntakeScreen";
 import { useCurrentHousehold } from "../../api/hooks";
 
 export default function GuestScreen() {
-  let [currentScreen, setCurrentScreen] = useState("profile");
+  let [currentScreen, setCurrentScreen] = useState("checkIn");
 
   let householdQuery = useCurrentHousehold();
 

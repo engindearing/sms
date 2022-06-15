@@ -61,7 +61,7 @@ export default function RaceEthnicityInfo({ navigation }) {
   let children = members.filter((mem) => getAge(mem.demographics.dob) <= 18);
 
   const initialValues = {
-    members: structuredClone(children),
+    members,
   };
 
   const validationSchema = Yup.object().shape({

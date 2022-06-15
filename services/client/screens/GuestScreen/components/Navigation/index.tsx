@@ -17,7 +17,7 @@ import styled from "styled-components/native";
 export default function Footer({ currentScreen, setCurrentScreen }) {
   return (
     <StyledContainer>
-      <Box flex={1} bg="white" safeAreaTop width="100%" alignSelf="center">
+      <Box flex={1} bg="white" width="100%" alignSelf="center">
         <Center flex={1}></Center>
         <HStack bg="#0063be" alignItems="center" safeAreaBottom shadow={6}>
           <Pressable

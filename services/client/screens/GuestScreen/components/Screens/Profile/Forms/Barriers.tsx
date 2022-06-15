@@ -48,8 +48,7 @@ export default function RaceEthnicityInfo({ navigation }) {
   const { mutate: updateMembers } = useUpdateMembers();
 
   const initialValues = {
-    numberOfHouseholdMembers: "",
-    members: structuredClone(members),
+    members,
   };
 
   const validationSchema = Yup.object().shape({
