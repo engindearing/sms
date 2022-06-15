@@ -2,10 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
-const { updateReservation } = require("./controller");
+const { updateReservation, createReservation } = require("./controller");
 
 const { authRequired } = require("../../middleware/authRequired");
 
-router.route("/:id").all(authRequired).put(updateReservation);
+router.use(authRequired);
+
+router.route("/").post(createReservation);
+
+router.route("/:id").put(updateReservation);
 
 export default router;

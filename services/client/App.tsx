@@ -84,6 +84,13 @@ function SMS() {
   let dispatch = useDispatch();
 
   useEffect(() => {
+    const tokenChanged = auth.onIdTokenChanged(async (user) => {
+      alert("Token changed");
+      let { token } = await user.getIdTokenResult();
+
+      await AsyncStorage.setItem("accessToken", token);
+    });
+
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (!user) {
         navigation.reset({
@@ -97,10 +104,6 @@ function SMS() {
       }
 
       if (user) {
-        let { token } = await user.getIdTokenResult();
-
-        await AsyncStorage.setItem("accessToken", token);
-
         navigation.reset({
           routes: [{ name: "Home" }],
         });

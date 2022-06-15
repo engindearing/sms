@@ -22,6 +22,8 @@ router.route("/me").get(getCurrentUser);
 
 router.route("/me/household").get(getCurrentHousehold);
 
+router.route("/me/reservations/current").get(getReservations);
+
 router.route("/me/reservations").get(getReservations).post(createReservation);
 
 router

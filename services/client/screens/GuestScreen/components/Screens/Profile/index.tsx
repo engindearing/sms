@@ -4,8 +4,6 @@ import styled from "styled-components/native";
 
 import React from "react";
 
-import { Button, Card } from "native-base";
-
 import Navigation from "./Navigation";
 
 import {
@@ -25,8 +23,7 @@ import {
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { Platform, useWindowDimensions, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { useWindowDimensions, View } from "react-native";
 
 const index = () => {
   let Stack = createNativeStackNavigator();

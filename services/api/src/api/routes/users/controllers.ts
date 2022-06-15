@@ -3,6 +3,7 @@ import { Household } from "../../../models/Household";
 import { Member } from "../../../models/Member";
 
 import { Request, Response } from "express";
+import { Reservation } from "../../../models/Reservation";
 
 export const getCurrentUser = async (req: any, res: any) => {
   console.log("called");
@@ -34,7 +35,7 @@ export const getCurrentHousehold = async (req: any, res: any) => {
 
     res.status(200).json({ household, members });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).json(error);
   }
 };
@@ -74,4 +75,20 @@ export const deleteReservation = (req: Request, res: Response) => {
 
 export const updateReservation = (req: Request, res: Response) => {
   res.status(200).json("Hello");
+};
+
+export const getCurrentReservation = async (req: any, res: any) => {
+  try {
+    const household = await Household.findOne({ user: req.user._id });
+
+    const reservation = await Reservation.findOne(
+      { household: household?._id },
+      {},
+      { sort: { created_at: -1 } }
+    );
+
+    res.status(200).json({ reservation });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
 };
