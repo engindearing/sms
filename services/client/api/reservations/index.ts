@@ -7,7 +7,7 @@ export const getCurrentReservation = async () => {
 
   try {
     let data = await axiosWithAuth(token)
-      .get(`/users/me/reservation/current`)
+      .get(`/users/me/reservations/current`)
       .then((res) => res.data.reservation);
 
     return data;

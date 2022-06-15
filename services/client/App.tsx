@@ -84,8 +84,7 @@ function SMS() {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    const tokenChanged = auth.onIdTokenChanged(async (user) => {
-      alert("Token changed");
+    auth.onIdTokenChanged(async (user) => {
       let { token } = await user.getIdTokenResult();
 
       await AsyncStorage.setItem("accessToken", token);

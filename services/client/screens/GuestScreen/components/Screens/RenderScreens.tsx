@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 
 import React from "react";
 
-import CheckIn from "./CheckIn";
+import CheckIn from "./CheckIn/CheckIn";
 import Profile from "./Profile";
 import Shelter from "./Shelter";
 
