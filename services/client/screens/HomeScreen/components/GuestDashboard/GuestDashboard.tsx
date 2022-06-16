@@ -11,6 +11,7 @@ import Loader from "../../../../components/Loader";
 import Intake from "./components/Intake/IntakeScreen";
 
 import { useCurrentHousehold } from "../../../../api/hooks";
+import LoadingScreen from "../../../../components/LoadingScreen";
 
 export default function GuestDashboard() {
   let [currentScreen, setCurrentScreen] = useState("checkIn");
@@ -18,7 +19,7 @@ export default function GuestDashboard() {
   let householdQuery = useCurrentHousehold();
 
   if (householdQuery.isLoading) {
-    return <Loader />;
+    return <LoadingScreen />;
   }
 
   if (householdQuery.isError) {

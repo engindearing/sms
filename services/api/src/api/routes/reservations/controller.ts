@@ -31,7 +31,6 @@ export const createReservation = async (req: Request, res: Response) => {
 };
 
 
-
 export const deleteReservation = async (req: Request, res: Response) => {
   const { id: reservationId } = req.params;
 

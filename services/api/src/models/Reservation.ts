@@ -12,9 +12,9 @@ interface IReservationModel extends Model<IReservation> {
 
 const reservationSchema: Schema = new mongoose.Schema(
   {
-    user: {
+    household: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
+      ref: "Household",
       required: true,
     },
 

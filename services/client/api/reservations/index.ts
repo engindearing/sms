@@ -16,8 +16,25 @@ export const getCurrentReservation = async () => {
   }
 };
 
+export const createReservation = async (mutationKey) => {
+  const { reservation } = mutationKey;
+
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+      .post(`/reservations`, reservation)
+      .then((res) => res.data.reservation);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ReservationAPI = {
   getCurrentReservation,
+  createReservation,
 };
 
 export default ReservationAPI;

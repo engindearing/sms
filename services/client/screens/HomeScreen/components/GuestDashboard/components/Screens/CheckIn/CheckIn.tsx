@@ -2,14 +2,17 @@ import React from "react";
 
 import styled from "styled-components/native";
 
-import { Text } from "native-base";
+import { Button, Text, View } from "native-base";
 
 import { useCurrentReservation } from "../../../../../../../api/hooks/useReservations";
 
 import Loader from "../../../../../../../components/Loader";
 
-import CreateReservation from "./components/CreateReservation/CreateReservation";
-import ReservationStatus from "./components/ReservationStatus/ReservationStatus";
+import {
+  BedsAvailable,
+  CreateReservation,
+  ReservationStatus,
+} from "./components";
 
 const CheckIn = () => {
   const reservationQuery = useCurrentReservation();
@@ -24,15 +27,18 @@ const CheckIn = () => {
   }
 
   return (
-    <Container>
-      {reservationQuery.data ? <ReservationStatus /> : <CreateReservation />}
-    </Container>
+    <Wrapper>
+      <Container>
+        <BedsAvailable />
+        {reservationQuery.data ? <ReservationStatus /> : <CreateReservation />}
+      </Container>
+    </Wrapper>
   );
 };
 
 export default CheckIn;
 
-const Container = styled.View`
+const Wrapper = styled.View`
   width: 100%;
 
   height: 100%;
@@ -43,3 +49,5 @@ const Container = styled.View`
 
   align-items: center;
 `;
+
+const Container = styled.View``;
