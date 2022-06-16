@@ -28,7 +28,7 @@ import { signOut } from "./state/slices/userSlice";
 
 import { Text } from "react-native";
 
-import GuestScreen from "./screens/GuestScreen/GuestScreen";
+import GuestScreen from "./screens/HomeScreen/components/GuestDashboard/GuestDashboard";
 
 import {
   useQuery,
@@ -85,7 +85,6 @@ function SMS() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      alert("called");
       if (!user) {
         navigation.reset({
           index: 0,
@@ -116,37 +115,11 @@ function SMS() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: "#8D4982",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-
-        headerRight: () => {
-          return (
-            isLoggedIn && (
-              <Button
-                style={{ marginRight: 20 }}
-                variant={"outline"}
-                onPress={() => auth.signOut()}
-              >
-                Logout
-              </Button>
-            )
-          );
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
-
-      <Stack.Screen
-        name="Guest"
-        component={GuestScreen}
-        options={{ header: (props) => <Text></Text> }}
-      />
 
       <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>

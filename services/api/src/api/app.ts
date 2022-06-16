@@ -18,6 +18,12 @@ const morgan = require("morgan");
 
 dotenv.config();
 
+// app.use((re: any, res: any, next: any) => {
+//   setTimeout(() => {
+//     next();
+//   }, 5000);
+// });
+
 app.use(express.static("web-build"));
 
 app.use(helmet());
@@ -48,6 +54,7 @@ import sheltersRouter from "./routes/shelters";
 import reservationsRouter from "./routes/reservations";
 import householdRouter from "./routes/household";
 import memberRouter from "./routes/members";
+import { AppCheck } from "firebase-admin/lib/app-check/app-check";
 
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
