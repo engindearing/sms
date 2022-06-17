@@ -1,5 +1,6 @@
 import { Reservation } from "../../../models/Reservation";
 import { Shelter } from "../../../models/Shelter";
+import ObjectId from "../../../utils/ObjectID";
 
 export const createShelter = async (req: any, res: any) => {
   try {
@@ -65,5 +66,26 @@ export const getReservations = async (req: any, res: any) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({ error });
+  }
+};
+
+export const getTotalBedsAvailable = async (req: any, res: any) => {
+  const { shelterId } = req.params;
+
+  try {
+    const bedsReserved = await Reservation.aggregate([
+      { $match: { shelter: ObjectId(shelterId) } },
+      {
+        $group: {
+          _id: null,
+          sum: { $sum: "$beds" },
+        },
+      },
+    ]);
+
+    res.status(200).json({ bedsReserved });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error });
   }
 };

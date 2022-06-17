@@ -1,6 +1,6 @@
-import { is } from "immer/dist/internal";
-import { Button, Center, Checkbox, Modal, Text } from "native-base";
+import { Button, Modal, Text } from "native-base";
 import { useState } from "react";
+
 import { useWindowDimensions } from "react-native";
 
 import { List } from "react-native-paper";
