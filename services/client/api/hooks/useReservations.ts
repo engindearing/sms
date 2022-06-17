@@ -13,6 +13,9 @@ export const usePostReservation = () => {
   const queryClient = useQueryClient();
 
   return useMutation(ReservationAPI.createReservation, {
-    onSuccess: () => queryClient.invalidateQueries(["current-reservation"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries("beds-available");
+      queryClient.invalidateQueries("current-reservation");
+    },
   });
 };

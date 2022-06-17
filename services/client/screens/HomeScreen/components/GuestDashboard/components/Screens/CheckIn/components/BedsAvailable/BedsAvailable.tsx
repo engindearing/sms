@@ -1,7 +1,9 @@
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { Center, Text } from "native-base";
 
-const BedsAvailable = () => {
+const BedsAvailable = ({ totalBeds, bedsReserved }) => {
+  let bedsAvailable = totalBeds - bedsReserved;
+
   return (
     <AnimatedCircularProgress
       size={350}
@@ -14,7 +16,7 @@ const BedsAvailable = () => {
     >
       {(fill) => (
         <Center>
-          <Text fontSize={"7xl"}>22</Text>
+          <Text fontSize={"7xl"}>{bedsAvailable}</Text>
           <Text fontWeight={"light"} fontSize={"2xl"}>
             Beds available
           </Text>

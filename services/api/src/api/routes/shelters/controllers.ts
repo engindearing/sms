@@ -73,7 +73,7 @@ export const getTotalBedsAvailable = async (req: any, res: any) => {
   const { shelterId } = req.params;
 
   try {
-    const bedsReserved = await Reservation.aggregate([
+    const bedsReservedQuery = await Reservation.aggregate([
       { $match: { shelter: ObjectId(shelterId) } },
       {
         $group: {
@@ -83,7 +83,11 @@ export const getTotalBedsAvailable = async (req: any, res: any) => {
       },
     ]);
 
-    res.status(200).json({ bedsReserved });
+    const bedsReserved = bedsReservedQuery[0]?.sum || 0;
+
+    const shelter = await Shelter.findById(shelterId).select({ beds: 1 });
+
+    res.status(200).json({ bedsReserved, totalBeds: shelter?.beds });
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: error });

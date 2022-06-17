@@ -18,6 +18,12 @@ const shelterSchema: Schema = new mongoose.Schema(
       ref: "Organization",
     },
 
+    beds: {
+      type: Number,
+      required: true,
+      default: 50,
+    },
+
     name: {
       type: String,
       required: true,
@@ -26,10 +32,10 @@ const shelterSchema: Schema = new mongoose.Schema(
 
     address: {
       type: String,
-      required: true
+      required: true,
     },
 
-    image: String
+    image: String,
   },
   { timestamps: true }
 );

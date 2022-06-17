@@ -6,6 +6,8 @@ import { Button, Text, View } from "native-base";
 
 import { useCurrentReservation } from "../../../../../../../api/hooks/useReservations";
 
+import { useTotalBedsAvailable } from "../../../../../../../api/hooks/useShelter";
+
 import Loader from "../../../../../../../components/Loader";
 
 import {
@@ -14,10 +16,22 @@ import {
   ReservationStatus,
 } from "./components";
 
+import { useCurrentHousehold } from "../../../../../../../api/hooks";
+
 const CheckIn = () => {
+  const {
+    data: { household },
+  } = useCurrentHousehold();
+
   const reservationQuery = useCurrentReservation();
 
-  if (reservationQuery.isLoading) {
+  const bedsAvailableQuery = useTotalBedsAvailable(household.shelter);
+
+  const isLoading = bedsAvailableQuery.isLoading || reservationQuery.isLoading;
+
+  const isError = bedsAvailableQuery.isError || reservationQuery.isError;
+
+  if (isLoading) {
     return <Loader />;
   }
 
@@ -29,7 +43,10 @@ const CheckIn = () => {
   return (
     <Wrapper>
       <Container>
-        <BedsAvailable />
+        <BedsAvailable
+          totalBeds={bedsAvailableQuery.data.totalBeds}
+          bedsReserved={bedsAvailableQuery.data.bedsReserved}
+        />
         {reservationQuery.data ? <ReservationStatus /> : <CreateReservation />}
       </Container>
     </Wrapper>
