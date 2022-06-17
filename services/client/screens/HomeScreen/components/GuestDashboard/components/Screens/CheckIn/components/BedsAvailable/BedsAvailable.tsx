@@ -4,11 +4,13 @@ import { Center, Text } from "native-base";
 const BedsAvailable = ({ totalBeds, bedsReserved }) => {
   let bedsAvailable = totalBeds - bedsReserved;
 
+  let percentage = (bedsReserved / totalBeds) * 100;
+  
   return (
     <AnimatedCircularProgress
       size={350}
       width={22}
-      fill={40}
+      fill={percentage}
       tintColor="#fec357"
       onAnimationComplete={() => console.log("onAnimationComplete")}
       backgroundColor="#3d5875"

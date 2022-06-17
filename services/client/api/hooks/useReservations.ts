@@ -19,3 +19,14 @@ export const usePostReservation = () => {
     },
   });
 };
+
+export const useDeleteReservation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(ReservationAPI.deleteReservation, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("beds-available");
+      queryClient.invalidateQueries("current-reservation");
+    },
+  });
+};

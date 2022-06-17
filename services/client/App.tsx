@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./state/store";
 
+import { LogBox } from "react-native";
+
 import {
   NavigationContainer,
   useNavigation,
@@ -109,6 +111,8 @@ function SMS() {
 
     return unsubscribe;
   }, []);
+
+  LogBox.ignoreAllLogs();
 
   const Stack = createNativeStackNavigator<RootStackParamList>();
 

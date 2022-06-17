@@ -1,12 +1,30 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from "react";
+import { Button, Center, Text } from "native-base";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import CancelReservationModal from "./CancelReservationModal";
 const ReservationStatus = () => {
-  return (
-    <View>
-      <Text>ReservationStatus</Text>
-    </View>
-  )
-}
+  const [isOpen, setIsOpen] = useState(false);
 
-export default ReservationStatus
+  const toggle = () => setIsOpen(!isOpen);
+
+  return (
+    <>
+      <Button
+        leftIcon={
+          <MaterialCommunityIcons name="clock" size={20} color="black" />
+        }
+        colorScheme={'trueGray'}
+        size={"lg"}
+        variant="outline"
+        onPress={toggle}
+      >
+        Pending
+      </Button>
+
+      <CancelReservationModal isOpen={isOpen} toggle={toggle} />
+    </>
+  );
+};
+
+export default ReservationStatus;

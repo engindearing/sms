@@ -1,4 +1,4 @@
-import { Button } from "native-base";
+import { Button, Text } from "native-base";
 
 import React, { useState } from "react";
 

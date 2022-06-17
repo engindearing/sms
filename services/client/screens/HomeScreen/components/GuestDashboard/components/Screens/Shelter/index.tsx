@@ -58,7 +58,14 @@ const index = () => {
 
   return (
     <>
-      <ScrollView style={{ height: "120%", width: "100%" }}>
+      <ScrollView
+        style={{
+          height: "190%",
+          width: "100%",
+          marginBottom: 60,
+          marginTop: 40,
+        }}
+      >
         <Center>
           <Container>
             {pages.map((page) => (
