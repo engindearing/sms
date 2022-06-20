@@ -1,20 +1,4 @@
 services:
-  api:
-    depends_on:
-      - mongo
-    build:
-      context: ./services/api
-      dockerfile: Dockerfile.dev
-    
-    ports:
-      - "8000:8000"
-
-    volumes:
-      - /app/node_modules
-      - ./services/api:/app
-    environment:
-      - MONGO_URI=mongodb://mongo:27017
-
   mongo:
     image: mongo:latest
     restart: always

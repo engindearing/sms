@@ -1,18 +1,17 @@
 {
+  "name": "packages",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
   "scripts": {
-    "build": "npm i ./services/api && npm i ./services/client && expo build:web ./services/client && mv ./services/client/web-build ./services/api"
+    "start": "wsrun dev"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "@types/jest": "^28.1.0",
-    "@types/react": "^18.0.10",
-    "@types/react-native": "^0.63.60",
-    "@types/supertest": "^2.0.12",
-    "jest": "^28.1.0",
-    "supertest": "^6.2.3",
-    "typescript": "~4.0.0"
-  },
-  "dependencies": {
-    "concurrently": "^7.2.1",
-    "npm-run-all": "^4.1.5"
+    "concurrently": "^5.2.0",
+    "wsrun": "^5.2.0"
   }
 }
