@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "jsx": "preserve" /* Specify what JSX code is generated. */
+    "jsx": "preserve" /* Specify what JSX code is generated. */,
+    "strict": true
   },
   "extends": "expo/tsconfig.base",
   "skipLibCheck": true

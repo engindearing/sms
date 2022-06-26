@@ -26,6 +26,7 @@
     "@trpc/client": "^9.25.3",
     "@trpc/react": "^9.25.3",
     "@types/jest": "^27.4.0",
+    "@types/styled-components": "^5.1.25",
     "api-server": "1.0.0",
     "axios": "^0.25.0",
     "babel-plugin-inline-dotenv": "^1.6.0",

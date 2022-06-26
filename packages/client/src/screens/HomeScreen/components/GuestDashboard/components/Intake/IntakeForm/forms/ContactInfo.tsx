@@ -14,16 +14,18 @@ import "yup-phone";
 
 import isValidPhoneNumber from "../../../../../../../../utils/isValidPhoneNumber";
 
-import { useSelector } from "react-redux";
-
 import { ScrollView } from "react-native-gesture-handler";
 
 import Navigation from "../Navigation";
 
 import useUpdateHousehold from "../../../../../../../../api/hooks/useUpdateHousehold";
 
+import { trpc } from "../../../../../../../../api/trpc";
+
 export default function ContactInfo({ prevStep, nextStep, household }) {
-  const { mutate: updateHousehold } = useUpdateHousehold();
+  const updateHousehold = useUpdateHousehold();
+
+  let mutation = trpc.useMutation(["update"]);
 
   const {
     handleChange,
@@ -57,10 +59,7 @@ export default function ContactInfo({ prevStep, nextStep, household }) {
     validationSchema: ContactSchema,
 
     onSubmit: (contact) => {
-      updateHousehold(
-        { householdId: household._id, info: contact },
-        { onSuccess: nextStep }
-      );
+      mutation.mutate()
     },
   });
 

@@ -1,9 +1,11 @@
-import { useQuery } from "react-query";
+import { trpc } from "../trpc";
 
-import UserAPI from "../user";
+export const useCurrentUser = () => {
+  return trpc.useQuery(["users.current"]);
+};
 
-const useCurrentUser = () => {
-  return useQuery<DUser, DError>("current-user", UserAPI.getCurrentUser);
+export const useCurrentHousehold = () => {
+  return trpc.useQuery(["users.current.household"]);
 };
 
 export default useCurrentUser;

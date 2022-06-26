@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ScrollView } from "react-native";
 import { useCurrentHousehold } from "../../../../../../api/hooks";
 import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
@@ -37,7 +37,7 @@ const IntakeScreen = () => {
   useEffect(() => {
     updateHousehold({
       householdId: household._id,
-      info: { lastFormVisited: step.id },
+      household: { lastFormVisited: step.id },
     });
 
     scrollRef.current.scrollTo({ y: 0 });

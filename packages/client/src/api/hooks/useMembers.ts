@@ -1,27 +1,13 @@
-import HouseholdAPI from "../household";
+import { trpc } from "../trpc";
 
-import { useMutation, useQueryClient } from "react-query";
-
-export const useAddMember = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(HouseholdAPI.addMember, {
-    onSuccess: () => queryClient.invalidateQueries("current-household"),
-  });
+export const useUpdateMembers = () => {
+  return trpc.useQuery(["users.current"]);
 };
 
 export const useDeleteMember = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(HouseholdAPI.removeMember, {
-    onSuccess: () => queryClient.invalidateQueries("current-household"),
-  });
+  return trpc.useQuery(["users.current"]);
 };
 
-export const useUpdateMembers = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(HouseholdAPI.updateMembers, {
-    onSuccess: () => queryClient.invalidateQueries("current-household"),
-  });
+export const useAddMember = () => {
+  return trpc.useQuery(["users.current"]);
 };

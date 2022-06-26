@@ -1,13 +1,7 @@
-import { useMutation, useQueryClient } from "react-query";
-
-import HouseholdAPI from "../household";
+import { trpc } from "../trpc";
 
 const useUpdateHousehold = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(HouseholdAPI.updateHousehold, {
-    onSuccess: () => queryClient.invalidateQueries("current-household"),
-  });
+  return trpc.useMutation(["households.update"]);
 };
 
 export default useUpdateHousehold;

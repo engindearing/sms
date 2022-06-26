@@ -5,7 +5,7 @@ declare global {
       FIREBASE_CLIENT_EMAIL: string;
       FIREBASE_PRIVATE_KEY: string;
       FIREBASE_DATABASE_URL: string;
-      PORT?: string;
+      PORT?: number;
       NODE_ENV: 'development' | 'production';
     }
   }

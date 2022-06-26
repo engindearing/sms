@@ -6,11 +6,10 @@ import Navigation from "./components/Navigation";
 
 import RenderScreens from "./components/Screens/RenderScreens";
 
-import Loader from "../../../../components/Loader";
-
 import Intake from "./components/Intake/IntakeScreen";
 
-import { useCurrentHousehold } from "../../../../api/hooks";
+import { useCurrentHousehold } from "../../../../api/hooks/useCurrentUser";
+
 import LoadingScreen from "../../../../components/LoadingScreen";
 
 export default function GuestDashboard() {

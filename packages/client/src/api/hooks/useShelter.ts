@@ -1,18 +1,7 @@
 import { useQuery } from "react-query";
 
-import ShelterAPI from "../shelter";
+import { trpc } from "../trpc";
 
-import { useQueryClient } from "react-query";
-
-export const useTotalBedsAvailable = (shelterId) => {
-  const queryClient = useQueryClient();
-  interface Response {
-    totalBeds: number;
-    bedsReserved: number;
-  }
-
-  return useQuery<Response, DError>(
-    ["beds-available", shelterId],
-    ShelterAPI.getTotalBedsAvailable
-  );
+export const useTotalBedsAvailable = () => {
+  return trpc.useQuery(["users.current"]);
 };

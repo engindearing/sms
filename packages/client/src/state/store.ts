@@ -1,23 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import userReducer from "./slices/userSlice";
-
-import householdReducer from "./slices/householdSlice";
-
 import logger from "redux-logger";
 
 import thunk from "redux-thunk";
 
 import { useDispatch } from "react-redux";
 
-import shelterReducer from "./slices/shelterSlice";
-
 export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    household: householdReducer,
-    shelter: shelterReducer,
-  },
+  reducer: {},
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

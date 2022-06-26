@@ -83,7 +83,7 @@ export default function AdditionalInfo({ nextStep, prevStep }) {
 
     onSubmit: async (newValues) => {
       updateHousehold(
-        { householdId: household._id, info: newValues },
+        { householdId: household._id, household: newValues },
         { onSuccess: nextStep }
       );
     },

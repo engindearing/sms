@@ -1,19 +1,13 @@
 import { Text } from "native-base";
 
-import { useCurrentUser } from "../../api/hooks";
+import { useCurrentUser } from "../../api/hooks/useCurrentUser";
 
 import LoadingScreen from "../../components/LoadingScreen";
-
-import { trpc } from "../../config/trpc";
 
 import { GuestDashboard, StaffDashboard, AdminDashboard } from "./components";
 
 export default function HomeScreen() {
   const userQuery = useCurrentUser();
-
-  let data = trpc.useQuery(['user.getCurrentUser'])
-
-  return <Text>Stop</Text>;
 
   if (userQuery.isLoading) {
     return <LoadingScreen />;

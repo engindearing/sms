@@ -1,4 +1,4 @@
-import { trpc } from "../config/trpc";
+import { trpc } from "../api/trpc";
 
 import { useState } from "react";
 

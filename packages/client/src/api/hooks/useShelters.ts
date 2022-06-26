@@ -1,7 +1,5 @@
-import { useQuery } from "react-query";
-
-import ShelterAPI from "../shelter";
+import { trpc } from "../trpc";
 
 export const useShelters = () => {
-  return useQuery<DShelter[], DError>("shelters", ShelterAPI.getAllShelters);
+  return trpc.useQuery(["shelters.list"]);
 };

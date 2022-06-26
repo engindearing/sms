@@ -19,13 +19,11 @@ import { NativeBaseProvider } from "native-base";
 import { auth } from "./config/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { signOut } from "./state/slices/userSlice";
-
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ReactQueryDevtools } from "react-query/devtools";
 
-import { trpc } from "./config/trpc";
+import { trpc } from "./api/trpc";
 import { getAuthToken } from "./utils/getAuthToken";
 import { useTrpcClient } from "./hooks/useTrcpClient";
 
@@ -52,20 +50,18 @@ export default function App() {
   const trpcClient = useTrpcClient();
 
   return (
-    <Provider store={store}>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <NavigationContainer>
-            <NativeBaseProvider>
-              <Theme>
-                <SMS />
-                <ReactQueryDevtools initialIsOpen={false} />
-              </Theme>
-            </NativeBaseProvider>
-          </NavigationContainer>
-        </QueryClientProvider>
-      </trpc.Provider>
-    </Provider>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <NativeBaseProvider>
+            <Theme>
+              <SMS />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Theme>
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </trpc.Provider>
   );
 }
 
@@ -83,8 +79,6 @@ function SMS() {
         });
 
         await AsyncStorage.removeItem("accessToken");
-
-        dispatch(signOut());
       }
 
       if (user) {
