@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Button, Text } from "native-base";
 
-export default function IntakeStart({ nextStep }) {
+export default function IntakeStart({ nextStep }: any) {
   return (
     <View>
       <Text fontSize={"lg"}>
@@ -20,4 +20,3 @@ export default function IntakeStart({ nextStep }) {
   );
 }
 
-const styles = StyleSheet.create({});

@@ -1,7 +1,13 @@
+import { useQueryClient } from "react-query";
 import { trpc } from "../trpc";
 
 const useUpdateHousehold = () => {
-  return trpc.useMutation(["households.update"]);
+  let queryClient = useQueryClient();
+  return trpc.useMutation(["households.update"], {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users.current.household"]);
+    },
+  });
 };
 
 export default useUpdateHousehold;

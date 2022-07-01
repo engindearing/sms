@@ -16,7 +16,7 @@ const users = createRouter()
    *         content:
    *           application/json:
    *             schema:
-   *               $ref: '#/components/schemas/CreateUserResponse'
+   *               $ref: '#/components/schemas/User'
    *       401:
    *         description: Unauthorized
    */
@@ -35,12 +35,14 @@ const users = createRouter()
    *     responses:
    *       200:
    *         description: Success
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Household'
    *       401:
    *         description: Unauthorized
    */
   .query("current.household", {
-
-
     async resolve({ ctx }) {
       return UserResolver.getCurrentUserHousehold(ctx);
     },

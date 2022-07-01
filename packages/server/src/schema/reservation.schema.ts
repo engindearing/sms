@@ -13,28 +13,3 @@ export const createReservationSchema = z.object({
 });
 
 export type CreateReservationInput = z.TypeOf<typeof createReservationSchema>;
-
-/**
- * @openapi
- * components:
- *  schemas:
- *    CreateUserResponse:
- *      type: object
- *      properties:
- *        _id:
- *          type: string
- *        firstName:
- *          type: string
- *        lastName:
- *          type: string
- *        email:
- *          type: string
- *        household:
- *          type: string
- *        organization:
- *          type: string
- *        createdAt:
- *          type: string
- *        updatedAt:
- *          type: string
- */

@@ -4,9 +4,6 @@ import { registerRootComponent } from "expo";
 
 import React, { useEffect, useState } from "react";
 
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { store } from "./state/store";
-
 import { LogBox } from "react-native";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -24,8 +21,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import { trpc } from "./api/trpc";
-import { getAuthToken } from "./utils/getAuthToken";
 import { useTrpcClient } from "./hooks/useTrcpClient";
+
+import { Provider } from 'react-redux'
+
+import { store } from "./state/store";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +37,6 @@ export type RootStackParamList = {
   shelters: undefined;
   shelterdashboard: undefined;
   Reservation: undefined;
-  Guest;
 };
 
 declare global {
@@ -49,8 +48,10 @@ declare global {
 export default function App() {
   const trpcClient = useTrpcClient();
 
+  
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           <NativeBaseProvider>
@@ -61,14 +62,13 @@ export default function App() {
           </NativeBaseProvider>
         </NavigationContainer>
       </QueryClientProvider>
+      </Provider>
     </trpc.Provider>
   );
 }
 
 function SMS() {
   let navigation = useNavigation();
-
-  let dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -107,7 +107,6 @@ function SMS() {
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
-
       <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );

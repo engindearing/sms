@@ -25,14 +25,16 @@ export default function GuestDashboard() {
     return <Text>{householdQuery.error.message}</Text>;
   }
 
-  if (householdQuery.data.household.status === "start") {
-    return <Intake />;
-  }
-
   let props = {
     currentScreen,
     setCurrentScreen,
-  };
+    household: householdQuery?.data?.household,
+    members: householdQuery?.data?.members
+  }
+ 
+  if (householdQuery?.data?.household.status === "start") {
+    return <Intake {...props} />;
+  }
 
   return (
     <View style={{ height: "100%" }}>

@@ -1,10 +1,14 @@
 import { Household, IFamily } from "../models/household.model";
-import { UpdateHouseholdInput } from "../schema/household.schema";
+import {
+  updateHouseholdInput,
+  householdSchema,
+} from "../schema/household.schema";
 
 import { z } from "zod";
+
 import { TRPCError } from "@trpc/server";
 
-export const update = async (input: z.TypeOf<typeof UpdateHouseholdInput>) => {
+export const update = async (input: z.TypeOf<typeof updateHouseholdInput>) => {
   let { householdId, household } = input;
 
   let householdExists = await Household.findById(householdId);

@@ -11,7 +11,7 @@ import styled from "styled-components/native";
 import * as Yup from "yup";
 
 import "yup-phone";
-
+ 
 import isValidPhoneNumber from "../../../../../../../../utils/isValidPhoneNumber";
 
 import { ScrollView } from "react-native-gesture-handler";
@@ -20,12 +20,14 @@ import Navigation from "../Navigation";
 
 import useUpdateHousehold from "../../../../../../../../api/hooks/useUpdateHousehold";
 
-import { trpc } from "../../../../../../../../api/trpc";
+import { useCurrentHousehold } from "../../../../../../../../api/hooks/useCurrentUser";
 
-export default function ContactInfo({ prevStep, nextStep, household }) {
-  const updateHousehold = useUpdateHousehold();
+export default function ContactInfo({ prevStep, nextStep }: any) {
+  const {mutate: updateHousehold} = useUpdateHousehold();
 
-  let mutation = trpc.useMutation(["update"]);
+  let householdQuery = useCurrentHousehold()
+
+  let { household } = householdQuery.data!
 
   const {
     handleChange,
@@ -39,27 +41,27 @@ export default function ContactInfo({ prevStep, nextStep, household }) {
     initialValues: {
       contact: {
         phoneOne: {
-          name: household.contact?.phoneOne.name,
-          number: household.contact?.phoneOne.number,
-          safeToLeaveMsg: household.contact?.phoneOne.safeToLeaveMsg,
+          name: household?.contact?.phoneOne?.name,
+          number: household?.contact?.phoneOne?.number,
+          safeToLeaveMsg: household?.contact?.phoneOne?.safeToLeaveMsg,
         },
 
         phoneTwo: {
-          name: household.contact?.phoneTwo.name,
-          number: household.contact?.phoneTwo.number,
-          safeToLeaveMsg: household.contact?.phoneTwo.safeToLeaveMsg,
+          name: household?.contact?.phoneTwo?.name,
+          number: household?.contact?.phoneTwo?.number,
+          safeToLeaveMsg: household?.contact?.phoneTwo?.safeToLeaveMsg,
         },
 
         emergencyContact: {
-          name: household.contact?.emergencyContact.name,
-          number: household.contact?.emergencyContact.number,
+          name: household?.contact?.emergencyContact?.name,
+          number: household?.contact?.emergencyContact?.number,
         },
       },
     },
     validationSchema: ContactSchema,
 
     onSubmit: (contact) => {
-      mutation.mutate()
+      updateHousehold({ householdId: household._id!, household: contact }, {onSuccess: nextStep})
     },
   });
 

@@ -1,8 +1,10 @@
 import mongoose, { Model, Schema, model } from "mongoose";
 
-export interface IMember {}
+export interface IMember {
+  _id: string;
+}
 
-export interface IMemberDocument extends IMember, mongoose.Document {}
+export interface IMemberDocument extends mongoose.Document {}
 
 export interface IMemberModel extends Model<IMember> {
   // Define any static methods here

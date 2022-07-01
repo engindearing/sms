@@ -14,10 +14,10 @@ export default function HomeScreen() {
   }
 
   if (userQuery.isError) {
-    return <span>{userQuery.error.message}</span>;
+    return <Text>{userQuery.error.message}</Text>;
   }
 
-  switch (userQuery.data.role) {
+  switch (userQuery?.data?.role) {
     case "guest":
       return <GuestDashboard />;
 

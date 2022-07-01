@@ -1,7 +1,6 @@
 import { View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
-import ShelterAPI from "../../../../../../../../api/shelter";
 import { Text } from "native-base";
 import { List } from "react-native-paper";
 import Navigation from "../Navigation";
@@ -9,14 +8,14 @@ import Navigation from "../Navigation";
 import Loader from "../../../../../../../../components/Loader";
 import { useShelters } from "../../../../../../../../api/hooks/useShelters";
 import useUpdateHousehold from "../../../../../../../../api/hooks/useUpdateHousehold";
-import { useCurrentHousehold } from "../../../../../../../../api/hooks";
+import { useCurrentHousehold } from "../../../../../../../../api/hooks/useCurrentUser";
 
-const Shelters = ({ prevStep, nextStep }) => {
-  const {
-    data: { household },
-  } = useCurrentHousehold();
-
+const Shelters = ({ prevStep, nextStep  }:any) => {
   const { mutate: updateHousehold } = useUpdateHousehold();
+
+  let { data } = useCurrentHousehold()
+
+  let { household } = data!
 
   const sheltersQuery = useShelters();
 
@@ -24,18 +23,20 @@ const Shelters = ({ prevStep, nextStep }) => {
 
   const onSubmit = () => {
     if (!selectedShelter) {
-      return alert("Please select a shelter");
+      alert("Please select a shelter");
+      return;
     }
 
     updateHousehold(
       {
-        householdId: household._id,
-        info: { shelter: selectedShelter },
+        householdId: household._id!,
+        household: { shelter: selectedShelter },
       },
       { onSuccess: nextStep }
     );
   };
 
+ 
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <Text marginBottom={2} fontSize={"2xl"}>

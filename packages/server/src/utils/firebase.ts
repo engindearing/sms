@@ -1,5 +1,4 @@
 import admin from "firebase-admin";
-
 const firebase = admin.initializeApp({
   credential: admin.credential.cert({
     projectId: process.env?.FIREBASE_PROJECT_ID,

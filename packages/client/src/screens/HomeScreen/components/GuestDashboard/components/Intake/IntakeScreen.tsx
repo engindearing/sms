@@ -1,27 +1,28 @@
+import { omitUndefined } from "native-base/lib/typescript/theme/tools";
 import React, { useEffect, useRef } from "react";
-import { ScrollView } from "react-native";
-import { useCurrentHousehold } from "../../../../../../api/hooks";
+import { ScrollView, ScrollViewComponent } from "react-native";
+import { useCurrentHousehold } from "../../../../../../api/hooks/useCurrentUser";
 import useUpdateHousehold from "../../../../../../api/hooks/useUpdateHousehold";
 import useStep from "../../../../../../hooks/useStep";
 import IntakeForm from "./IntakeForm";
 import steps from "./steps";
 
-const IntakeScreen = () => {
-  const householdQuery = useCurrentHousehold();
-
+const IntakeScreen = ({ members }: {household:any, members:any}) => {
   const { mutate: updateHousehold } = useUpdateHousehold();
 
-  const { household, members } = householdQuery.data;
+  const householdQuery = useCurrentHousehold()
+ 
+  const { household } = householdQuery.data!
 
   const { step, navigation: formNavigator } = useStep({
-    initialStep: household.lastFormVisited || "IntakeStart",
+    initialStep: household?.lastFormVisited || "IntakeStart",
 
     steps,
   });
-
+  
   const nextStep = () => formNavigator.next();
   const prevStep = () => formNavigator.previous();
-  const setStep = (step) => formNavigator.go(step);
+  const setStep = (step: string) => formNavigator.go(step);
 
   const props = {
     step,
@@ -29,16 +30,13 @@ const IntakeScreen = () => {
     nextStep,
     prevStep,
     household,
-    members,
-  };
+    members
+  }
 
-  const scrollRef = useRef();
+  const scrollRef = useRef() as React.MutableRefObject<ScrollView>;
 
   useEffect(() => {
-    updateHousehold({
-      householdId: household._id,
-      household: { lastFormVisited: step.id },
-    });
+    updateHousehold({householdId: household._id!, household: {lastFormVisited: step.id}});
 
     scrollRef.current.scrollTo({ y: 0 });
   }, [step]);

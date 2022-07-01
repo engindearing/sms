@@ -22,14 +22,12 @@ import {
   useAddMember,
   useUpdateMembers,
   useDeleteMember,
-} from "../../../../../../../../api/hooks/useMembers";
+} from "../../../../../../../../api/hooks/useHousehold";
 
 export default function FamilyMembers({
   nextStep,
   prevStep,
-  members,
-  household,
-}) {
+}: any) {
   //Options for relationship drop down
 
   const { mutate: addMember } = useAddMember();
@@ -50,8 +48,7 @@ export default function FamilyMembers({
     "Non-Family",
   ];
 
-  const initialValues = {
-    members,
+  const initialValues = { members,
   };
 
   const validationSchema = Yup.object().shape({

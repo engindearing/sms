@@ -1,6 +1,9 @@
 import { Member, IMember } from "../models/guest.model";
 import { Household, IFamily } from "../models/household.model";
+import { householdSchema } from "../schema/household.schema";
 import { Context } from "../utils/createContext";
+import { z } from "zod";
+import { memberSchema } from "../schema/member.schema";
 
 export const getCurrentUser = (ctx: Context) => {
   return ctx.user;
@@ -19,7 +22,11 @@ export const getCurrentUserHousehold = async (ctx: Context) => {
 
   let members = await Member.find({ household: household._id });
 
-  return { household: household as IFamily, members: members as IMember };
+  return {
+    household: household as z.infer<typeof householdSchema>,
+
+    members: members as z.infer<typeof memberSchema>[],
+  };
 };
 
 const UserResolver = {

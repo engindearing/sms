@@ -74,4 +74,31 @@ describe("households", () => {
       });
     });
   });
+
+  describe("addMember", () => {
+    describe("given the household exists", () => {
+      it("return a 200 status with the new household member", async () => {
+        let guestUser = await User.findOne({ email: "guest@gmail.com" });
+
+        let household = await Household.create({ user: guestUser?._id });
+
+        let { statusCode, body } = await supertest(app)
+          .post("/trpc/households.addMember")
+          .send({ householdId: household._id, member: {} });
+
+        expect(statusCode).toBe(200);
+        expect(body.result.data.household).toEqual(household._id.toString());
+      });
+    });
+
+    describe("given the household does not exist", () => {
+      it("should return a 404 not found", async () => {
+        let fakeId = new mongoose.Types.ObjectId();
+        await supertest(app)
+          .post("/trpc/households.addMember")
+          .send({ householdId: fakeId, member: {} })
+          .expect(404);
+      });
+    });
+  });
 });
