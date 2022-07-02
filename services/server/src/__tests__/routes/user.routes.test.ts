@@ -14,7 +14,7 @@ import { authRequired } from "../../middleware/authRequired";
 
 import { User } from "../../models/user.model";
 import { Household } from "../../models/household.model";
-import { Member } from "../../models/member.model";
+import { Guest } from "../../models/guest.model";
 import { Shelter } from "../../models/shelter.model";
 import { Reservation } from "../../models/reservation.model";
 import { parseDoc } from "../../utils/parseDoc";
@@ -75,7 +75,7 @@ describe("users", () => {
 
         let household = await Household.create({ user: user?._id });
 
-        await Member.create([
+        await Guest.create([
           { household: household._id },
           { household: household._id },
           { household: household._id },
@@ -119,6 +119,39 @@ describe("users", () => {
 
         expect(body.reservation).toEqual(parseDoc(reservation));
       });
+    });
+  });
+
+  describe("delete current reservation", () => {
+    it("should return a 200 and delete the reservation if it exists", async () => {
+      let user = await User.findOne({ email: "guest@gmail.com" });
+
+      let shelters = await Shelter.find({});
+
+      let shelter = shelters[0];
+
+      let household = await Household.create({ user: user?._id });
+
+      await Reservation.create({
+        household: household._id,
+        shelter: shelter._id,
+        beds: 2,
+      });
+
+      let reservation = await Reservation.find({ household: household._id });
+
+      expect(reservation).toBeTruthy();
+
+      let { statusCode } = await supertest(app).delete(
+        "/api/users/me/reservation"
+      );
+
+      let deletedReservation = await Reservation.findOne({
+        household: household._id,
+      });
+
+      expect(statusCode).toBe(200);
+      expect(deletedReservation).toBeFalsy();
     });
   });
 });

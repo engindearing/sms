@@ -1,11 +1,11 @@
 import express from "express";
 
-import { updateMember } from "../controllers/member.controller";
+import { deleteGuest } from "../controllers/guest.controller";
 
 import { authRequired } from "../middleware/authRequired";
 
 const router = express.Router();
 
-router.route("/:id").all(authRequired).patch(updateMember);
+router.route("/:id").all(authRequired).delete(deleteGuest);
 
 export default router;

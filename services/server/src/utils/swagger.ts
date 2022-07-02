@@ -7,7 +7,10 @@ import log from "./logger";
 
 import { generateSchema } from "@anatine/zod-openapi";
 
-import { userSchema } from "../schemas/user.schema";
+import {
+  getCurrentUserHouseholdResponse,
+  userSchema,
+} from "../schemas/user.schema";
 
 import {
   householdSchema,
@@ -16,10 +19,10 @@ import {
 import { reservationSchema } from "../schemas/reservation.schema";
 
 import {
-  bulkUpdateMembersInput,
-  createMemberInput,
-  memberSchema,
-} from "../schemas/member.schema";
+  bulkUpdateGuestsInput,
+  createGuestInput,
+  guestSchema,
+} from "../schemas/guest.schema";
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -39,12 +42,15 @@ const options: swaggerJsdoc.Options = {
 
       schemas: {
         User: generateSchema(userSchema),
+        GetCurrentUserHouseholdResponse: generateSchema(
+          getCurrentUserHouseholdResponse
+        ),
         Household: generateSchema(householdSchema),
         UpdateHouseholdInput: generateSchema(updateHouseholdInput),
         Reservation: generateSchema(reservationSchema),
-        Member: generateSchema(memberSchema),
-        CreateMemberInput: generateSchema(createMemberInput),
-        BulkUpdateMembersInput: generateSchema(bulkUpdateMembersInput),
+        Guest: generateSchema(guestSchema),
+        CreateGuestInput: generateSchema(createGuestInput),
+        BulkUpdateGuestsInput: generateSchema(bulkUpdateGuestsInput),
       },
     },
 

@@ -2,13 +2,15 @@ import mongoose, { Model, Schema, model } from "mongoose";
 
 interface IMember extends mongoose.Document {
   // Define any methods inside here
+  
+  flag: string
 }
 
 interface IMemberModel extends Model<IMember> {
   // Define any static methods here
 }
 
-const memberSchema: Schema = new mongoose.Schema(
+const guestSchema: Schema = new mongoose.Schema(
   {
     household: {
       type: mongoose.SchemaTypes.ObjectId,
@@ -162,7 +164,7 @@ const memberSchema: Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Member: IMemberModel = model<IMember, IMemberModel>(
-  "Member",
-  memberSchema
+export const Guest: IMemberModel = model<IMember, IMemberModel>(
+  "Guest",
+  guestSchema
 );

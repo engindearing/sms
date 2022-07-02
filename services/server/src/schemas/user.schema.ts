@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 import { generateSchema, extendApi } from "@anatine/zod-openapi";
+import { householdSchema } from "./household.schema";
+import { guestSchema } from "./guest.schema";
 
 export const userSchema = extendApi(
   z
@@ -17,3 +19,8 @@ export const userSchema = extendApi(
     })
     .deepPartial()
 );
+
+export const getCurrentUserHouseholdResponse = z.object({
+  household: householdSchema,
+  guests: z.array(guestSchema),
+});

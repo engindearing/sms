@@ -1,11 +1,13 @@
 import express from "express";
 
+import { verifyHouseholdExists } from "../middleware/verifyHouseholdId";
+
 const router = express.Router();
 
 import {
   updateHousehold,
-  addMember,
-  updateMembers,
+  addGuest,
+  updateGuests,
 } from "../controllers/household.controller";
 
 import { authRequired } from "../middleware/authRequired";
@@ -41,14 +43,14 @@ router.use(authRequired);
  *       401:
  *         description: Unauthorized
  */
-router.route("/:id").patch(updateHousehold);
+router.route("/:householdId").patch(verifyHouseholdExists, updateHousehold);
 /**
  * @openapi
- * '/api/households/{householdId}/members':
+ * '/api/households/{householdId}/guests':
  *  post:
  *     tags:
  *     - Households
- *     summary: Creates a new member for the household
+ *     summary: Creates a new guest and adds it to the household
  *     parameters:
  *      - name: householdId
  *        in: path
@@ -59,27 +61,27 @@ router.route("/:id").patch(updateHousehold);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateMemberInput'
+ *             $ref: '#/components/schemas/CreateGuestInput'
  *     responses:
  *       200:
  *         description: Success
  *         content:
  *          application/json:
  *           schema:
- *              $ref: '#/components/schemas/Member'
+ *              $ref: '#/components/schemas/Guest'
  *       404:
  *         description: Household not found
  *       401:
  *         description: Unauthorized
  */
-router.route("/:id/members").post(addMember);
+router.route("/:householdId/guests").post(verifyHouseholdExists, addGuest);
 /**
  * @openapi
- * '/api/households/{householdId}/members':
+ * '/api/households/{householdId}/guests':
  *  patch:
  *     tags:
  *     - Households
- *     summary: Bulk updates members of a household by householdId
+ *     summary: Bulk updates the guests of a household by householdId
  *     parameters:
  *      - name: householdId
  *        in: path
@@ -90,19 +92,19 @@ router.route("/:id/members").post(addMember);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/BulkUpdateMembersInput'
+ *             $ref: '#/components/schemas/BulkUpdateGuestsInput'
  *     responses:
  *       200:
  *         description: Success
  *         content:
  *          application/json:
  *           schema:
- *              $ref: '#/components/schemas/BulkUpdateMembersInput'
+ *              $ref: '#/components/schemas/BulkUpdateGuestsInput'
  *       404:
  *         description: Household not found
  *       401:
  *         description: Unauthorized
  */
-router.route("/:id/members").patch(updateMembers);
+router.route("/:householdId/guests").patch(verifyHouseholdExists, updateGuests);
 
 export default router;

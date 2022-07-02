@@ -3,6 +3,7 @@ import mongoose, { Model, Schema, model } from "mongoose";
 interface IFamily extends mongoose.Document {
   // Define any methods inside here
   _id: string;
+  status: string
 }
 
 interface IFamilyModel extends Model<IFamily> {

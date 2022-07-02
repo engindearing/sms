@@ -1,14 +1,20 @@
+import { Request, Response } from 'express'
+
 import { Household } from "../models/household.model";
 
-import { Member } from "../models/member.model";
+import { Guest } from "../models/guest.model";
 
-export const updateHousehold = async (req: any, res: any) => {
-  const { id } = req.params;
+export const updateHousehold = async (req: Request, res: Response) => {
+  const { householdId } = req.params;
 
   try {
-    let updatedHousehold = await Household.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    let updatedHousehold = await Household.findByIdAndUpdate(
+      householdId,
+      req.body,
+      {
+        new: true,
+      }
+    );
 
     res.status(200).json(updatedHousehold);
   } catch (error) {
@@ -16,39 +22,27 @@ export const updateHousehold = async (req: any, res: any) => {
   }
 };
 
-export const addMember = async (req: any, res: any) => {
-  const { id } = req.params;
+export const addGuest = async (req: Request, res: Response) => {
+  const { householdId } = req.params;
 
-  let memberData = req.body;
+  let guestData = req.body;
 
-  memberData["household"] = id;
+  guestData["household"] = householdId;
 
   try {
-    let newMember = await Member.create(memberData);
+    let newGuest = await Guest.create(guestData);
 
-    res.json(newMember);
+    res.json(newGuest);
   } catch (error) {
     res.json(error);
   }
 };
 
-export const deleteMember = async (req: any, res: any) => {
-  let { memberId } = req.params;
-
-  try {
-    await Member.findByIdAndDelete(memberId);
-
-    res.status(200).json({ message: "Deleted members" });
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-
-export const updateMembers = async (req: any, res: any) => {
+export const updateGuests = async (req: Request, res: Response) => {
   let members = req.body;
   try {
     members.forEach(
-      async (mem: any) => await Member.findByIdAndUpdate(mem._id, mem)
+      async (mem: any) => await Guest.findByIdAndUpdate(mem._id, mem)
     );
 
     res.status(200).json({ message: "updated members" });

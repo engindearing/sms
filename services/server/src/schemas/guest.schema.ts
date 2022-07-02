@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const memberSchema = z
+export const guestSchema = z
   .object({
     _id: z.string(),
     household: z.string(),
@@ -56,15 +56,15 @@ export const memberSchema = z
   })
   .deepPartial();
 
-export const createMemberInput = memberSchema.omit({
+export const createGuestInput = guestSchema.omit({
   _id: true,
   household: true,
   updatedAt: true,
   createdAt: true,
 });
 
-export const bulkUpdateMembersInput = z.array(
-  memberSchema.omit({
+export const bulkUpdateGuestsInput = z.array(
+  guestSchema.omit({
     _id: true,
     household: true,
     updatedAt: true,
