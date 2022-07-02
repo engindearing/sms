@@ -1,6 +1,6 @@
 const { verifyIdToken } = require("../utils/firebase");
 
-import { User } from "../models/User";
+import { User } from "../models/user.model";
 
 export const authRequired = async (req: any, res: any, next: any) => {
   let token;

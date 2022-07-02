@@ -1,6 +1,6 @@
-import { Reservation } from "../../models/Reservation";
-import { Shelter } from "../../models/Shelter";
-import ObjectId from "../../utils/ObjectID";
+import { Reservation } from "../models/reservation.model";
+import { Shelter } from "../models/shelter.model";
+import ObjectId from "../utils/ObjectID";
 
 export const createShelter = async (req: any, res: any) => {
   try {

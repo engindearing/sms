@@ -1,4 +1,4 @@
-import { Reservation } from "../../models/Reservation";
+import { Reservation } from "../../models/reservation.model";
 
 import { Request, Response } from "express";
 

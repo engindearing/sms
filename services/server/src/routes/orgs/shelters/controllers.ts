@@ -1,4 +1,4 @@
-import { Shelter } from "../../../models/Shelter";
+import { Shelter } from "../../../models/shelter.model";
 
 export const createShelter = async (req: any, res: any) => {
   let { id } = req.params;

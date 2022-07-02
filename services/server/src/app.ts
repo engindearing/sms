@@ -48,11 +48,11 @@ app.use(cookieParser());
 
 // ###[  Routers ]###
 import indexRouter from "./routes/index/index";
-import usersRouter from "./routes/users";
+import usersRouter from "./routes/user.routes";
 import orgsRouter from "./routes/orgs";
-import sheltersRouter from "./routes/shelters";
+import sheltersRouter from "./routes/shelter.routes";
 import reservationsRouter from "./routes/reservations";
-import householdRouter from "./routes/household";
+import householdRouter from "./routes/household.routes";
 import memberRouter from "./routes/members";
 
 app.use("/api", indexRouter);

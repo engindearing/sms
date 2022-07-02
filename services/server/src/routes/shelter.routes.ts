@@ -1,19 +1,19 @@
-import { restrictTo } from "../../middleware/restrictTo";
+import express from "express";
 
-const express = require("express");
+import { restrictTo } from "../middleware/restrictTo";
 
 const router = express.Router();
 
-const {
+import {
   createShelter,
   createReservation,
   getReservations,
   getAllShelters,
   getShelterById,
   getTotalBedsAvailable,
-} = require("./controllers");
+} from "../controllers/shelter.controller";
 
-const { authRequired } = require("../../middleware/authRequired");
+import { authRequired } from "../middleware/authRequired";
 
 router.use(authRequired);
 

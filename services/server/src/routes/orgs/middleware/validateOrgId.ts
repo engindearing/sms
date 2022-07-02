@@ -1,4 +1,4 @@
-import { Organization } from "../../../models/Organization";
+import { Organization } from "../../../models/organization.model";
 
 export const validateOrgId = async (req: any, res: any, next: any) => {
   let { id } = req.params;

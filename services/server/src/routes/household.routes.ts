@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
 
 const router = express.Router();
 
-const {
+import {
   updateHousehold,
   addMember,
   deleteMember,
   updateMembers,
-} = require("./controllers");
+} from "../controllers/household.controller";
 
-const { authRequired } = require("../../middleware/authRequired");
+import { authRequired } from "../middleware/authRequired";
 
 router.route("/:id").all(authRequired).patch(updateHousehold);
 
@@ -19,9 +19,6 @@ router
   .post(addMember)
   .patch(updateMembers);
 
-router
-  .route("/:id/members/:memberId")
-  .all(authRequired)
-  .delete(deleteMember);
+router.route("/:id/members/:memberId").all(authRequired).delete(deleteMember);
 
 export default router;

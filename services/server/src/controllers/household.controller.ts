@@ -1,6 +1,6 @@
-import { Household } from "../../models/Household";
+import { Household } from "../models/household.model";
 
-import { Member } from "../../models/Member";
+import { Member } from "../models/member.model";
 
 export const updateHousehold = async (req: any, res: any) => {
   const { id } = req.params;

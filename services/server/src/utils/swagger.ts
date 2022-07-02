@@ -4,6 +4,12 @@ import swaggerUi from "swagger-ui-express";
 import { version } from "../../package.json";
 import log from "./logger";
 
+import { generateSchema } from "@anatine/zod-openapi";
+
+import { userSchema } from "../schemas/user.schema";
+import { householdSchema } from "../schemas/household.schema";
+import { reservationSchema } from "../schemas/reservation.schema";
+
 const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
@@ -20,7 +26,11 @@ const options: swaggerJsdoc.Options = {
         },
       },
 
-      schemas: {},
+      schemas: {
+        User: generateSchema(userSchema),
+        Household: generateSchema(householdSchema),
+        Reservation: generateSchema(reservationSchema),
+      },
     },
 
     security: [
@@ -29,7 +39,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: ["./src/routes/*.ts", "./src/schema/*.ts"],
+  apis: ["./src/routes/*/*.ts", "./src/schemas/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
