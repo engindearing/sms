@@ -1,8 +1,6 @@
 import mongoose, { Model, Schema, model } from "mongoose";
 
-import { IReservationDocument } from "./interfaces/IReservationDocument";
-
-interface IReservation extends IReservationDocument {
+interface IReservation extends mongoose.Document {
   // Define any methods inside here
 }
 

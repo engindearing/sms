@@ -1,8 +1,8 @@
-import { Reservation } from "../../models/reservation.model";
-
 import { Request, Response } from "express";
 
-exports.updateReservation = async (req: any, res: any) => {
+import { Reservation } from "../models/reservation.model";
+
+export const updateReservation = async (req: any, res: any) => {
   const { id } = req.params;
 
   try {

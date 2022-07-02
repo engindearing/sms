@@ -1,9 +1,9 @@
 import mongoose, { Model, Schema, model } from "mongoose";
 
-import { IShelterDocument } from "./interfaces/IShelterDocument";
-
-interface IShelter extends IShelterDocument {
+interface IShelter extends mongoose.Document {
   // Define any methods inside here
+
+  beds: string;
 }
 
 interface IShelterModel extends Model<IShelter> {

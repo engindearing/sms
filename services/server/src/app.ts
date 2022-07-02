@@ -47,17 +47,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // ###[  Routers ]###
-import indexRouter from "./routes/index/index";
+import indexRouter from "./routes/index.routes";
 import usersRouter from "./routes/user.routes";
-import orgsRouter from "./routes/orgs";
+import organizationsRouter from "./routes/organization.routes";
 import sheltersRouter from "./routes/shelter.routes";
-import reservationsRouter from "./routes/reservations";
+import reservationsRouter from "./routes/reservation.routes";
 import householdRouter from "./routes/household.routes";
-import memberRouter from "./routes/members";
+import memberRouter from "./routes/member.routes";
 
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/orgs", orgsRouter);
+app.use("/api/organizations", organizationsRouter);
 app.use("/api/shelters", sheltersRouter);
 app.use("/api/reservations", reservationsRouter);
 app.use("/api/households", householdRouter);

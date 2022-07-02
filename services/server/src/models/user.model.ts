@@ -1,8 +1,6 @@
 import mongoose, { Model, Schema, model } from "mongoose";
 
-import { IUserDocument } from "./interfaces/IUserDocument";
-
-interface IUser extends IUserDocument {
+interface IUser extends mongoose.Document {
   // Define any methods inside here
 }
 
@@ -40,20 +38,17 @@ const userSchema: Schema = new mongoose.Schema(
 );
 
 userSchema.static("findUserByEmailOrCreate", async function (email: string) {
-
-  
   try {
-    let user = await this.findOne({ email })
-      .populate({
-        path: 'organization',
-        populate: [
-          {
-            path: 'shelters',
-            select: 'name'
-          }
-        ]
-      })
-  
+    let user = await this.findOne({ email }).populate({
+      path: "organization",
+      populate: [
+        {
+          path: "shelters",
+          select: "name",
+        },
+      ],
+    });
+
     if (!user) {
       let newUser = await this.insertMany({ email });
 

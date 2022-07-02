@@ -2,13 +2,24 @@ import { Express, Request, Response } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { version } from "../../package.json";
+
 import log from "./logger";
 
 import { generateSchema } from "@anatine/zod-openapi";
 
 import { userSchema } from "../schemas/user.schema";
-import { householdSchema } from "../schemas/household.schema";
+
+import {
+  householdSchema,
+  updateHouseholdInput,
+} from "../schemas/household.schema";
 import { reservationSchema } from "../schemas/reservation.schema";
+
+import {
+  bulkUpdateMembersInput,
+  createMemberInput,
+  memberSchema,
+} from "../schemas/member.schema";
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -29,7 +40,11 @@ const options: swaggerJsdoc.Options = {
       schemas: {
         User: generateSchema(userSchema),
         Household: generateSchema(householdSchema),
+        UpdateHouseholdInput: generateSchema(updateHouseholdInput),
         Reservation: generateSchema(reservationSchema),
+        Member: generateSchema(memberSchema),
+        CreateMemberInput: generateSchema(createMemberInput),
+        BulkUpdateMembersInput: generateSchema(bulkUpdateMembersInput),
       },
     },
 
@@ -39,7 +54,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: ["./src/routes/*/*.ts", "./src/schemas/*.ts"],
+  apis: ["./src/routes/*.ts", "./src/schemas/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

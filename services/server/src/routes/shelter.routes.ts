@@ -7,7 +7,6 @@ const router = express.Router();
 import {
   createShelter,
   createReservation,
-  getReservations,
   getAllShelters,
   getShelterById,
   getTotalBedsAvailable,
@@ -23,14 +22,6 @@ router.route("/:shelterId").get(getShelterById);
 
 router.route("/:shelterId/bedsAvailable").get(getTotalBedsAvailable);
 
-router
-  .route("/:id/reservations")
-  .all(restrictTo("guest", "programManager"))
-  .post(createReservation);
-
-router
-  .route("/:id/reservations")
-  .all(restrictTo("guest", "programManager"))
-  .get(getReservations);
+router.route("/:id/reservations").post(createReservation);
 
 export default router;

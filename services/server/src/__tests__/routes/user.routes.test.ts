@@ -95,28 +95,30 @@ describe("users", () => {
   });
 
   describe("get current users reservation", () => {
-    it("should return a 200 status with the reservation", async () => {
-      let user = await User.findOne({ email: "guest@gmail.com" });
+    describe("given the user has a household", () => {
+      it("should return a 200 status with the reservation", async () => {
+        let user = await User.findOne({ email: "guest@gmail.com" });
 
-      let shelters = await Shelter.find({});
+        let shelters = await Shelter.find({});
 
-      let shelter = shelters[0];
+        let shelter = shelters[0];
 
-      let household = await Household.create({ user: user?._id });
+        let household = await Household.create({ user: user?._id });
 
-      let reservation = await Reservation.create({
-        household: household._id,
-        shelter: shelter._id,
-        beds: 2,
+        let reservation = await Reservation.create({
+          household: household._id,
+          shelter: shelter._id,
+          beds: 2,
+        });
+
+        let { statusCode, body } = await supertest(app).get(
+          "/api/users/me/reservation"
+        );
+
+        expect(statusCode).toBe(200);
+
+        expect(body.reservation).toEqual(parseDoc(reservation));
       });
-
-      let { statusCode, body } = await supertest(app).get(
-        "/api/users/me/reservation"
-      );
-
-      expect(statusCode).toBe(200);
-
-      expect(body.reservation).toEqual(parseDoc(reservation));
     });
   });
 });

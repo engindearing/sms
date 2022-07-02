@@ -1,8 +1,6 @@
 import mongoose, { Model, Schema, model } from "mongoose";
 
-import { IMemberDocument } from "./interfaces/IMemberDocument";
-
-interface IMember extends IMemberDocument {
+interface IMember extends mongoose.Document {
   // Define any methods inside here
 }
 

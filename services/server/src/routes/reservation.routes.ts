@@ -2,13 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
+import {
   updateReservation,
   createReservation,
   deleteReservation,
-} = require("./controller");
+} from "../controllers/reservation.controller";
 
-const { authRequired } = require("../../middleware/authRequired");
+import { authRequired } from "../middleware/authRequired";
 
 router.use(authRequired);
 

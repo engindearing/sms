@@ -93,7 +93,6 @@ export const householdSchema = z
   .deepPartial();
 
 export const updateHouseholdInput = z.object({
-  householdId: z.string(),
   household: householdSchema.omit({
     user: true,
     createdAt: true,
