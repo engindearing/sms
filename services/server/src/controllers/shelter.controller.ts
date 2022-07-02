@@ -16,9 +16,7 @@ export const getAllShelters = async (req: any, res: any) => {
   try {
     let shelters = await Shelter.find();
 
-    res.status(200).json({
-      shelters,
-    });
+    res.status(200).json(shelters);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error });

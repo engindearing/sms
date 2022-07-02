@@ -7,13 +7,11 @@ export const verifyHouseholdExists = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.params)
   if (!req.params.householdId) return next();
 
   try {
     let household = await Household.findById(req.params.householdId);
 
-    console.log(household)
     if (!household) {
       res.status(404).json({
         message: `household with id of ${req.params.householdId} does not exist`,

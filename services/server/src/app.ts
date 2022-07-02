@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const path = require("path");
 
 const express = require("express");
@@ -15,8 +17,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const morgan = require("morgan");
-
-dotenv.config();
 
 // app.use((re: any, res: any, next: any) => {
 //   setTimeout(() => {
@@ -50,14 +50,12 @@ app.use(cookieParser());
 import indexRouter from "./routes/index.routes";
 import usersRouter from "./routes/user.routes";
 import sheltersRouter from "./routes/shelter.routes";
-import reservationsRouter from "./routes/reservation.routes";
 import householdRouter from "./routes/household.routes";
 import memberRouter from "./routes/guest.routes";
 
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/shelters", sheltersRouter);
-app.use("/api/reservations", reservationsRouter);
 app.use("/api/households", householdRouter);
 app.use("/api/members", memberRouter);
 

@@ -16,13 +16,21 @@ import {
   householdSchema,
   updateHouseholdInput,
 } from "../schemas/household.schema";
-import { reservationSchema } from "../schemas/reservation.schema";
+import {
+  createReservationInput,
+  reservationSchema,
+} from "../schemas/reservation.schema";
 
 import {
   bulkUpdateGuestsInput,
   createGuestInput,
   guestSchema,
 } from "../schemas/guest.schema";
+import {
+  bedsAvailableResponse,
+  getSheltersResponse,
+  shelterSchema,
+} from "../schemas/shelter.schema";
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -48,9 +56,13 @@ const options: swaggerJsdoc.Options = {
         Household: generateSchema(householdSchema),
         UpdateHouseholdInput: generateSchema(updateHouseholdInput),
         Reservation: generateSchema(reservationSchema),
+        CreateReservationInput: generateSchema(createReservationInput),
         Guest: generateSchema(guestSchema),
         CreateGuestInput: generateSchema(createGuestInput),
         BulkUpdateGuestsInput: generateSchema(bulkUpdateGuestsInput),
+        Shelter: generateSchema(shelterSchema),
+        GetSheltersResponse: generateSchema(getSheltersResponse),
+        BedsAvailableResponse: generateSchema(bedsAvailableResponse),
       },
     },
 

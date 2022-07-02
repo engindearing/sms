@@ -17,3 +17,10 @@ export const reservationSchema = z
     updatedAt: z.date(),
   })
   .deepPartial();
+
+export const createReservationInput = reservationSchema.omit({
+  _id: true,
+  shelter: true,
+  createdAt: true,
+  updatedAt: true
+})
