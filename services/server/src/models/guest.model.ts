@@ -2,7 +2,8 @@ import mongoose, { Model, Schema, model } from "mongoose";
 
 interface IMember extends mongoose.Document {
   // Define any methods inside here
-  
+  _id: string 
+  household: string
   flag: string
 }
 

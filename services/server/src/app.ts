@@ -51,12 +51,10 @@ import indexRouter from "./routes/index.routes";
 import usersRouter from "./routes/user.routes";
 import sheltersRouter from "./routes/shelter.routes";
 import householdRouter from "./routes/household.routes";
-import memberRouter from "./routes/guest.routes";
 
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/shelters", sheltersRouter);
 app.use("/api/households", householdRouter);
-app.use("/api/members", memberRouter);
 
 export default app;

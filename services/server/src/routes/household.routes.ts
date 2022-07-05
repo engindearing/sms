@@ -8,9 +8,12 @@ import {
   updateHousehold,
   addGuest,
   updateGuests,
+  deleteGuestFromHousehold,
 } from "../controllers/household.controller";
 
 import { authRequired } from "../middleware/authRequired";
+import { verifyGuestExists } from "../middleware/verifyGuestExists";
+import { verifyGuestBelongsToHousehold } from "../middleware/verifyGuestBelongsToHousehold";
 
 router.use(authRequired);
 /**
@@ -105,6 +108,41 @@ router.route("/:householdId/guests").post(verifyHouseholdExists, addGuest);
  *       401:
  *         description: Unauthorized
  */
+
 router.route("/:householdId/guests").patch(verifyHouseholdExists, updateGuests);
+/**
+ * @openapi
+ * '/api/households/{householdId}/guests/{guestId}':
+ *  delete:
+ *     tags:
+ *     - Households
+ *     summary: Deletes a guest from a single household
+ *     parameters:
+ *      - name: householdId
+ *        in: path
+ *        description: The id of a household
+ *        required: true
+ *      - name: guestId
+ *        in: path
+ *        description: The id of a guest
+ *        required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *       400:
+ *         description: Guest does not belong to the household
+ *       404:
+ *         description: Household or guest not found
+ *       401:
+ *         description: Unauthorized
+ */
+router
+  .route("/:householdId/guests/:guestId")
+  .delete(
+    verifyHouseholdExists,
+    verifyGuestExists,
+    verifyGuestBelongsToHousehold,
+    deleteGuestFromHousehold
+  );
 
 export default router;

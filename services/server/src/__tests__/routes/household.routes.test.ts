@@ -139,4 +139,85 @@ describe("households", () => {
       });
     });
   });
+
+  describe("delete guest from household", () => {
+    describe("given the household does not exist", () => {
+      it("should return a 404 not found with error message", async () => {
+        let fakeId = new mongoose.Types.ObjectId();
+
+        let { body, statusCode } = await supertest(app)
+          .delete(`/api/households/${fakeId}/guests/${fakeId}`)
+          .expect(404);
+
+        expect(statusCode).toBe(404);
+        expect(body.message).toBe(
+          `Household with id of ${fakeId} does not exist`
+        );
+      });
+    });
+
+    describe("given the guest not exist", () => {
+      it("should return a 404 not found with error message", async () => {
+        let fakeId = new mongoose.Types.ObjectId();
+
+        let guestUser = await User.findOne({ email: "guest@gmail.com" });
+
+        let household = await Household.create({ user: guestUser?._id });
+
+        let { body, statusCode } = await supertest(app).delete(
+          `/api/households/${household._id}/guests/${fakeId}`
+        );
+
+        expect(statusCode).toBe(404);
+        expect(body.message).toBe(`Guest with id of ${fakeId} does not exist`);
+      });
+    });
+
+    describe("given the guest not belong to the household", () => {
+      it("should return a 400 bad request with error message", async () => {
+        let guestUser = await User.findOne({ email: "guest@gmail.com" });
+
+        let testUser = await User.create({
+          role: "guest",
+          email: "testuser@gmail.com",
+        });
+
+        let testHousehold = await Household.create({ user: testUser._id });
+
+        let guestHousehold = await Household.create({ user: guestUser?._id });
+
+        let guest = await Guest.create({ household: guestHousehold._id });
+
+        let { body, statusCode } = await supertest(app).delete(
+          `/api/households/${testHousehold._id}/guests/${guest._id}`
+        );
+
+        expect(statusCode).toBe(400);
+
+        expect(body.message).toBe(
+          `Guest with id of ${guest._id} does not belong to household with id of ${testHousehold._id}`
+        );
+      });
+    });
+
+    describe("given the household/guest exists and the guest belongs to the household", () => {
+      it("should return a 200 and delete the guest", async () => {
+        let guestUser = await User.findOne({ email: "guest@gmail.com" });
+
+        let household = await Household.create({ user: guestUser?._id });
+
+        let guest = await Guest.create({ household: household._id });
+
+        let { statusCode } = await supertest(app).delete(
+          `/api/households/${household._id.toString()}/guests/${guest._id.toString()}`
+        );
+
+        let deletedGuest = await Guest.findById(guest._id);
+
+        expect(statusCode).toBe(200);
+
+        expect(deletedGuest).toBeFalsy();
+      });
+    });
+  });
 });

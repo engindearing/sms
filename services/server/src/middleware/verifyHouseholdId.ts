@@ -14,7 +14,7 @@ export const verifyHouseholdExists = async (
 
     if (!household) {
       res.status(404).json({
-        message: `household with id of ${req.params.householdId} does not exist`,
+        message: `Household with id of ${req.params.householdId} does not exist`,
       });
 
       return;

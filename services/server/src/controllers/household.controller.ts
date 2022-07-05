@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response } from "express";
 
 import { Household } from "../models/household.model";
 
@@ -48,5 +48,15 @@ export const updateGuests = async (req: Request, res: Response) => {
     res.status(200).json({ message: "updated members" });
   } catch (error) {
     res.status(400).json(error);
+  }
+};
+
+export const deleteGuestFromHousehold = async (req: Request, res: Response) => {
+  try {
+    await Guest.findByIdAndDelete(req.params.guestId);
+
+    res.status(200).json({ guestId: req.params.guestId });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -2,9 +2,11 @@ import mongoose, { Model, Schema, model } from "mongoose";
 
 interface IUser extends mongoose.Document {
   // Define any methods inside here
+  _id: string
 }
 
 interface IUserModel extends Model<IUser> {
+  _id: string
   findUserByEmailOrCreate(email: string): object;
 }
 
