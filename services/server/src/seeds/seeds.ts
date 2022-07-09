@@ -1,12 +1,11 @@
+require("dotenv").config();
+
+import mongoose from "mongoose";
 import { Organization } from "../models/organization.model";
 import { Shelter } from "../models/shelter.model";
 import { User } from "../models/user.model";
 
-import { organizations } from "./organization-seeds";
-import { shelters } from "./shelter-seeds";
-import { users } from "./user-seeds";
-
-const Seeds = async () => {
+export const Seeds = async () => {
   await User.deleteMany({});
 
   await Organization.deleteMany({});
@@ -20,7 +19,7 @@ const Seeds = async () => {
   let org = await Organization.findOne({ name: "Family Promise" });
 
   let shelterSeeds = shelters.map((shelter) => {
-    shelter["organization"] = org?._id;
+    shelter["organization"] = org!._id;
 
     return shelter;
   });
@@ -28,4 +27,50 @@ const Seeds = async () => {
   await Shelter.create(shelterSeeds);
 };
 
-export default Seeds;
+const organizations = [{ name: "Family Promise" }];
+
+const shelters = [
+  {
+    organization: "",
+    beds: 50,
+    name: "Family Promise of Spokane",
+    address: "904 East Mission",
+  },
+
+  {
+    organization: "",
+    beds: 50,
+    name: "Family Promise of Clarkz County",
+    address: "904 East Mission",
+  },
+
+  {
+    organization: "",
+    beds: 50,
+    name: "Open Doors",
+    address: "904 East Mission",
+  },
+];
+
+const users = [
+  {
+    firstName: "admin",
+    lastName: "user",
+    email: "admin@gmail.com",
+    role: "admin",
+  },
+
+  {
+    firstName: "staff",
+    lastName: "user",
+    email: "staff@gmail.com",
+    role: "staff",
+  },
+
+  {
+    firstName: "guest",
+    lastName: "user",
+    email: "guest@gmail.com",
+    role: "guest",
+  },
+];

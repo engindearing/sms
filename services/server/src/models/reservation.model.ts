@@ -23,7 +23,7 @@ const reservationSchema: Schema = new mongoose.Schema(
     },
 
     members: [
-      { type: mongoose.SchemaTypes.ObjectId, ref: "Member", required: true },
+      { type: mongoose.SchemaTypes.ObjectId, ref: "Member" },
     ],
 
     beds: {

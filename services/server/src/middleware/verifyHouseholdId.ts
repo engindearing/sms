@@ -7,7 +7,6 @@ export const verifyHouseholdExists = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.params.householdId) return next();
 
   try {
     let household = await Household.findById(req.params.householdId);

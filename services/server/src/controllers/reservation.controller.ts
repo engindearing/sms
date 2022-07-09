@@ -24,7 +24,7 @@ export const createReservation = async (req: Request, res: Response) => {
   try {
     const newReservation = await Reservation.create(req.body);
 
-    res.status(200).json({ reservation: newReservation });
+    res.status(200).json(newReservation);
   } catch (error) {
     res.status(400).json({ message: error });
   }

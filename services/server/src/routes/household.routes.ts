@@ -2,8 +2,6 @@ import express from "express";
 
 import { verifyHouseholdExists } from "../middleware/verifyHouseholdId";
 
-const router = express.Router();
-
 import {
   updateHousehold,
   addGuest,
@@ -14,6 +12,8 @@ import {
 import { authRequired } from "../middleware/authRequired";
 import { verifyGuestExists } from "../middleware/verifyGuestExists";
 import { verifyGuestBelongsToHousehold } from "../middleware/verifyGuestBelongsToHousehold";
+
+const router = express.Router();
 
 router.use(authRequired);
 /**
@@ -53,7 +53,7 @@ router.route("/:householdId").patch(verifyHouseholdExists, updateHousehold);
  *  post:
  *     tags:
  *     - Households
- *     summary: Creates a new guest and adds it to the household
+ *     summary: Creates a new guest for a household
  *     parameters:
  *      - name: householdId
  *        in: path
@@ -84,7 +84,7 @@ router.route("/:householdId/guests").post(verifyHouseholdExists, addGuest);
  *  patch:
  *     tags:
  *     - Households
- *     summary: Bulk updates the guests of a household by householdId
+ *     summary: Bulk updates a list of guests for a household
  *     parameters:
  *      - name: householdId
  *        in: path

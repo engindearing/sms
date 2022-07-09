@@ -7,7 +7,6 @@ export const verifyShelterExists = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.params.shelterId) return next();
 
   try {
     let shelter = await Shelter.findById(req.params.shelterId);

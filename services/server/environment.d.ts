@@ -7,6 +7,7 @@ declare global {
       FIREBASE_DATABASE_URL: string;
       PORT?: number;
       NODE_ENV: "development" | "production";
+      MONGO_URI: string;
     }
   }
 }

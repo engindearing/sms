@@ -36,7 +36,7 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "REST API Docs",
+      title: "SMS API ",
       version,
     },
     components: {
@@ -47,7 +47,6 @@ const options: swaggerJsdoc.Options = {
           bearerFormat: "JWT",
         },
       },
-
       schemas: {
         User: generateSchema(userSchema),
         GetCurrentUserHouseholdResponse: generateSchema(

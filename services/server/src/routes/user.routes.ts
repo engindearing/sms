@@ -36,7 +36,7 @@ router.route("/me").get(getCurrentUser);
  *  get:
  *     tags:
  *     - Users
- *     description: Returns the household of the current user and all guests that belong to it. It will create an empty household if the user doesn't have one
+ *     description: Returns the household for the current user and all guests that belong to it. It will create an empty household if the user doesn't have one
  *     responses:
  *       200:
  *         description: Success
@@ -79,6 +79,6 @@ router.route("/me/reservation").get(getCurrentReservation);
  *       401:
  *         description: Unauthorized
  */
-router.route('/me/reservation').delete(deleteCurrentReservation)
+router.route("/me/reservation").delete(deleteCurrentReservation);
 
 export default router;

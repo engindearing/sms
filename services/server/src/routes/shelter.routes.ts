@@ -86,10 +86,10 @@ router
  *           schema:
  *              $ref: '#/components/schemas/Reservation'
  *       404:
- *         description: Household not found
+ *         description: Shelter not found
  *       401:
  *         description: Unauthorized
  */
-router.route("/:shelterId/reservations").post(createReservation);
+router.route("/:shelterId/reservations").post(verifyShelterExists,createReservation);
 
 export default router;

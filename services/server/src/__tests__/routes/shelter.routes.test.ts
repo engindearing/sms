@@ -4,20 +4,18 @@ import app from "../../app";
 
 import { User } from "../../models/user.model";
 
-import Seeds from "../../seeds/seeds";
+import { Seeds } from "../../seeds/seeds";
 
 jest.mock("../../middleware/authRequired");
 
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 import mongoose from "mongoose";
-import { Household } from "../../models/household.model";
-import { Guest } from "../../models/guest.model";
 
 import { authRequired } from "../../middleware/authRequired";
 import { Shelter } from "../../models/shelter.model";
 import { parseDoc } from "../../utils/parseDoc";
-import { shelters } from "../../seeds/shelter-seeds";
+import { Household } from "../../models/household.model";
 
 beforeAll(async () => {
   let mongoServer = await MongoMemoryServer.create();
@@ -79,6 +77,38 @@ describe("shelters", () => {
         await supertest(app)
           .get(`/api/shelters/${fakeId}/bedsAvailable`)
           .expect(404);
+      });
+    });
+  });
+
+  describe("create reservation", () => {
+    describe("given the shelter does not exist", () => {
+      it("should return a 404 not found with error message", async () => {
+        let fakeId = new mongoose.Types.ObjectId();
+
+        await supertest(app)
+          .post(`/api/shelters/${fakeId}/reservations`)
+          .expect(404);
+      });
+    });
+
+    describe("given the shelter does exist", () => {
+      it("should return a 200 status with the created reservation", async () => {
+        let guestUser = await User.findOne({ email: "guest@gmail.com" });
+
+        let household = await Household.create({ user: guestUser?._id });
+
+        let shelter = await Shelter.findOne({});
+
+        let { statusCode, body } = await supertest(app)
+          .post(`/api/shelters/${shelter?._id}/reservations`)
+          .send({ household: household._id, shelter: shelter?._id, beds: 3 });
+
+        expect(statusCode).toBe(200);
+        console.log(body)
+        expect(body.beds).toBe(3)
+        expect(body.household).toBe(household._id.toString())
+        expect(body.shelter).toBe(shelter?._id.toString())
       });
     });
   });

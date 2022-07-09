@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-import Seeds from "../../seeds/seeds";
+const { Seeds } = require('../../seeds/seeds')
 
 jest.mock("../../middleware/authRequired");
 

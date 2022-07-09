@@ -7,7 +7,6 @@ export const verifyGuestExists = async (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.params.guestId) return next();
 
   try {
     let guest = await Guest.findById(req.params.guestId);

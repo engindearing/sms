@@ -4,7 +4,7 @@ import app from "../../app";
 
 import { User } from "../../models/user.model";
 
-import Seeds from "../../seeds/seeds";
+import { Seeds } from "../../seeds/seeds";
 
 jest.mock("../../middleware/authRequired");
 

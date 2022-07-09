@@ -8,7 +8,7 @@ export const getAllShelters = async () => {
   try {
     let data = await axiosWithAuth(token)
       .get(`/shelters`)
-      .then((res) => res.data.shelters);
+      .then((res) => res.data);
 
     return data;
   } catch (error) {

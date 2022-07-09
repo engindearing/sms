@@ -1,4 +1,4 @@
-const { verifyIdToken } = require("../utils/firebase");
+import { verifyIdToken } from "../utils/firebase";
 
 import { User } from "../models/user.model";
 
@@ -21,6 +21,7 @@ export const authRequired = async (req: any, res: any, next: any) => {
     if (!result)
       return res.status(401).json({ message: "Invalid Access Token" });
 
+    // @ts-ignore
     let currentUser = await User.findUserByEmailOrCreate(result.email);
 
     req.user = currentUser;

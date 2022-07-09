@@ -7,3 +7,5 @@ declare module "express-serve-static-core" {
     user: z.infer<typeof userSchema>;
   }
 }
+
+declare module "seeds/seeds"

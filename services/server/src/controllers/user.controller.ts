@@ -36,7 +36,7 @@ export const getCurrentReservation = async (req: Request, res: Response) => {
 
     // Finds the last reservation created
     const reservation = await Reservation.findOne(
-      { household: household?._id },
+      { household: household!._id },
       {},
       { sort: { created_at: -1 } }
     );
@@ -53,12 +53,12 @@ export const deleteCurrentReservation = async (req: Request, res: Response) => {
 
     // Finds the latest reservation 
     const reservation = await Reservation.findOne(
-      { household: household?._id },
+      { household: household!._id },
       {},
       { sort: { created_at: -1 } }
     );
 
-    await Reservation.findByIdAndDelete(reservation?._id);
+    await Reservation.findByIdAndDelete(reservation!._id);
 
     res.status(200).json({ message: "Deleted reservation" });
   } catch (error) {

@@ -18,12 +18,6 @@ const dotenv = require("dotenv");
 
 const morgan = require("morgan");
 
-// app.use((re: any, res: any, next: any) => {
-//   setTimeout(() => {
-//     next();
-//   }, 5000);
-// });
-
 app.use(express.static("web-build"));
 
 app.use(helmet());
