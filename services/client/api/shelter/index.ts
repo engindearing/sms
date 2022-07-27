@@ -46,8 +46,25 @@ export const getTotalBedsAvailable = async ({ queryKey }) => {
   }
 };
 
+export const createReservation = async (mutationKey) => {
+  const { shelterId, reservation } = mutationKey;
+
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+      .post(`/shelters/${shelterId}/reservations`, reservation)
+      .then((res) => res.data.reservation);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getAllShelters,
   fetchShelterById,
   getTotalBedsAvailable,
+  createReservation,
 };

@@ -6,14 +6,14 @@ import { useWindowDimensions } from "react-native";
 import { List } from "react-native-paper";
 
 import { useCurrentHousehold } from "../../../../../../../../../api/hooks";
-import { usePostReservation } from "../../../../../../../../../api/hooks/useReservations";
+import { useCreateReservation } from "../../../../../../../../../api/hooks/useShelter";
 
 export const ReserveBedsModal = ({ isOpen, toggle }) => {
   const {
     data: { members, household },
   } = useCurrentHousehold();
 
-  const { mutate: createReservation, isLoading } = usePostReservation();
+  const { mutate: createReservation, isLoading } = useCreateReservation();
 
   const [selectedMembers, setSelectedMembers] = useState([]);
 
@@ -45,7 +45,10 @@ export const ReserveBedsModal = ({ isOpen, toggle }) => {
       members: [...selectedMembers],
     };
 
-    createReservation({ reservation }, { onSuccess: toggle });
+    createReservation(
+      { shelterId: household.shelter, reservation },
+      { onSuccess: toggle }
+    );
   };
 
   const { width } = useWindowDimensions();

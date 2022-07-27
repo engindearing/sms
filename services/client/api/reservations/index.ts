@@ -7,7 +7,7 @@ export const getCurrentReservation = async () => {
 
   try {
     let data = await axiosWithAuth(token)
-      .get(`/users/me/reservations/current`)
+      .get(`/users/me/reservation`)
       .then((res) => res.data.reservation);
 
     return data;
@@ -51,7 +51,7 @@ export const deleteReservation = async (mutationKey) => {
 const ReservationAPI = {
   getCurrentReservation,
   createReservation,
-  deleteReservation
+  deleteReservation,
 };
 
 export default ReservationAPI;
