@@ -16,6 +16,22 @@ export const getCurrentUser = async () => {
   }
 };
 
+export const updateCurrentUser = async (mutationKey: any) => {
+  let token = await AsyncStorage.getItem("accessToken");
+
+  let { user } = mutationKey;
+
+  try {
+    let data = await axiosWithAuth(token)
+      .patch(`/users/me`, user)
+      .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getCurrentHousehold = async () => {
   let token = await AsyncStorage.getItem("accessToken");
 
@@ -32,7 +48,8 @@ export const getCurrentHousehold = async () => {
 
 const UserAPI = {
   getCurrentUser,
-  getCurrentHousehold
+  getCurrentHousehold,
+  updateCurrentUser,
 };
 
 export default UserAPI;

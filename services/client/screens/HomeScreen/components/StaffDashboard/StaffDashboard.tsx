@@ -8,8 +8,6 @@ import RenderScreens from "./components/Screens/RenderScreens";
 
 import Loader from "../../../../components/Loader";
 
-import Intake from "./components/Intake/IntakeScreen";
-
 import { useCurrentHousehold } from "../../../../api/hooks";
 import LoadingScreen from "../../../../components/LoadingScreen";
 

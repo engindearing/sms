@@ -14,8 +14,12 @@ import styled from "styled-components/native";
 
 import { useCurrentUser } from "../../../../../../../api/hooks";
 
+import { useUpdateCurrentUser } from "../../../../../../../api/hooks/useCurrentUser";
+
 const LoginScreen = () => {
   const { data: user, isLoading: loading } = useCurrentUser();
+
+  const { mutate: updateUser } = useUpdateCurrentUser();
 
   const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
     useFormik({
@@ -26,7 +30,7 @@ const LoginScreen = () => {
       },
       validationSchema: LoginSchema,
       onSubmit: async (user) => {
-        alert(JSON.stringify(user));
+        updateUser({ user }, { onSuccess: () => alert("success") });
       },
     });
 
