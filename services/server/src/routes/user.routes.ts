@@ -19,7 +19,7 @@ router.use(authRequired);
  *  get:
  *     tags:
  *     - Users
- *     description: Returns the currently logged in user
+ *     summary: Returns the currently logged in user
  *     responses:
  *       200:
  *         description: Success
@@ -31,7 +31,25 @@ router.use(authRequired);
  *         description: Unauthorized
  */
 router.route("/me").get(getCurrentUser);
-
+/**
+ * @openapi
+ * /api/users/me:
+ *  patch:
+ *     tags:
+ *     - Users
+ *     summary: Updates the current user
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ */
 router.route("/me").patch(updateCurrentUser);
 /**
  * @openapi
