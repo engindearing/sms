@@ -14,7 +14,7 @@ import { useCurrentHousehold } from "../../../../api/hooks";
 import LoadingScreen from "../../../../components/LoadingScreen";
 
 export default function StaffDashboard() {
-  let [currentScreen, setCurrentScreen] = useState("checkIn");
+  let [currentScreen, setCurrentScreen] = useState("profile");
 
   let props = {
     currentScreen,
