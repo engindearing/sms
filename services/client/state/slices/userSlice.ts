@@ -12,7 +12,8 @@ const userSlice = createSlice({
     },
 
     signOut(state) {
-      state = initialState
+      state.currentUser = initialState.currentUser
+      state.isLoggedIn = initialState.isLoggedIn
     },
   },
 });

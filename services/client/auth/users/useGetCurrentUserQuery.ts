@@ -8,7 +8,7 @@ export const getCurrentUser = async () => {
   try {
     let userData = await axiosWithAuth(token)
       .get("/users/me")
-      .then((res) => res.data.user);
+      .then((res) => res.data.currentUser);
 
     return userData;
   } catch (error) {

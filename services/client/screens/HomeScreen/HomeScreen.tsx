@@ -1,36 +1,33 @@
-import React, { useEffect } from "react";
-import { Text } from "react-native";
+import { Text } from "native-base";
 
-import { getCurrentUser } from "../../auth/users/useGetCurrentUserQuery";
-import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useCurrentUser } from "../../api/hooks";
 
-import { setUser } from "../../state/slices/userSlice";
+import LoadingScreen from "../../components/LoadingScreen";
 
-export default function Index() {
-  const navigation = useNavigation();
+import { GuestDashboard, StaffDashboard, AdminDashboard } from "./components";
 
-  const dispatch = useDispatch();
+export default function HomeScreen() {
+  const userQuery = useCurrentUser();
 
-  useEffect(() => {
-    getCurrentUser()
-      .then((user) => {
-        dispatch(setUser(user));
+  if (userQuery.isLoading) {
+    return <LoadingScreen />;
+  }
 
-        switch (user.role) {
-          case "programManager":
-            navigation.navigate("shelters");
+  if (userQuery.isError) {
+    return <span>{userQuery.error.message}</span>;
+  }
 
-            return;
-          case "guest":
+  switch (userQuery.data.role) {
+    case "guest":
+      return <GuestDashboard />;
 
-            navigation.navigate("Guest");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    case "staff":
+      return <StaffDashboard />;
 
-  return <Text></Text>;
+    case "admin":
+      return <AdminDashboard />;
+
+    default:
+      return <Text>Invalid role</Text>;
+  }
 }

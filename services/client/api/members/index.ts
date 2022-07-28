@@ -2,7 +2,9 @@ import { axiosWithAuth } from "../../auth/axiosWithAuth";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const addMembers = async (householdId, members: any[]) => {
+export const addMembers = async (mutationKey) => {
+  const { householdId, members } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
@@ -16,7 +18,9 @@ export const addMembers = async (householdId, members: any[]) => {
   }
 };
 
-export const deleteMembers = async (householdId, members: any[]) => {
+export const deleteMembers = async (mutationKey) => {
+  const { householdId, members } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
@@ -30,7 +34,9 @@ export const deleteMembers = async (householdId, members: any[]) => {
   }
 };
 
-export const updateMembers = async (householdId, members: any[]) => {
+export const updateMembers = async (mutationKey) => {
+  const { householdId, members } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
