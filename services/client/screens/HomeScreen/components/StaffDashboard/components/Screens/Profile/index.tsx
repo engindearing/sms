@@ -16,10 +16,17 @@ import { useCurrentUser } from "../../../../../../../api/hooks";
 
 import { useUpdateCurrentUser } from "../../../../../../../api/hooks/useCurrentUser";
 
+import SelectInput from "../../../../../../../components/SelectInput";
+
+import { Select } from "native-base";
+import { useShelters } from "../../../../../../../api/hooks/useShelters";
+
 const LoginScreen = () => {
   const { data: user, isLoading: loading } = useCurrentUser();
 
   const { mutate: updateUser } = useUpdateCurrentUser();
+
+  const sheltersQuery = useShelters();
 
   const { handleChange, handleSubmit, handleBlur, errors, touched, values } =
     useFormik({
@@ -30,7 +37,10 @@ const LoginScreen = () => {
       },
       validationSchema: LoginSchema,
       onSubmit: async (user) => {
-        updateUser({ user }, { onSuccess: () => alert("success") });
+        updateUser(
+          { user },
+          { onSuccess: () => alert("Successfully updated profile") }
+        );
       },
     });
 
@@ -67,7 +77,19 @@ const LoginScreen = () => {
           touched={touched.email}
           value={values.email}
         />
-
+        <SelectInput
+          accessibilityLabel="Choose shelter"
+          minWidth={"100%"}
+          placeholder="Shelter"
+        >
+          {sheltersQuery.data?.map((shelter) => (
+            <Select.Item
+              key={shelter._id}
+              label={shelter.name}
+              value={shelter._id}
+            />
+          ))}
+        </SelectInput>
         <Button
           isLoading={loading}
           isLoadingText={"Logging in.."}
