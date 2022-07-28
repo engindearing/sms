@@ -3,7 +3,7 @@ import React from "react";
 import { Center, Button, AlertDialog } from "native-base";
 import {
   useCurrentReservation,
-  useDeleteReservation,
+  useDeleteCurrentReservation,
 } from "../../../../../../../../../api/hooks/useReservations";
 
 const CancelReservationModal = ({ isOpen, toggle }) => {
@@ -11,7 +11,8 @@ const CancelReservationModal = ({ isOpen, toggle }) => {
 
   const { data: reservation } = useCurrentReservation();
 
-  const { mutate: deleteReservation, isLoading } = useDeleteReservation();
+  const { mutate: deleteReservation, isLoading } =
+    useDeleteCurrentReservation();
 
   const onDeleteReservation = () =>
     deleteReservation(

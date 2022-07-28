@@ -48,10 +48,25 @@ export const deleteReservation = async (mutationKey) => {
   }
 };
 
+export const deleteCurrentReservation = async (mutationKey) => {
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+      .delete(`/users/me/reservation`)
+      .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const ReservationAPI = {
   getCurrentReservation,
   createReservation,
   deleteReservation,
+  deleteCurrentReservation,
 };
 
 export default ReservationAPI;

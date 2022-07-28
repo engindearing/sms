@@ -20,10 +20,10 @@ export const usePostReservation = () => {
   });
 };
 
-export const useDeleteReservation = () => {
+export const useDeleteCurrentReservation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(ReservationAPI.deleteReservation, {
+  return useMutation(ReservationAPI.deleteCurrentReservation, {
     onSuccess: () => {
       queryClient.invalidateQueries("beds-available");
       queryClient.invalidateQueries("current-reservation");
