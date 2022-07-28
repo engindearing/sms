@@ -7,6 +7,7 @@ import {
   getCurrentHousehold,
   getCurrentReservation,
   deleteCurrentReservation,
+  updateCurrentUser,
 } from "../controllers/user.controller";
 
 import { authRequired } from "../middleware/authRequired";
@@ -30,6 +31,8 @@ router.use(authRequired);
  *         description: Unauthorized
  */
 router.route("/me").get(getCurrentUser);
+
+router.route("/me").patch(updateCurrentUser);
 /**
  * @openapi
  * /api/users/me/household:
