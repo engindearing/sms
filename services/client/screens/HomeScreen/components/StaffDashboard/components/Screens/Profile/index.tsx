@@ -34,6 +34,7 @@ const LoginScreen = () => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        shelter: user.shelter,
       },
       validationSchema: LoginSchema,
       onSubmit: async (user) => {
@@ -81,6 +82,11 @@ const LoginScreen = () => {
           accessibilityLabel="Choose shelter"
           minWidth={"100%"}
           placeholder="Shelter"
+          onValueChange={handleChange("shelter")}
+          onBlur={handleBlur("shelter")}
+          error={errors.shelter}
+          touched={touched.shelter}
+          selectedValue={values.shelter}
         >
           {sheltersQuery.data?.map((shelter) => (
             <Select.Item
@@ -109,6 +115,7 @@ const LoginSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email"),
+  shelter: Yup.string().required("Required"),
 });
 
 export const Container = styled.KeyboardAvoidingView`

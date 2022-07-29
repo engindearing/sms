@@ -26,6 +26,17 @@ const userSchema: Schema = new mongoose.Schema(
       required: [true, "Email is required"],
       unique: true,
     },
+
+    organization: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Organization",
+    },
+
+    shelter: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Shelter",
+    },
+
     role: {
       type: String,
       enum: ["guest", "staff", "orgAdmin", "admin"],

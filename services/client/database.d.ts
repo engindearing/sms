@@ -7,6 +7,7 @@ interface DUser {
   email: string;
   role: string;
   organization: string;
+  shelter: string;
   createdAt: string;
   updatedAt: string;
 }
