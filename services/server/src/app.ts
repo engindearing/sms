@@ -20,6 +20,10 @@ const morgan = require("morgan");
 
 app.use(express.static("web-build"));
 
+app.use(
+  express.static(path.join(__dirname, "../../docs/database", "schema.html"))
+);
+
 app.use(helmet());
 
 app.use(morgan("tiny"));
@@ -31,8 +35,6 @@ app.use(
     origin: "*",
   })
 );
-
-app.use(express.static("./web-build")); // serve static files (css & js) from the 'public' directory
 
 app.use(logger("dev"));
 
@@ -50,5 +52,10 @@ app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/shelters", sheltersRouter);
 app.use("/api/households", householdRouter);
+
+app.get("/docs/database", (req: any, res: any) => {
+  console.log(path.join(__dirname, "../../docs/database", "schema.html"))
+  res.sendFile(path.join(__dirname, "../../docs/database", "schema.html"));
+});
 
 export default app;
