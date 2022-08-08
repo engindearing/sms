@@ -41,7 +41,7 @@
       "zod": "^3.17.3"
    },
    "scripts": {
-      "start": "node dist/src/index.js",
+      "start": "node dist/server.js",
       "build": "tsc",
       "test": "jest --watchAll",
       "seeds": "ts-node src/seeds/run-seeds.ts",
