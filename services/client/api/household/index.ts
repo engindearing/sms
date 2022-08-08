@@ -2,7 +2,9 @@ import { axiosWithAuth } from "../../auth/axiosWithAuth";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const updateHousehold = async (householdId, info) => {
+export const updateHousehold = async (mutationKey: any) => {
+  const { householdId, info } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
@@ -16,7 +18,7 @@ export const updateHousehold = async (householdId, info) => {
   }
 };
 
-export const fetchHouseholdByUserId = async (userId) => {
+export const fetchHouseholdByUserId = async (userId: any) => {
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
@@ -30,12 +32,14 @@ export const fetchHouseholdByUserId = async (userId) => {
   }
 };
 
-export const addMember = async (householdId, memberData) => {
+export const addMember = async (mutationKey) => {
+  const { householdId, member } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
     let data = await axiosWithAuth(token)
-      .post(`/households/${householdId}/members`, memberData)
+      .post(`/households/${householdId}/guests`, member)
       .then((res) => res.data);
 
     return data;
@@ -44,12 +48,30 @@ export const addMember = async (householdId, memberData) => {
   }
 };
 
-export const removeMember = async (householdId, memberId) => {
+export const removeMember = async (mutationKey) => {
+  const { householdId, memberId } = mutationKey;
+
   let token = await AsyncStorage.getItem("accessToken");
 
   try {
     let data = await axiosWithAuth(token)
-      .delete(`/households/${householdId}/members/${memberId}`)
+      .delete(`/households/${householdId}/guests/${memberId}`)
+      .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateMembers = async (mutationKey) => {
+  const { householdId, members } = mutationKey;
+
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+      .patch(`/households/${householdId}/guests`, members)
       .then((res) => res.data);
 
     return data;
@@ -63,4 +85,5 @@ export default {
   fetchHouseholdByUserId,
   addMember,
   removeMember,
+  updateMembers,
 };

@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./state/store";
 
+import { LogBox } from "react-native";
+
 import {
   NavigationContainer,
   useNavigation,
@@ -28,7 +30,19 @@ import { signOut } from "./state/slices/userSlice";
 
 import { Text } from "react-native";
 
-import GuestScreen from "./screens/GuestScreen/GuestScreen";
+import GuestScreen from "./screens/HomeScreen/components/GuestDashboard/GuestDashboard";
+
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
 
 export type RootStackParamList = {
   Home: undefined;
@@ -50,13 +64,16 @@ declare global {
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <NativeBaseProvider>
-          <Theme>
-            <SMS />
-          </Theme>
-        </NativeBaseProvider>
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <NativeBaseProvider>
+            <Theme>
+              <SMS />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Theme>
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </QueryClientProvider>
     </Provider>
   );
 }
@@ -82,7 +99,7 @@ function SMS() {
       }
 
       if (user) {
-        let { token } = await user.getIdTokenResult();
+        let token = await user.getIdToken(true);
 
         await AsyncStorage.setItem("accessToken", token);
 
@@ -95,42 +112,18 @@ function SMS() {
     return unsubscribe;
   }, []);
 
+  LogBox.ignoreAllLogs();
+
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: "#8D4982",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-
-        headerRight: () => {
-          return (
-            isLoggedIn && (
-              <Button
-                style={{ marginRight: 20 }}
-                variant={"outline"}
-                onPress={() => auth.signOut()}
-              >
-                Logout
-              </Button>
-            )
-          );
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
-
-      <Stack.Screen
-        name="Guest"
-        component={GuestScreen}
-        options={{ header: (props) => <Text></Text> }}
-      />
 
       <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
