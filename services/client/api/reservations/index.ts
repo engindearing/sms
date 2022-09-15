@@ -2,6 +2,20 @@ import { axiosWithAuth } from "../../auth/axiosWithAuth";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+export const getReservations = async () => {
+  let token = await AsyncStorage.getItem("accessToken");
+
+  try {
+    let data = await axiosWithAuth(token)
+        .get(`/reservations`)
+        .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getCurrentReservation = async () => {
   let token = await AsyncStorage.getItem("accessToken");
 
@@ -67,6 +81,7 @@ const ReservationAPI = {
   createReservation,
   deleteReservation,
   deleteCurrentReservation,
+  getReservations
 };
 
 export default ReservationAPI;

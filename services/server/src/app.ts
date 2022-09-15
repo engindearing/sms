@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 
 const path = require("path");
@@ -47,11 +48,13 @@ import indexRouter from "./routes/index.routes";
 import usersRouter from "./routes/user.routes";
 import sheltersRouter from "./routes/shelter.routes";
 import householdRouter from "./routes/household.routes";
+import reservationRoutes from "./routes/reservation.routes";
 
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/shelters", sheltersRouter);
 app.use("/api/households", householdRouter);
+app.use('/api/reservations', reservationRoutes)
 
 app.get("/docs/database", (req: any, res: any) => {
   console.log(path.join(__dirname, "../../docs/database", "schema.html"))

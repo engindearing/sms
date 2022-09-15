@@ -2,6 +2,20 @@ import { Request, Response } from "express";
 
 import { Reservation } from "../models/reservation.model";
 
+export const getAllReservations = async (req: any, res: any) => {
+  const { id } = req.params;
+
+  try {
+    const reservations = await Reservation.find({ shelter: req.user.shelter  })
+
+    res.status(200).json({
+      reservations,
+    });
+  } catch (error) {
+    res.status(500).json("internal server error");
+  }
+};
+
 export const updateReservation = async (req: any, res: any) => {
   const { id } = req.params;
 

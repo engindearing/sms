@@ -7,6 +7,6 @@ export const axiosWithAuth = (accessToken) => {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
-    baseURL: `${NATIVE_API_URI}/api` || null,
+    baseURL: `http://192.168.1.50:8000/api` || null,
   });
 };

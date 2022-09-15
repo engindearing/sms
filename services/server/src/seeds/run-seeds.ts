@@ -5,7 +5,7 @@ import { Seeds } from "./seeds";
 
 const main = async () => {
   // @ts-ignore
-  mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect('mongodb+srv://root:dev@cluster0.hauaxfp.mongodb.net/?retryWrites=true&w=majority');
   await Seeds();
 
   process.exit();

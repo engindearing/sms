@@ -2,6 +2,13 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import ReservationAPI from "../reservations";
 
+export const useReservations = () => {
+  return useQuery<DReservation[], DError>(
+      "reservations",
+      ReservationAPI.getReservations
+  );
+};
+
 export const useCurrentReservation = () => {
   return useQuery<DReservation, DError>(
     "current-reservation",
