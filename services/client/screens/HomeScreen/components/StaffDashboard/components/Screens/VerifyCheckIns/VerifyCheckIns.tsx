@@ -21,6 +21,7 @@ import {useReservations, useUpdateReservation} from "../../../../../../../api/ho
 
 import LoadingScreen from "../../../../../../../components/LoadingScreen";
 import {updateReservation} from "../../../../../../../api/reservations";
+import {formatDateMMDDYYYY, formatTime12Hour} from "../../../../../../../utils/dateutils";
 
 const statusColors = {
   pending: "yellow.500",
@@ -68,15 +69,15 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
     if (rowMap[rowKey].isOpen) {
       rowMap[rowKey].manuallySwipeRow(0);
     } else {
-      rowMap[rowKey].manuallySwipeRow(-150);
+      rowMap[rowKey].manuallySwipeRow(-250);
     }
   };
 
-  const verifyCheckIn = (rowMap, rowKey) => {
-    updateReservation({reservationId: rowKey, payload: {status: "verified"}})
+  const markReservationAs = (status ,rowMap, rowKey) => {
+    updateReservation({reservationId: rowKey, payload: {status}})
     let newData = [...listData];
     let itemIndex = listData.findIndex(item => item._id === rowKey);
-    newData[itemIndex]['status'] = 'verified'
+    newData[itemIndex]['status'] = status
     setListData(newData);
     closeRow(rowMap, rowKey);
   };
@@ -122,11 +123,18 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
             </Text>
           </VStack>
           <Spacer />
-          <Text fontSize="xs" color="coolGray.800" _dark={{
-            color: 'warmGray.50'
-          }} alignSelf="flex-start">
-            {item.createdAt}
-          </Text>
+          <VStack>
+            <Text color="coolGray.800" _dark={{
+              color: 'warmGray.50'
+            }} bold>
+              {formatDateMMDDYYYY(item.createdAt)}
+            </Text>
+            <Text color="coolGray.600" _dark={{
+              color: 'warmGray.200'
+            }} alignSelf={'flex-end'}>
+              {formatTime12Hour(item.createdAt)}
+            </Text>
+          </VStack>
         </HStack>
       </Box>
     </Pressable>
@@ -143,7 +151,17 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
         </Text>
       </VStack>
     </Pressable>
-    <Pressable w="70" cursor="pointer" bg="green.500" justifyContent="center" onPress={() => verifyCheckIn(rowMap, data.item._id)} _pressed={{
+    <Pressable w="70" cursor="pointer" bg="red.500" justifyContent="center" onPress={() => markReservationAs('denied',rowMap, data.item._id)} _pressed={{
+      opacity: 0.5
+    }}>
+      <VStack alignItems="center" space={2}>
+        <Icon as={<Entypo name="cross" />} color="white" size="xs" />
+        <Text color="white" fontSize="xs" fontWeight="medium">
+          Deny
+        </Text>
+      </VStack>
+    </Pressable>
+    <Pressable w="70" cursor="pointer" bg="green.500" justifyContent="center" onPress={() => markReservationAs('verified',rowMap, data.item._id)} _pressed={{
       opacity: 0.5
     }}>
       <VStack alignItems="center" space={2}>
