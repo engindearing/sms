@@ -20,9 +20,17 @@ import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
 
 import {useReservations} from "../../../../../../../api/hooks/useReservations";
 
+import LoadingScreen from "../../../../../../../components/LoadingScreen";
+
 function VerifyCheckIns() {
-  const { data: reservations } = useReservations()
+  const { data: reservations, isLoading } = useReservations()
+
   const [mode, setMode] = useState('Basic');
+
+  if(isLoading) {
+    return <LoadingScreen />
+  }
+
   return <Center h="690px" w={'700px'}>
     <Box _dark={{
       bg: 'coolGray.800'
@@ -33,7 +41,7 @@ function VerifyCheckIns() {
         Reservations
       </Heading>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ListReservations reservations={reservations} />
+            <ListReservations reservations={reservations} />
       </ScrollView>
     </Box>
   </Center>;
