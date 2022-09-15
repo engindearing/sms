@@ -27,6 +27,16 @@ export const usePostReservation = () => {
   });
 };
 
+export const useUpdateReservation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(ReservationAPI.updateReservation, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("reservations");
+    },
+  });
+};
+
 export const useDeleteCurrentReservation = () => {
   const queryClient = useQueryClient();
 

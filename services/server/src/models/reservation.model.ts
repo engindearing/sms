@@ -30,7 +30,15 @@ const reservationSchema: Schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+
+      status: {
+          type: String,
+          enum : ['pending','verified', 'denied'],
+          default: 'pending'
+      },
   },
+
+
 
   { timestamps: true }
 );

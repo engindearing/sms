@@ -21,6 +21,8 @@ import SelectInput from "../../../../../../../components/SelectInput";
 import { Select } from "native-base";
 import { useShelters } from "../../../../../../../api/hooks/useShelters";
 
+import {auth} from '../../../../../../../firebase'
+
 const LoginScreen = () => {
   const { data: user, isLoading: loading } = useCurrentUser();
 
@@ -104,6 +106,7 @@ const LoginScreen = () => {
         >
           Update Profile
         </Button>
+        <Button variant={'ghost'} onPress={() => auth.signOut()}>Logout</Button>
       </FormInputs>
     </Container>
   );

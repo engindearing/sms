@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Dimensions, TouchableOpacity, View } from 'react-native';
 import {
   NativeBaseProvider,
   Box,
@@ -18,12 +17,21 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { MaterialIcons, Ionicons, Entypo } from '@expo/vector-icons';
 
-import {useReservations} from "../../../../../../../api/hooks/useReservations";
+import {useReservations, useUpdateReservation} from "../../../../../../../api/hooks/useReservations";
 
 import LoadingScreen from "../../../../../../../components/LoadingScreen";
+import {updateReservation} from "../../../../../../../api/reservations";
+
+const statusColors = {
+  pending: "yellow.500",
+  denied:  "red.500",
+  verified: "green.500",
+}
 
 function VerifyCheckIns() {
   const { data: reservations, isLoading } = useReservations()
+
+  const {mutate: updateReservation} = useUpdateReservation()
 
   const [mode, setMode] = useState('Basic');
 
@@ -48,7 +56,7 @@ function VerifyCheckIns() {
 }
 
 function ListReservations({ reservations }: {reservations: DReservation[]}) {
-  const [listData, setListData] = useState(reservations);
+  const [listData, setListData] = useState(reservations.map(res => ({...res, key: res._id})));
 
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
@@ -56,12 +64,13 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
     }
   };
 
-  const deleteRow = (rowMap, rowKey) => {
-    closeRow(rowMap, rowKey);
-    const newData = [...listData];
-    const prevIndex = listData.findIndex(item => item.key === rowKey);
-    newData.splice(prevIndex, 1);
+  const verifyCheckIn = (rowMap, rowKey) => {
+    updateReservation({reservationId: rowKey, payload: {status: "verified"}})
+    let newData = [...listData];
+    let itemIndex = listData.findIndex(item => item._id === rowKey);
+    newData[itemIndex]['status'] = 'verified'
     setListData(newData);
+    closeRow(rowMap, rowKey);
   };
 
   const onRowDidOpen = rowKey => {
@@ -78,7 +87,7 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
       bg: 'white'
     }}>
       <Box pl="4" pr="5" py="2">
-        <HStack alignItems="center" space={3}>
+        <HStack alignItems="center" space={10}>
           <VStack>
             <Text color="coolGray.800" _dark={{
               color: 'warmGray.50'
@@ -89,6 +98,19 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
               color: 'warmGray.200'
             }}>
               {item.beds}
+            </Text>
+          </VStack>
+          <Spacer />
+          <VStack>
+            <Text color="coolGray.800" _dark={{
+              color: 'warmGray.50'
+            }} bold>
+              Status
+            </Text>
+            <Text color={statusColors[item.status]} _dark={{
+              color: 'warmGray.200'
+            }}>
+              {item.status}
             </Text>
           </VStack>
           <Spacer />
@@ -103,7 +125,7 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
   </Box>;
 
   const renderHiddenItem = (data, rowMap) => <HStack flex="1" pl="2">
-    <Pressable w="70" ml="auto" cursor="pointer" bg="coolGray.200" justifyContent="center" onPress={() => closeRow(rowMap, data.item.key)} _pressed={{
+    <Pressable w="70" ml="auto" cursor="pointer" bg="coolGray.200" justifyContent="center" onPress={() => closeRow(rowMap, data.item._id)} _pressed={{
       opacity: 0.5
     }}>
       <VStack alignItems="center" space={2}>
@@ -113,20 +135,20 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
         </Text>
       </VStack>
     </Pressable>
-    <Pressable w="70" cursor="pointer" bg="red.500" justifyContent="center" onPress={() => deleteRow(rowMap, data.item.key)} _pressed={{
+    <Pressable w="70" cursor="pointer" bg="green.500" justifyContent="center" onPress={() => verifyCheckIn(rowMap, data.item._id)} _pressed={{
       opacity: 0.5
     }}>
       <VStack alignItems="center" space={2}>
-        <Icon as={<MaterialIcons name="delete" />} color="white" size="xs" />
+        <Icon as={<MaterialIcons name="check" />} color="white" size="xs" />
         <Text color="white" fontSize="xs" fontWeight="medium">
-          Delete
+          Verify
         </Text>
       </VStack>
     </Pressable>
   </HStack>;
 
   return <Box bg="white" safeArea flex="1">
-    <SwipeListView data={listData} renderItem={renderItem} renderHiddenItem={renderHiddenItem} rightOpenValue={-130} previewRowKey={'0'} previewOpenValue={-40} previewOpenDelay={3000} onRowDidOpen={onRowDidOpen} />
+    <SwipeListView data={listData} renderItem={renderItem} renderHiddenItem={renderHiddenItem} rightOpenValue={-130} listKey={'_id'} previewRowKey={'0'} previewOpenValue={-40} previewOpenDelay={3000} onRowDidOpen={onRowDidOpen} />
   </Box>;
 }
 
