@@ -64,6 +64,14 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
     }
   };
 
+  const openRow = (rowMap, rowKey) => {
+    if (rowMap[rowKey].isOpen) {
+      rowMap[rowKey].manuallySwipeRow(0);
+    } else {
+      rowMap[rowKey].manuallySwipeRow(-150);
+    }
+  };
+
   const verifyCheckIn = (rowMap, rowKey) => {
     updateReservation({reservationId: rowKey, payload: {status: "verified"}})
     let newData = [...listData];
@@ -80,8 +88,8 @@ function ListReservations({ reservations }: {reservations: DReservation[]}) {
   const renderItem = ({
                         item,
                         index
-                      }) => <Box>
-    <Pressable onPress={() => console.log('You touched me')} _dark={{
+                      }, rowMap) => <Box>
+    <Pressable onPress={() => openRow(rowMap, item.key)} _dark={{
       bg: 'coolGray.800'
     }} _light={{
       bg: 'white'
