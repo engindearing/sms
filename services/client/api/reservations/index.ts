@@ -8,7 +8,7 @@ export const getReservations = async () => {
   try {
     let data = await axiosWithAuth(token)
         .get(`/reservations`)
-        .then((res) => res.data);
+        .then((res) => res.data.reservations);
 
     return data;
   } catch (error) {
