@@ -21,7 +21,7 @@
     "@react-navigation/native-stack": "^6.2.5",
     "@reduxjs/toolkit": "^1.8.2",
     "@types/jest": "^27.4.0",
-    "axios": "^0.25.0",
+    "axios": "^1.7.8",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "dotenv": "^16.0.0",
     "expo": "^44.0.0",
